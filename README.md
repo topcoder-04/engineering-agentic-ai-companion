@@ -1,14 +1,14 @@
-# Chapter 3 companion — When Permitted Work Still Wastes Time
+# Chapter 4 companion — When Evidence Changes the Shape of the Work
 
-The investigation boundary from Chapter 2 prevents forbidden work, but several permitted observations are ready at once. This chapter introduces a bounded model decision: the model may recommend one declared observation; it cannot execute the observation or declare the investigation complete.
+Chapter 3 could choose among the observations already visible. That is not enough once topology evidence reveals resources that were previously unknown. This chapter makes the work graph expand only from recorded evidence.
 
 ## What this chapter adds
 
-- A typed incident state with recorded and missing evidence.
-- A bounded set of declared observation requests, without introducing Chapter 4's task graph.
-- A provider-neutral model boundary and a deterministic fixed-choice adapter.
-- A live-call receipt shape that preserves either the observed choice or the provider failure.
-- A runtime boundary result kept separate from model judgment.
+- Explicit `waiting`, `ready`, `succeeded`, and `failed` task states.
+- Dependencies that keep newly discovered work blocked until its prerequisite succeeds.
+- Evidence-driven expansion from topology, to writer activity, to migration, to deployment.
+- A recorded hypothesis revision that must name evidence the incident actually holds.
+- Failure behavior: an unsuccessful topology observation creates no endpoint work.
 
 ## Code map
 
@@ -24,11 +24,13 @@ src/orders_investigation/domain/investigation.py
 src/orders_investigation/environment/__init__.py
 src/orders_investigation/environment/opening_case.py
 src/orders_investigation/environment/requests.py
+src/orders_investigation/graph/__init__.py
+src/orders_investigation/graph/tasks.py
 src/orders_investigation/live_demo.py
 src/orders_investigation/runtime/__init__.py
 src/orders_investigation/runtime/boundary.py
-examples/chapter_03.py
-tests/test_chapter_03.py
+examples/chapter_04.py
+tests/test_chapter_04.py
 evidence/chapter-03/live-call.json
 ```
 
@@ -42,17 +44,17 @@ uv run --no-sync python scripts/run_current_chapter.py
 ```
 
 The full test command includes behavioral, evidence-provenance, README, and folder-evolution gates. The current demo is deterministic and offline; CI runs the same commands.
-## Live evidence
+## Evidence
 
-The deterministic adapter keeps normal use offline. A reviewed Chapter 3 receipt may be retained under `evidence/chapter-03/` with the exact scenario, instructions, raw output, parsed choice, provider/model identifiers, timing, usage, and deterministic boundary result. One receipt is evidence of one call, not a quality benchmark.
+This chapter needs no live model call. Its important evidence is deterministic: the exact observation result that introduces each resource identifier is retained in the trace. A failed observation cannot manufacture those identifiers.
 
 ## Deliberately incomplete
 
-The model can still return malformed, unknown, stale, or unsupported proposals. Chapter 4 lets evidence change the work graph; Chapter 5 adds the deterministic admission contract between judgment and execution.
+The graph can now change, but the next model turn is not yet protected against stale, malformed, or invented proposals. Chapter 5 introduces the contract between model judgment and runtime execution.
 
 ## Architecture evolution
 
-Model choice now needs a provider-neutral decision seam. No later responsibility appears early.
+Dependencies and readiness now form an explicit task graph. No later responsibility appears early.
 
 ```text
 src/orders_investigation/
@@ -60,8 +62,9 @@ src/orders_investigation/
 ├── environment/
 ├── runtime/
 ├── decisions/
+├── graph/
 ├── demo.py
 └── live_demo.py
 ```
 
-The real execution path follows the responsibility packages introduced through this chapter. Current packages: `domain/`, `environment/`, `runtime/`, `decisions/`. See `ARCHITECTURE.md`.
+The real execution path follows the responsibility packages introduced through this chapter. Current packages: `domain/`, `environment/`, `runtime/`, `decisions/`, `graph/`. See `ARCHITECTURE.md`.
