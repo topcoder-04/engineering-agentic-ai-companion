@@ -7,6 +7,8 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Protocol
 
+from orders_investigation.runtime.contracts.admission import Proposal
+
 
 @dataclass(frozen=True)
 class ModelChoice:
@@ -72,7 +74,7 @@ class FixedChoiceModel:
 
 
 class OpenAIChoiceModel:
-    """Optional live adapter; Chapter 3 owns parsing without Chapter 5 contracts."""
+    """Optional live adapter using the same proposal schema as admission."""
 
     def __init__(self, model: str | None = None):
         from openai import OpenAI
@@ -84,19 +86,18 @@ class OpenAIChoiceModel:
         request = build_model_request(prompt)
         started = time.perf_counter()
         observed_at = datetime.now(timezone.utc).isoformat()
-        response = self.client.responses.create(
+        response = self.client.responses.parse(
             model=self.model,
             instructions=request.instructions,
             input=request.input_text,
+            text_format=Proposal,
         )
         elapsed_ms = round((time.perf_counter() - started) * 1000)
         raw_output = response.output_text
-        payload = json.loads(raw_output)
-        if set(payload) != {"task_id", "reason", "expected_evidence"}:
-            raise ValueError("model_choice_shape_invalid")
-        choice = ModelChoice(
-            **{key: str(value) for key, value in payload.items()}
-        )
+        proposal = response.output_parsed
+        if proposal is None:
+            raise ValueError("model_choice_missing")
+        choice = ModelChoice(**proposal.model_dump())
         usage = getattr(response, "usage", None)
         return DecisionReceipt(
             choice,
@@ -111,3 +112,4 @@ class OpenAIChoiceModel:
             raw_output=raw_output,
             response_id=getattr(response, "id", None),
         )
+
