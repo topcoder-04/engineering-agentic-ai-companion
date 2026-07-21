@@ -1,0 +1,1 @@
+"""effects responsibility package."""

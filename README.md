@@ -1,14 +1,14 @@
-# Chapter 7 companion — Keeping Changed Work Alive After a Restart
+# Chapter 8 companion — Trying Again Without Doing It Twice
 
-Chapter 6 records model attempts, but an in-memory investigation disappears with its process. This chapter gives the run a durable identity and checkpoint.
+Chapter 7 can resume after a crash. That makes a lost response dangerous: replaying the request may repeat an already committed effect. This chapter gives the intended effect a stable identity.
 
 ## What this chapter adds
 
-- A file-backed SQLite run store keyed by `run_id`.
-- Round-trip persistence for incident evidence, graph state, hypothesis revisions, and the decision ledger.
-- A restart demonstration that closes and reopens the database.
-- A complete controlled-turn graph whose nodes retain their original responsibilities.
-- Honest crash semantics: a checkpoint cannot invent an outside effect result it never observed.
+- An immutable effect intent and canonical fingerprint.
+- A stable idempotency key derived from run, operation, and logical attempt.
+- Atomic service-side deduplication before applying the effect.
+- Replay receipts for exact retries.
+- A hard conflict when the same key is reused for changed intent.
 
 ## Code map
 
@@ -24,6 +24,8 @@ src/orders_investigation/domain/__init__.py
 src/orders_investigation/domain/evidence.py
 src/orders_investigation/domain/incident.py
 src/orders_investigation/domain/investigation.py
+src/orders_investigation/effects/__init__.py
+src/orders_investigation/effects/idempotency.py
 src/orders_investigation/environment/__init__.py
 src/orders_investigation/environment/opening_case.py
 src/orders_investigation/environment/requests.py
@@ -36,8 +38,8 @@ src/orders_investigation/runtime/boundary.py
 src/orders_investigation/runtime/contracts/__init__.py
 src/orders_investigation/runtime/contracts/admission.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_07.py
-tests/test_chapter_07.py
+examples/chapter_08.py
+tests/test_chapter_08.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 ```
@@ -54,15 +56,15 @@ uv run --no-sync python scripts/run_current_chapter.py
 The full test command includes behavioral, evidence-provenance, README, and folder-evolution gates. The current demo is deterministic and offline; CI runs the same commands.
 ## Evidence
 
-Restart behavior is demonstrated with a real SQLite file in the tests. The optional LangGraph adapter executes only when its packages are installed; the local deterministic store remains the architectural contract.
+The SQLite uniqueness constraint and transaction are executable evidence of the guarantee. No network or provider call is needed.
 
 ## Deliberately incomplete
 
-A resumed process may retry a consequential request whose first response was lost. Chapter 8 gives that effect a stable identity so a retry cannot apply it twice.
+Idempotency prevents duplication, but a timed-out caller still does not know whether the effect happened. Chapter 9 separates local wait outcome from outside effect outcome and reconciles the uncertainty.
 
 ## Architecture evolution
 
-Changed work must survive restart. No later responsibility appears early.
+Outside effects require an idempotency boundary. No later responsibility appears early.
 
 ```text
 src/orders_investigation/
@@ -72,8 +74,9 @@ src/orders_investigation/
 ├── decisions/
 ├── graph/
 ├── context/
+├── effects/
 ├── demo.py
 └── live_demo.py
 ```
 
-The real execution path follows the responsibility packages introduced through this chapter. Current packages: `domain/`, `environment/`, `runtime/`, `decisions/`, `graph/`, `context/`. See `ARCHITECTURE.md`.
+The real execution path follows the responsibility packages introduced through this chapter. Current packages: `domain/`, `environment/`, `runtime/`, `decisions/`, `graph/`, `context/`, `effects/`. See `ARCHITECTURE.md`.
