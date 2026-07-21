@@ -18,3 +18,4 @@ class Evidence:
     key: EvidenceKey
     value: str
     source: str
+

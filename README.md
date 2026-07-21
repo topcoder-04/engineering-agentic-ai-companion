@@ -1,11 +1,10 @@
-# Chapter 1 — When a Good Answer Is Not the Work
+# Chapter 2 — What This Investigation May Touch
 
-This cumulative checkpoint implements only the boundary earned by Chapter 1; all earlier behavior remains executable.
+This cumulative checkpoint implements only the boundary earned by Chapter 2; all earlier behavior remains executable.
 
 ## What changes here
 
-- `.gitignore`
-- `pyproject.toml`
+- `ARCHITECTURE.md`
 - `src/orders_investigation/__init__.py`
 - `src/orders_investigation/demo.py`
 - `src/orders_investigation/domain/__init__.py`
@@ -13,7 +12,11 @@ This cumulative checkpoint implements only the boundary earned by Chapter 1; all
 - `src/orders_investigation/domain/investigation.py`
 - `src/orders_investigation/environment/__init__.py`
 - `src/orders_investigation/environment/opening_case.py`
+- `src/orders_investigation/environment/requests.py`
+- `src/orders_investigation/runtime/__init__.py`
+- `src/orders_investigation/runtime/boundary.py`
 - `tests/test_chapter_01.py`
+- `tests/test_chapter_02.py`
 
 ## Code map
 
@@ -25,8 +28,11 @@ src/orders_investigation/domain/evidence.py
 src/orders_investigation/domain/investigation.py
 src/orders_investigation/environment/__init__.py
 src/orders_investigation/environment/opening_case.py
-examples/chapter_01.py
-tests/test_chapter_01.py
+src/orders_investigation/environment/requests.py
+src/orders_investigation/runtime/__init__.py
+src/orders_investigation/runtime/boundary.py
+examples/chapter_02.py
+tests/test_chapter_02.py
 ```
 
 The map lists the actual cumulative implementation surface at this checkpoint. A responsibility appears only when this chapter or an earlier chapter has earned it; `ARCHITECTURE.md` and the structural tests enforce that timing.
