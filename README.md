@@ -1,13 +1,14 @@
-# Chapter 6 companion — When Judgment Becomes a Dependency
+# Chapter 7 companion — Keeping Changed Work Alive After a Restart
 
-Chapter 5 safely admits a returned proposal. This chapter makes the attempt to obtain that proposal bounded and observable.
+Chapter 6 records model attempts, but an in-memory investigation disappears with its process. This chapter gives the run a durable identity and checkpoint.
 
 ## What this chapter adds
 
-- A per-investigation decision budget for calls, retries, time, and usage.
-- An append-only ledger of successful and failed model attempts.
-- Explicit stop reasons when judgment is unavailable or exhausted.
-- A fail-closed rule: timeout and unavailable attempts cannot contain a choice.
+- A file-backed SQLite run store keyed by `run_id`.
+- Round-trip persistence for incident evidence, graph state, hypothesis revisions, and the decision ledger.
+- A restart demonstration that closes and reopens the database.
+- A complete controlled-turn graph whose nodes retain their original responsibilities.
+- Honest crash semantics: a checkpoint cannot invent an outside effect result it never observed.
 
 ## Code map
 
@@ -34,8 +35,9 @@ src/orders_investigation/runtime/__init__.py
 src/orders_investigation/runtime/boundary.py
 src/orders_investigation/runtime/contracts/__init__.py
 src/orders_investigation/runtime/contracts/admission.py
-examples/chapter_06.py
-tests/test_chapter_06.py
+src/orders_investigation/runtime/workflow.py
+examples/chapter_07.py
+tests/test_chapter_07.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 ```
@@ -52,15 +54,15 @@ uv run --no-sync python scripts/run_current_chapter.py
 The full test command includes behavioral, evidence-provenance, README, and folder-evolution gates. The current demo is deterministic and offline; CI runs the same commands.
 ## Evidence
 
-No live call is required. Deterministic attempt fixtures prove timeout, exhaustion, usage accounting, and the absence of fabricated judgment.
+Restart behavior is demonstrated with a real SQLite file in the tests. The optional LangGraph adapter executes only when its packages are installed; the local deterministic store remains the architectural contract.
 
 ## Deliberately incomplete
 
-The ledger exists only in process. Chapter 7 persists the changing investigation, graph, and decision history so a restart can resume the same work.
+A resumed process may retry a consequential request whose first response was lost. Chapter 8 gives that effect a stable identity so a retry cannot apply it twice.
 
 ## Architecture evolution
 
-Judgment limits become an explicit decision dependency. No later responsibility appears early.
+Changed work must survive restart. No later responsibility appears early.
 
 ```text
 src/orders_investigation/
