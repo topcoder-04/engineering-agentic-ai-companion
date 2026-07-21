@@ -1,0 +1,26 @@
+name: Companion checkpoints
+
+on:
+  push:
+    branches: [main, "chapter-*", "projection/chapter-*"]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Install
+        run: uv sync --extra dev
+      - name: Test all behavioral and structural contracts
+        run: uv run pytest
+      - name: Run the chapter demo
+        run: uv run python scripts/run_current_chapter.py
+      - name: Validate retained evidence provenance
+        run: |
+          if find evidence -name '*.json' -print -quit 2>/dev/null | grep -q .; then
+            uv run python scripts/validate_evidence.py
+          else
+            echo "No retained evidence is introduced at this checkpoint."
+          fi
