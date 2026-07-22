@@ -584,7 +584,7 @@ function renderDetail() {
       <h1 class="lesson">The book, as one journey</h1>
       <div class="story"><span class="cap">THE STORY</span><p>At 2:05 p.m., orders-api starts timing out. Mira has a useful incident update, but not a dependable investigation. Each chapter fixes the next failure exposed by that same case.</p></div>
       <p class="change">Use the arrows to move in manuscript order. Every chapter adds one boundary to the system, and every branch contains the complete checkpoint built so far. The examples run offline. Docker is optional in Chapter 14; OPA is optional in Chapter 20.</p>
-      ${domeSvg(37, null, "THE FINISHED SYSTEM", "37 boundaries · one investigation · five parts")}
+      ${domeSvg(0, null, "START \u00b7 THE 2:05 P.M. INCIDENT", "0 of 37 boundaries placed")}
       <details class="try">
         <summary>Try yourself<span class="hint">set up once · clone the companion</span></summary>
         <div class="ex-body">
@@ -775,6 +775,7 @@ go(cm ? chIndex[Math.max(1, Math.min(37, Number(cm[1])))] :
    im ? wpIndex["int"+im[1]] :
    location.hash.includes("epilogue") ? wpIndex.epilogue :
    location.hash.includes("examples") ? examplesIndex : 0);
+togglePlayback();
 </script>
 </body>
 </html>
