@@ -1,12 +1,12 @@
-# Chapter 27 companion — Turning Incidents Into Boundaries
+# Chapter 28 companion — Operating a Fleet Within Limits
 
-This checkpoint adds owned regression boundaries derived from real failed trajectories.
+This checkpoint adds version-aware fleet routing, capacity refusal, and rollout stop gates.
 
 ## What this chapter adds
 
-- Incident promotion and regression verification live in `operations/learning.py`.
-- The stale-evidence failure from the shared Orders journey becomes the owned regression boundary.
-- A composition test proves the original path still fails while the corrected path satisfies the promoted case.
+- Fleet routing and rollout limits live in `operations/fleet.py`; evaluation remains separate.
+- The fleet entry point now consumes the release decision produced by executed Orders journeys.
+- A composition test proves a failed regression campaign cannot be routed to an otherwise healthy cell.
 
 ## Code map
 
@@ -49,6 +49,7 @@ src/orders_investigation/live_demo.py
 src/orders_investigation/memory/__init__.py
 src/orders_investigation/memory/store.py
 src/orders_investigation/operations/__init__.py
+src/orders_investigation/operations/fleet.py
 src/orders_investigation/operations/learning.py
 src/orders_investigation/operations/observability.py
 src/orders_investigation/operations/probes.py
@@ -60,8 +61,8 @@ src/orders_investigation/runtime/journey.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_27.py
-tests/test_chapter_27.py
+examples/chapter_28.py
+tests/test_chapter_28.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -83,17 +84,17 @@ The full test command includes behavioral, evidence-provenance, README, and fold
 
 ## Behavioral spine
 
-Incident learning now begins with an executed failure, not an empty trace. The
-stale-evidence refusal is signed into an owned regression boundary. Replaying that
-boundary rejects the original `effect_refused` path and accepts the corrected
-effect, making the lesson executable before the next release.
+Fleet routing now begins with the Chapter 24 release decision. A healthy, compatible
+cell receives a candidate whose Orders campaign passed. The identical cell is never
+considered when the campaign contains the stale-evidence regression: release refusal
+is preserved as the fleet admission reason.
 ## Deliberately incomplete
 
-No platform capability from Chapters 29–37 exists yet. Chapter 28 introduces the next manuscript pressure.
+No platform capability from Chapters 29–37 exists yet. Chapter 29 introduces the next manuscript pressure.
 
 ## Architecture evolution
 
-Reviewed learning becomes an operational boundary. No later responsibility appears early.
+Fleet limits complete the operations layer. No later responsibility appears early.
 
 ```text
 src/orders_investigation/
