@@ -27,3 +27,4 @@ test_changed_evidence_denies if {
     not result.allow
     result.rule_id == "default_deny"
 }
+

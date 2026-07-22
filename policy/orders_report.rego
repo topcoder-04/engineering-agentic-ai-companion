@@ -26,3 +26,4 @@ decision := {
     input.evidence_current == true
     input.customer_impact_state == "recovered"
 }
+

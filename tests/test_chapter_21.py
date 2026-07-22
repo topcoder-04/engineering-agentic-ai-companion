@@ -198,3 +198,4 @@ def test_failed_boundary_check_leaves_no_effect_receipt():
 
     count = result.connection.execute("SELECT count(*) FROM enforced_effects").fetchone()[0]
     assert count == 0
+

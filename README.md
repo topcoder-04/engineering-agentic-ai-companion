@@ -1,13 +1,12 @@
-# Chapter 21 companion — Enforcing Rules Where Effects Happen
+# Chapter 22 companion — Seeing the Path, Not Only the Answer
 
-Chapter 20 exposes the next engineering pressure. This checkpoint adds effect-time guardrails that recheck authority and policy at the commit boundary.
+This checkpoint adds semantic traces with ordered, versioned, digest-backed events.
 
 ## What this chapter adds
 
-- One manuscript-aligned responsibility boundary in `src/orders_investigation/effects/enforcement.py`.
-- A deterministic, offline chapter example.
-- Focused failure-path tests plus every earlier chapter test inherited from `chapter-20`.
-- No empty folders or placeholders for later capabilities.
+- A deliberately expanded `production.py` boundary containing only production capabilities introduced through Chapter 22.
+- A focused executable failure-path check.
+- A small offline example and all earlier chapter behavior inherited from `chapter-21`.
 
 ## Code map
 
@@ -34,6 +33,8 @@ src/orders_investigation/environment/__init__.py
 src/orders_investigation/environment/opening_case.py
 src/orders_investigation/environment/requests.py
 src/orders_investigation/environment/scenario.py
+src/orders_investigation/evaluation/__init__.py
+src/orders_investigation/evaluation/production.py
 src/orders_investigation/governance/__init__.py
 src/orders_investigation/governance/approval.py
 src/orders_investigation/governance/authority.py
@@ -54,8 +55,8 @@ src/orders_investigation/runtime/contracts/admission.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_21.py
-tests/test_chapter_21.py
+examples/chapter_22.py
+tests/test_chapter_22.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -74,17 +75,13 @@ uv run --no-sync python scripts/run_current_chapter.py
 ```
 
 The full test command includes behavioral, evidence-provenance, README, and folder-evolution gates. The current demo is deterministic and offline; CI runs the same commands.
-## Evidence
-
-Routine execution is offline. Historical live evidence is retained only where the manuscript uses a live model comparison; deterministic policy and failure behavior remain the acceptance authority.
-
 ## Deliberately incomplete
 
-This branch contains only capabilities introduced through Chapter 21. Read the manuscript's closing transition for the pressure that Chapter 22 addresses.
+No platform capability from Chapters 29–37 exists yet. Chapter 23 introduces the next manuscript pressure.
 
 ## Architecture evolution
 
-Policy is rechecked at the exact effect boundary. No later responsibility appears early.
+Trajectory evidence begins a separate evaluation boundary. No later responsibility appears early.
 
 ```text
 src/orders_investigation/
@@ -99,8 +96,10 @@ src/orders_investigation/
 ├── integrations/
 ├── coordination/
 ├── governance/
+├── evaluation/
 ├── demo.py
 └── live_demo.py
 ```
 
-The real execution path follows the responsibility packages introduced through this chapter. Current packages: `domain/`, `environment/`, `runtime/`, `decisions/`, `graph/`, `context/`, `effects/`, `memory/`, `integrations/`, `coordination/`, `governance/`. See `ARCHITECTURE.md`.
+The real execution path follows the responsibility packages introduced through this chapter. Current packages: `domain/`, `environment/`, `runtime/`, `decisions/`, `graph/`, `context/`, `effects/`, `memory/`, `integrations/`, `coordination/`, `governance/`, `evaluation/`. See `ARCHITECTURE.md`.
+

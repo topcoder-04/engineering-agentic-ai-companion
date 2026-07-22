@@ -53,3 +53,4 @@ def test_oversized_and_invalid_artifacts_are_refused_after_execution():
     decision = admit_execution(invalid, request, image_digest=IMAGE)
     assert decision.outcome == ExecutionOutcome.INVALID_ARTIFACT
     assert decision.detail == "artifact_shape_mismatch"
+
