@@ -1,12 +1,12 @@
-# Chapter 25 companion — Observing Production Without Exposing It
+# Chapter 26 companion — Testing What Authored Cases Missed
 
-This checkpoint adds redacted operational views that preserve useful metrics without raw prompts or evidence.
+This checkpoint adds stable variation matrices across models, dependency faults, and timing offsets.
 
 ## What this chapter adds
 
-- Redacted operational views live in `operations/observability.py`; evaluation remains in its own boundary.
-- The view now consumes accepted and refused traces emitted by the shared Orders journey.
-- A composition test proves the refusal stays visible while pipeline and report values stay absent.
+- Stable variation planning lives in `operations/probes.py`; evaluation remains in its own boundary.
+- Every planned model, fault, and timing row now executes the shared Orders journey.
+- A composition test proves the stale-evidence variations are refused and fail evaluation.
 
 ## Code map
 
@@ -50,6 +50,7 @@ src/orders_investigation/memory/__init__.py
 src/orders_investigation/memory/store.py
 src/orders_investigation/operations/__init__.py
 src/orders_investigation/operations/observability.py
+src/orders_investigation/operations/probes.py
 src/orders_investigation/runtime/__init__.py
 src/orders_investigation/runtime/boundary.py
 src/orders_investigation/runtime/contracts/__init__.py
@@ -58,8 +59,8 @@ src/orders_investigation/runtime/journey.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_25.py
-tests/test_chapter_25.py
+examples/chapter_26.py
+tests/test_chapter_26.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -81,17 +82,17 @@ The full test command includes behavioral, evidence-provenance, README, and fold
 
 ## Behavioral spine
 
-Operations no longer observes a separately constructed trace. It projects the same
-accepted and refused Orders executions used by evaluation and release gating. The
-event kind, component, counts, duration, and units remain useful; the prompt,
-pipeline result, and report content never enter the operational view.
+The variation matrix is no longer only a catalog of identifiers. All eight rows run
+the same Orders investigation and evaluation contract. Model size and timing leave
+the deterministic path stable; the injected stale-evidence dependency state reaches
+the effect boundary, is refused, and becomes a failed trajectory.
 ## Deliberately incomplete
 
-No platform capability from Chapters 29–37 exists yet. Chapter 26 introduces the next manuscript pressure.
+No platform capability from Chapters 29–37 exists yet. Chapter 27 introduces the next manuscript pressure.
 
 ## Architecture evolution
 
-Production observation begins an operations layer. No later responsibility appears early.
+Safe probes make blind spots explicit in operations. No later responsibility appears early.
 
 ```text
 src/orders_investigation/
