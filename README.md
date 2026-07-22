@@ -1,12 +1,12 @@
-# Chapter 15 companion — Choosing How Much Judgment a Decision Needs
+# Chapter 16 companion — When New Evidence Changes What Comes Next
 
-Chapter 14 exposes the next engineering pressure. This checkpoint adds explicit judgment requirements and deterministic model-profile routing.
+Chapter 15 exposes the next engineering pressure. This checkpoint adds versioned plans, evidence references, supersession, and bounded replanning.
 
 ## What this chapter adds
 
-- One manuscript-aligned responsibility boundary in `src/orders_investigation/decisions/routing.py`.
+- One manuscript-aligned responsibility boundary in `src/orders_investigation/graph/planning.py`.
 - A deterministic, offline chapter example.
-- Focused failure-path tests plus every earlier chapter test inherited from `chapter-14`.
+- Focused failure-path tests plus every earlier chapter test inherited from `chapter-15`.
 - No empty folders or placeholders for later capabilities.
 
 ## Code map
@@ -32,6 +32,7 @@ src/orders_investigation/environment/opening_case.py
 src/orders_investigation/environment/requests.py
 src/orders_investigation/environment/scenario.py
 src/orders_investigation/graph/__init__.py
+src/orders_investigation/graph/planning.py
 src/orders_investigation/graph/spine.py
 src/orders_investigation/graph/tasks.py
 src/orders_investigation/integrations/__init__.py
@@ -46,8 +47,8 @@ src/orders_investigation/runtime/contracts/admission.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_15.py
-tests/test_chapter_15.py
+examples/chapter_16.py
+tests/test_chapter_16.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -72,11 +73,11 @@ Routine execution is offline. Historical live evidence is retained only where th
 
 ## Deliberately incomplete
 
-This branch contains only capabilities introduced through Chapter 15. Read the manuscript's closing transition for the pressure that Chapter 16 addresses.
+This branch contains only capabilities introduced through Chapter 16. Read the manuscript's closing transition for the pressure that Chapter 17 addresses.
 
 ## Architecture evolution
 
-Judgment routing becomes a decision responsibility. No later responsibility appears early.
+Plan replacement becomes visible in the graph. No later responsibility appears early.
 
 ```text
 src/orders_investigation/
