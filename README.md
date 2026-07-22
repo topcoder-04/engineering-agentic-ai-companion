@@ -1,12 +1,12 @@
-# Chapter 23 companion — Judging the Whole Trajectory
+# Chapter 24 companion — Making Evaluation a Release Boundary
 
-This checkpoint adds multi-dimensional trajectory evaluation instead of outcome-only scoring.
+This checkpoint adds a fail-closed release gate combining quality, safety, latency, and unit budgets.
 
 ## What this chapter adds
 
-- A deliberately expanded `production.py` boundary containing only production capabilities introduced through Chapter 23.
+- A deliberately expanded `production.py` boundary containing only production capabilities introduced through Chapter 24.
 - A focused executable failure-path check.
-- A small offline example and all earlier chapter behavior inherited from `chapter-22`.
+- A small offline example and all earlier chapter behavior inherited from `chapter-23`.
 
 ## Code map
 
@@ -55,8 +55,8 @@ src/orders_investigation/runtime/contracts/admission.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_23.py
-tests/test_chapter_23.py
+examples/chapter_24.py
+tests/test_chapter_24.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -77,11 +77,11 @@ uv run --no-sync python scripts/run_current_chapter.py
 The full test command includes behavioral, evidence-provenance, README, and folder-evolution gates. The current demo is deterministic and offline; CI runs the same commands.
 ## Deliberately incomplete
 
-No platform capability from Chapters 29–37 exists yet. Chapter 24 introduces the next manuscript pressure.
+No platform capability from Chapters 29–37 exists yet. Chapter 25 introduces the next manuscript pressure.
 
 ## Architecture evolution
 
-Outcome evaluation extends the same evaluation surface. No later responsibility appears early.
+Release gates complete the evaluation boundary. No later responsibility appears early.
 
 ```text
 src/orders_investigation/
