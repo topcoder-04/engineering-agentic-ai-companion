@@ -1,13 +1,12 @@
-# Chapter 13 companion — Depending on Systems That May Be Wrong
+# Chapter 14 companion — Running Generated Work Inside a Boundary
 
-Chapter 12 exposes the next engineering pressure. This checkpoint adds evidence provenance, freshness, typed field admission, instruction-bearing content quarantine, circuit breaking, and explicit dependency failure.
+Chapter 13 exposes the next engineering pressure. This checkpoint adds isolated generated-work admission with bounded resources and path-safe outputs.
 
 ## What this chapter adds
 
-- One manuscript-aligned responsibility boundary in `src/orders_investigation/integrations/dependencies.py`.
-- A deterministic, offline example that refuses an injected instruction before it reaches the decision surface.
-- Exact-field and typed-value policies that keep untrusted evidence in the data plane.
-- Focused failure-path tests plus every earlier chapter test inherited from `chapter-12`.
+- One manuscript-aligned responsibility boundary in `src/orders_investigation/runtime/sandbox.py`.
+- A deterministic, offline chapter example.
+- Focused failure-path tests plus every earlier chapter test inherited from `chapter-13`.
 - No empty folders or placeholders for later capabilities.
 
 ## Code map
@@ -44,14 +43,16 @@ src/orders_investigation/runtime/boundary.py
 src/orders_investigation/runtime/contracts/__init__.py
 src/orders_investigation/runtime/contracts/admission.py
 src/orders_investigation/runtime/ownership.py
+src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_13.py
-tests/test_chapter_13.py
+examples/chapter_14.py
+tests/test_chapter_14.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
 evidence/chapter-11/memory.json
 evidence/chapter-11/spine.json
+evidence/chapter-14/docker-isolation.json
 ```
 
 The map lists the actual cumulative implementation surface at this checkpoint. A responsibility appears only when this chapter or an earlier chapter has earned it; `ARCHITECTURE.md` and the structural tests enforce that timing.
@@ -70,11 +71,11 @@ Routine execution is offline. Historical live evidence is retained only where th
 
 ## Deliberately incomplete
 
-This branch contains only capabilities introduced through Chapter 13. Read the manuscript's closing transition for the pressure that Chapter 14 addresses.
+This branch contains only capabilities introduced through Chapter 14. Read the manuscript's closing transition for the pressure that Chapter 15 addresses.
 
 ## Architecture evolution
 
-Dependency evidence enters through an integration contract. No later responsibility appears early.
+Generated analysis needs an isolated runtime boundary. No later responsibility appears early.
 
 ```text
 src/orders_investigation/
@@ -92,4 +93,3 @@ src/orders_investigation/
 ```
 
 The real execution path follows the responsibility packages introduced through this chapter. Current packages: `domain/`, `environment/`, `runtime/`, `decisions/`, `graph/`, `context/`, `effects/`, `memory/`, `integrations/`. See `ARCHITECTURE.md`.
-

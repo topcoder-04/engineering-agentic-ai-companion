@@ -1,0 +1,21 @@
+{
+  "observed_at": "2026-07-21T02:23:26Z",
+  "workflow_run_id": 29795679751,
+  "workflow_job_id": 88526413452,
+  "workflow_name": "Chapter 14 Docker isolation proof",
+  "runner_image": "ubuntu-24.04",
+  "base_branch": "clarity-chapter-14",
+  "base_commit": "c28bc5ef7bfe2db4c27c6ebc72cc818c67169afb",
+  "head_commit": "b7a39de474e744e440f6351d8b8df25a31b683e0",
+  "merge_commit": "99b082af53c60fe1f913a1d2dc4e6bf582ccb873",
+  "outcomes": [
+    {"mode": "success", "outcome": "succeeded", "detail": ""},
+    {"mode": "network", "outcome": "network_denied", "detail": ""},
+    {"mode": "outside", "outcome": "input_denied", "detail": ""},
+    {"mode": "nonzero", "outcome": "nonzero_exit", "detail": "7"},
+    {"mode": "timeout", "outcome": "timeout", "detail": ""},
+    {"mode": "oversized", "outcome": "output_too_large", "detail": "output_too_large"},
+    {"mode": "invalid", "outcome": "invalid_artifact", "detail": "artifact_shape_mismatch"}
+  ],
+  "claim_scope": "Observed one Docker-capable hosted-runner execution. This is not proof for every host, container runtime, or threat model."
+}
