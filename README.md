@@ -1,12 +1,12 @@
-# Chapter 18 companion — Waiting Safely for a Consequential Decision
+# Chapter 19 companion — Knowing Who May Do What
 
-Chapter 17 exposes the next engineering pressure. This checkpoint adds durable approval intent, explicit decisions, expiry, and resume safety.
+Chapter 18 exposes the next engineering pressure. This checkpoint adds verified session identity, delegated grants, and effect-scoped authorization.
 
 ## What this chapter adds
 
-- One manuscript-aligned responsibility boundary in `src/orders_investigation/governance/approval.py`.
+- One manuscript-aligned responsibility boundary in `src/orders_investigation/governance/authority.py`.
 - A deterministic, offline chapter example.
-- Focused failure-path tests plus every earlier chapter test inherited from `chapter-17`.
+- Focused failure-path tests plus every earlier chapter test inherited from `chapter-18`.
 - No empty folders or placeholders for later capabilities.
 
 ## Code map
@@ -35,6 +35,7 @@ src/orders_investigation/environment/requests.py
 src/orders_investigation/environment/scenario.py
 src/orders_investigation/governance/__init__.py
 src/orders_investigation/governance/approval.py
+src/orders_investigation/governance/authority.py
 src/orders_investigation/graph/__init__.py
 src/orders_investigation/graph/planning.py
 src/orders_investigation/graph/spine.py
@@ -51,8 +52,8 @@ src/orders_investigation/runtime/contracts/admission.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_18.py
-tests/test_chapter_18.py
+examples/chapter_19.py
+tests/test_chapter_19.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -77,11 +78,11 @@ Routine execution is offline. Historical live evidence is retained only where th
 
 ## Deliberately incomplete
 
-This branch contains only capabilities introduced through Chapter 18. Read the manuscript's closing transition for the pressure that Chapter 19 addresses.
+This branch contains only capabilities introduced through Chapter 19. Read the manuscript's closing transition for the pressure that Chapter 20 addresses.
 
 ## Architecture evolution
 
-Human approval begins a separate governance layer. No later responsibility appears early.
+Verified authority joins governance without becoming execution. No later responsibility appears early.
 
 ```text
 src/orders_investigation/
