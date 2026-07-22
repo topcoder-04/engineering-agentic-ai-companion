@@ -1,12 +1,12 @@
-# Chapter 26 companion — Testing What Authored Cases Missed
+# Chapter 27 companion — Turning Incidents Into Boundaries
 
-This checkpoint adds stable variation matrices across models, dependency faults, and timing offsets.
+This checkpoint adds owned regression boundaries derived from real failed trajectories.
 
 ## What this chapter adds
 
-- Stable variation planning lives in `operations/probes.py`; evaluation remains in its own boundary.
-- Every planned model, fault, and timing row now executes the shared Orders journey.
-- A composition test proves the stale-evidence variations are refused and fail evaluation.
+- Incident promotion and regression verification live in `operations/learning.py`.
+- The stale-evidence failure from the shared Orders journey becomes the owned regression boundary.
+- A composition test proves the original path still fails while the corrected path satisfies the promoted case.
 
 ## Code map
 
@@ -49,6 +49,7 @@ src/orders_investigation/live_demo.py
 src/orders_investigation/memory/__init__.py
 src/orders_investigation/memory/store.py
 src/orders_investigation/operations/__init__.py
+src/orders_investigation/operations/learning.py
 src/orders_investigation/operations/observability.py
 src/orders_investigation/operations/probes.py
 src/orders_investigation/runtime/__init__.py
@@ -59,8 +60,8 @@ src/orders_investigation/runtime/journey.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_26.py
-tests/test_chapter_26.py
+examples/chapter_27.py
+tests/test_chapter_27.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -82,17 +83,17 @@ The full test command includes behavioral, evidence-provenance, README, and fold
 
 ## Behavioral spine
 
-The variation matrix is no longer only a catalog of identifiers. All eight rows run
-the same Orders investigation and evaluation contract. Model size and timing leave
-the deterministic path stable; the injected stale-evidence dependency state reaches
-the effect boundary, is refused, and becomes a failed trajectory.
+Incident learning now begins with an executed failure, not an empty trace. The
+stale-evidence refusal is signed into an owned regression boundary. Replaying that
+boundary rejects the original `effect_refused` path and accepts the corrected
+effect, making the lesson executable before the next release.
 ## Deliberately incomplete
 
-No platform capability from Chapters 29–37 exists yet. Chapter 27 introduces the next manuscript pressure.
+No platform capability from Chapters 29–37 exists yet. Chapter 28 introduces the next manuscript pressure.
 
 ## Architecture evolution
 
-Safe probes make blind spots explicit in operations. No later responsibility appears early.
+Reviewed learning becomes an operational boundary. No later responsibility appears early.
 
 ```text
 src/orders_investigation/
