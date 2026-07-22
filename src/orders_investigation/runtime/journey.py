@@ -52,6 +52,7 @@ from orders_investigation.platform.authority import (
     authorize as authorize_caller,
 )
 from orders_investigation.platform.placement import DataBoundary, ExecutionTarget, place
+from orders_investigation.platform.defaults import ScaffoldRequest, admit_scaffold, scaffold
 from orders_investigation.runtime.boundary import ORDERS_BOUNDARY
 from orders_investigation.runtime.contracts.admission import admit
 from orders_investigation.runtime.workflow import replay_pipeline_observation
@@ -215,6 +216,26 @@ def run_placed_orders_investigation(
         orders_caller(), orders_delegation()
     )
     return PlacedRun(target_id, registered)
+
+
+def run_scaffolded_orders_investigation(
+    *,
+    overrides: dict[str, str] | None = None,
+    approved_exceptions: tuple[str, ...] = (),
+) -> PlacedRun:
+    """Admit the paved project shape before placement and runtime work."""
+    project = scaffold(
+        ScaffoldRequest(
+            "orders-investigator", "orders-oncall", "orders-read-and-report"
+        ),
+        overrides,
+    )
+    reasons = admit_scaffold(project, approved_exceptions=approved_exceptions)
+    if reasons:
+        raise ValueError("scaffold_refused:" + ",".join(reasons))
+    return run_placed_orders_investigation(
+        orders_data_boundary(), orders_execution_targets()
+    )
 
 
 def trace_orders_investigation(

@@ -1,12 +1,12 @@
-# Chapter 32 companion — Keeping Tenants and Data Inside Their Boundaries
+# Chapter 33 companion — Making the Safe Path the Easy Path
 
-This checkpoint adds hard tenant, data-class, residency, and retention-aware placement.
+This checkpoint adds platform scaffolding with visible, declared escape hatches.
 
 ## What this chapter adds
 
-- Tenant, data-class, residency, and retention placement lives in `platform/placement/`.
-- The shared Orders journey must select an exact target before carrying caller authority into execution.
-- A composition test proves a wrong-region target prevents all investigation work.
+- Safe project scaffolding and scaffold admission live in `platform/defaults/`.
+- The paved Orders project shape feeds the placement-, authority-, capability-, and identity-gated journey.
+- A composition test proves an unapproved override cannot launch work.
 
 ## Code map
 
@@ -57,6 +57,7 @@ src/orders_investigation/platform/__init__.py
 src/orders_investigation/platform/authority/__init__.py
 src/orders_investigation/platform/capabilities/__init__.py
 src/orders_investigation/platform/controls.py
+src/orders_investigation/platform/defaults/__init__.py
 src/orders_investigation/platform/identity/__init__.py
 src/orders_investigation/platform/placement/__init__.py
 src/orders_investigation/runtime/__init__.py
@@ -67,8 +68,8 @@ src/orders_investigation/runtime/journey.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_32.py
-tests/test_chapter_32.py
+examples/chapter_33.py
+tests/test_chapter_33.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -90,17 +91,17 @@ The full test command includes behavioral, evidence-provenance, README, and fold
 
 ## Behavioral spine
 
-Placement now gates the caller-authorized Orders path. The tenant-orders boundary
-selects the compatible `orders-us-west-2` target and the investigation completes.
-Changing only the required residency to `eu-west-1` refuses placement before any
-evidence retrieval or report effect can occur.
+The paved path is now the build-time entrance to the same runtime spine. Its contract,
+conformance test, and runbook allow the Orders project to proceed through placement
+and execute. Adding `custom/router.py` records an exception; without explicit
+approval, scaffold admission refuses the project before launch.
 ## Deliberately incomplete
 
-This branch contains no platform capability introduced after Chapter 32. Chapter 33 addresses the next manuscript pressure.
+This branch contains no platform capability introduced after Chapter 33. Chapter 34 addresses the next manuscript pressure.
 
 ## Architecture evolution
 
-Placement makes data and execution boundaries explicit. No later platform responsibility appears early.
+Safe defaults become a platform contract. No later platform responsibility appears early.
 
 ```text
 src/orders_investigation/platform/
@@ -109,6 +110,7 @@ src/orders_investigation/platform/
 ├── capabilities/
 ├── authority/
 ├── placement/
+├── defaults/
 ```
 
-The platform map now exposes `identity/`, `capabilities/`, `authority/`, `placement/`. Each subdomain is introduced only when its contract becomes executable. See `ARCHITECTURE.md`.
+The platform map now exposes `identity/`, `capabilities/`, `authority/`, `placement/`, `defaults/`. Each subdomain is introduced only when its contract becomes executable. See `ARCHITECTURE.md`.
