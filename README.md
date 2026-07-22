@@ -1,12 +1,12 @@
-# Chapter 20 companion — Making Rules Independent of Wording
+# Chapter 21 companion — Enforcing Rules Where Effects Happen
 
-Chapter 19 exposes the next engineering pressure. This checkpoint adds policy facts and deterministic authorization independent of prompt phrasing.
+Chapter 20 exposes the next engineering pressure. This checkpoint adds effect-time guardrails that recheck authority and policy at the commit boundary.
 
 ## What this chapter adds
 
-- One manuscript-aligned responsibility boundary in `src/orders_investigation/governance/policy.py`.
+- One manuscript-aligned responsibility boundary in `src/orders_investigation/effects/enforcement.py`.
 - A deterministic, offline chapter example.
-- Focused failure-path tests plus every earlier chapter test inherited from `chapter-19`.
+- Focused failure-path tests plus every earlier chapter test inherited from `chapter-20`.
 - No empty folders or placeholders for later capabilities.
 
 ## Code map
@@ -27,6 +27,7 @@ src/orders_investigation/domain/evidence.py
 src/orders_investigation/domain/incident.py
 src/orders_investigation/domain/investigation.py
 src/orders_investigation/effects/__init__.py
+src/orders_investigation/effects/enforcement.py
 src/orders_investigation/effects/idempotency.py
 src/orders_investigation/effects/reconciliation.py
 src/orders_investigation/environment/__init__.py
@@ -53,8 +54,8 @@ src/orders_investigation/runtime/contracts/admission.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_20.py
-tests/test_chapter_20.py
+examples/chapter_21.py
+tests/test_chapter_21.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -79,11 +80,11 @@ Routine execution is offline. Historical live evidence is retained only where th
 
 ## Deliberately incomplete
 
-This branch contains only capabilities introduced through Chapter 20. Read the manuscript's closing transition for the pressure that Chapter 21 addresses.
+This branch contains only capabilities introduced through Chapter 21. Read the manuscript's closing transition for the pressure that Chapter 22 addresses.
 
 ## Architecture evolution
 
-Versioned policy completes the governance decision path. No later responsibility appears early.
+Policy is rechecked at the exact effect boundary. No later responsibility appears early.
 
 ```text
 src/orders_investigation/
