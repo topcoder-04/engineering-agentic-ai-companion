@@ -16,7 +16,14 @@ from orders_investigation.effects.enforcement import (
     GuardrailRefused,
 )
 from orders_investigation.environment.scenario import current_case
-from orders_investigation.evaluation.production import SemanticTrace, TraceEvent, digest
+from orders_investigation.evaluation.production import (
+    EvaluationCase,
+    EvaluationResult,
+    SemanticTrace,
+    TraceEvent,
+    digest,
+    evaluate,
+)
 from orders_investigation.governance.approval import (
     ApprovalDecision,
     ApprovalIntent,
@@ -95,6 +102,18 @@ def trace_orders_investigation(
         events,
         "completed" if result.completed else "refused",
     )
+
+
+def evaluate_orders_investigation(result: JourneyResult) -> EvaluationResult:
+    """Evaluate the trace produced by this exact investigation outcome."""
+    trace = trace_orders_investigation(result)
+    case = EvaluationCase(
+        "orders-recovery",
+        frozenset(result.recorded_evidence),
+        frozenset({"observe", "decide", "effect"}),
+        maximum_actions=4,
+    )
+    return evaluate(trace, case)
 
 
 def _approve(intent: ApprovalIntent, connection: sqlite3.Connection) -> str:

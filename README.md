@@ -1,12 +1,12 @@
-# Chapter 22 companion — Seeing the Path, Not Only the Answer
+# Chapter 23 companion — Judging the Whole Trajectory
 
-This checkpoint adds semantic traces with ordered, versioned, digest-backed events.
+This checkpoint adds multi-dimensional trajectory evaluation instead of outcome-only scoring.
 
 ## What this chapter adds
 
-- A semantic trace boundary containing only the production evidence introduced through Chapter 22.
-- The shared Orders journey now emits its successful or refused path as digest-bound trace events.
-- A composition test proves the trace comes from the real admitted report effect, not a synthetic tuple.
+- Multi-dimensional evaluation over the semantic trace introduced in Chapter 22.
+- The accepted and refused Orders paths are judged against the same evidence, path, action, and outcome contract.
+- A composition test proves a refused report effect cannot pass merely because earlier observations were useful.
 
 ## Code map
 
@@ -56,8 +56,8 @@ src/orders_investigation/runtime/journey.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_22.py
-tests/test_chapter_22.py
+examples/chapter_23.py
+tests/test_chapter_23.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -79,17 +79,17 @@ The full test command includes behavioral, evidence-provenance, README, and fold
 
 ## Behavioral spine
 
-The same Chapter 21 Orders path now produces its evaluation evidence. The accepted
-run records `observe → decide → observe → effect`; the stale-evidence run records
-the same admitted work ending in `effect_refused`. Trace integrity is therefore a
-property of executed behavior, not a separately constructed example.
+Evaluation now consumes the trace emitted by the shared Orders journey. The complete
+path passes every dimension. When current evidence is refused at the report boundary,
+the resulting `effect_refused` event and refused final status fail path compliance
+and outcome evaluation; a useful partial investigation is not counted as completion.
 ## Deliberately incomplete
 
-No platform capability from Chapters 29–37 exists yet. Chapter 23 introduces the next manuscript pressure.
+No platform capability from Chapters 29–37 exists yet. Chapter 24 introduces the next manuscript pressure.
 
 ## Architecture evolution
 
-Trajectory evidence begins a separate evaluation boundary. No later responsibility appears early.
+Outcome evaluation extends the same evaluation surface. No later responsibility appears early.
 
 ```text
 src/orders_investigation/
