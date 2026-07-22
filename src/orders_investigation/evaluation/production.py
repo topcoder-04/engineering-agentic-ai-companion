@@ -187,3 +187,4 @@ def gate_release(
     if average_units > thresholds.maximum_average_units:
         reasons.append("unit_budget_exceeded")
     return ReleaseDecision(not reasons, tuple(reasons))
+

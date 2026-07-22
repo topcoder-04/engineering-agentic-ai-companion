@@ -1,12 +1,12 @@
-# Chapter 24 companion — Making Evaluation a Release Boundary
+# Chapter 25 companion — Observing Production Without Exposing It
 
-This checkpoint adds a fail-closed release gate combining quality, safety, latency, and unit budgets.
+This checkpoint adds redacted operational views that preserve useful metrics without raw prompts or evidence.
 
 ## What this chapter adds
 
-- A deliberately expanded `production.py` boundary containing only production capabilities introduced through Chapter 24.
+- The implementation lives in `operations/observability.py`; evaluation remains in `evaluation/production.py`.
 - A focused executable failure-path check.
-- A small offline example and all earlier chapter behavior inherited from `chapter-23`.
+- A small offline example and all earlier chapter behavior inherited from `chapter-24`.
 
 ## Code map
 
@@ -48,6 +48,8 @@ src/orders_investigation/integrations/dependencies.py
 src/orders_investigation/live_demo.py
 src/orders_investigation/memory/__init__.py
 src/orders_investigation/memory/store.py
+src/orders_investigation/operations/__init__.py
+src/orders_investigation/operations/observability.py
 src/orders_investigation/runtime/__init__.py
 src/orders_investigation/runtime/boundary.py
 src/orders_investigation/runtime/contracts/__init__.py
@@ -55,8 +57,8 @@ src/orders_investigation/runtime/contracts/admission.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_24.py
-tests/test_chapter_24.py
+examples/chapter_25.py
+tests/test_chapter_25.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -77,11 +79,11 @@ uv run --no-sync python scripts/run_current_chapter.py
 The full test command includes behavioral, evidence-provenance, README, and folder-evolution gates. The current demo is deterministic and offline; CI runs the same commands.
 ## Deliberately incomplete
 
-No platform capability from Chapters 29–37 exists yet. Chapter 25 introduces the next manuscript pressure.
+No platform capability from Chapters 29–37 exists yet. Chapter 26 introduces the next manuscript pressure.
 
 ## Architecture evolution
 
-Release gates complete the evaluation boundary. No later responsibility appears early.
+Production observation begins an operations layer. No later responsibility appears early.
 
 ```text
 src/orders_investigation/
@@ -97,8 +99,9 @@ src/orders_investigation/
 ├── coordination/
 ├── governance/
 ├── evaluation/
+├── operations/
 ├── demo.py
 └── live_demo.py
 ```
 
-The real execution path follows the responsibility packages introduced through this chapter. Current packages: `domain/`, `environment/`, `runtime/`, `decisions/`, `graph/`, `context/`, `effects/`, `memory/`, `integrations/`, `coordination/`, `governance/`, `evaluation/`. See `ARCHITECTURE.md`.
+The real execution path follows the responsibility packages introduced through this chapter. Current packages: `domain/`, `environment/`, `runtime/`, `decisions/`, `graph/`, `context/`, `effects/`, `memory/`, `integrations/`, `coordination/`, `governance/`, `evaluation/`, `operations/`. See `ARCHITECTURE.md`.
