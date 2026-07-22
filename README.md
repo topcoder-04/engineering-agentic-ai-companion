@@ -1,12 +1,12 @@
-# Chapter 30 companion — Admitting Capabilities, Not Copied Settings
+# Chapter 31 companion — Carrying the Caller's Authority
 
-This checkpoint adds capability-profile admission with an explicit reason for every mismatch.
+This checkpoint adds delegation bound to caller, tenant, agent, action, and expiry.
 
 ## What this chapter adds
 
-- The Chapter 30 implementation lives in `platform/capabilities/`; `platform/controls.py` is compatibility-only.
+- The Chapter 31 implementation lives in `platform/authority/`; `platform/controls.py` is compatibility-only.
 - A focused executable admission or refusal check.
-- A small offline example and the complete earlier journey inherited from `chapter-29`.
+- A small offline example and the complete earlier journey inherited from `chapter-30`.
 
 ## Code map
 
@@ -54,6 +54,7 @@ src/orders_investigation/operations/learning.py
 src/orders_investigation/operations/observability.py
 src/orders_investigation/operations/probes.py
 src/orders_investigation/platform/__init__.py
+src/orders_investigation/platform/authority/__init__.py
 src/orders_investigation/platform/capabilities/__init__.py
 src/orders_investigation/platform/controls.py
 src/orders_investigation/platform/identity/__init__.py
@@ -64,8 +65,8 @@ src/orders_investigation/runtime/contracts/admission.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_30.py
-tests/test_chapter_30.py
+examples/chapter_31.py
+tests/test_chapter_31.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -86,17 +87,18 @@ uv run --no-sync python scripts/run_current_chapter.py
 The full test command includes behavioral, evidence-provenance, README, and folder-evolution gates. The current demo is deterministic and offline; CI runs the same commands.
 ## Deliberately incomplete
 
-This branch contains no platform capability introduced after Chapter 30. Chapter 31 addresses the next manuscript pressure.
+This branch contains no platform capability introduced after Chapter 31. Chapter 32 addresses the next manuscript pressure.
 
 ## Architecture evolution
 
-Capability admission becomes its own platform subdomain. No later platform responsibility appears early.
+Delegated authority becomes visible in the platform map. No later platform responsibility appears early.
 
 ```text
 src/orders_investigation/platform/
 ├── controls.py
 ├── identity/
 ├── capabilities/
+├── authority/
 ```
 
-The platform map now exposes `identity/`, `capabilities/`. Each subdomain is introduced only when its contract becomes executable. See `ARCHITECTURE.md`.
+The platform map now exposes `identity/`, `capabilities/`, `authority/`. Each subdomain is introduced only when its contract becomes executable. See `ARCHITECTURE.md`.
