@@ -1,12 +1,12 @@
-# Chapter 14 companion — Running Generated Work Inside a Boundary
+# Chapter 15 companion — Choosing How Much Judgment a Decision Needs
 
-Chapter 13 exposes the next engineering pressure. This checkpoint adds isolated generated-work admission with bounded resources and path-safe outputs.
+Chapter 14 exposes the next engineering pressure. This checkpoint adds explicit judgment requirements and deterministic model-profile routing.
 
 ## What this chapter adds
 
-- One manuscript-aligned responsibility boundary in `src/orders_investigation/runtime/sandbox.py`.
+- One manuscript-aligned responsibility boundary in `src/orders_investigation/decisions/routing.py`.
 - A deterministic, offline chapter example.
-- Focused failure-path tests plus every earlier chapter test inherited from `chapter-13`.
+- Focused failure-path tests plus every earlier chapter test inherited from `chapter-14`.
 - No empty folders or placeholders for later capabilities.
 
 ## Code map
@@ -18,6 +18,7 @@ src/orders_investigation/context/surface.py
 src/orders_investigation/decisions/__init__.py
 src/orders_investigation/decisions/budget.py
 src/orders_investigation/decisions/model.py
+src/orders_investigation/decisions/routing.py
 src/orders_investigation/demo.py
 src/orders_investigation/domain/__init__.py
 src/orders_investigation/domain/evidence.py
@@ -45,8 +46,8 @@ src/orders_investigation/runtime/contracts/admission.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_14.py
-tests/test_chapter_14.py
+examples/chapter_15.py
+tests/test_chapter_15.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -71,11 +72,11 @@ Routine execution is offline. Historical live evidence is retained only where th
 
 ## Deliberately incomplete
 
-This branch contains only capabilities introduced through Chapter 14. Read the manuscript's closing transition for the pressure that Chapter 15 addresses.
+This branch contains only capabilities introduced through Chapter 15. Read the manuscript's closing transition for the pressure that Chapter 16 addresses.
 
 ## Architecture evolution
 
-Generated analysis needs an isolated runtime boundary. No later responsibility appears early.
+Judgment routing becomes a decision responsibility. No later responsibility appears early.
 
 ```text
 src/orders_investigation/
