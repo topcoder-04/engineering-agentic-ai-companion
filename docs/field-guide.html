@@ -94,7 +94,7 @@
   .b-req { border-color: var(--c3); color: var(--c3); }
   .b-opt { border-color: var(--faint); color: var(--muted); }
 
-  .ex-block { margin-top: 18px; }
+  .ex-block { margin-top: auto; padding-top: 18px; }
   .ex-label { display: flex; justify-content: space-between; gap: 12px; color: var(--faint); font-size: .56rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
   .ex-label span { font-weight: 500; letter-spacing: .04em; text-transform: none; }
   .ex-row { display: flex; gap: 10px; align-items: stretch; margin-top: 7px; }
@@ -104,20 +104,20 @@
   .ex-actions button:hover, .ex-actions a:hover { border-color: var(--mv); color: var(--mv); }
 
   /* one persistent system spine; the active chapter lights up its attachment point */
-  .chapter-spine { margin-top: 18px; padding: 14px 0 13px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  .spine-head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; margin-bottom: 10px; }
-  .spine-head span { color: var(--faint); font-size: .56rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
-  .spine-head strong { color: var(--mv); font-family: var(--mono); font-size: .62rem; }
-  .spine-flow { display: grid; grid-template-columns: repeat(8, minmax(76px, 1fr)); gap: 12px; min-width: 760px; padding: 3px 1px; }
+  .chapter-spine { flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 210px; margin-top: 20px; padding: 22px 0 20px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .spine-head { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; margin-bottom: 15px; }
+  .spine-head span { color: var(--faint); font-size: .62rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+  .spine-head strong { color: var(--mv); font-family: var(--mono); font-size: .69rem; }
+  .spine-flow { display: grid; grid-template-columns: repeat(8, minmax(92px, 1fr)); gap: 14px; min-width: 860px; padding: 4px 1px; }
   .spine-scroll { overflow-x: auto; padding-bottom: 3px; }
-  .spine-node { position: relative; min-width: 0; padding: 9px 8px 8px; border: 1px solid var(--line); border-radius: 9px; background: rgba(255,255,255,.015); }
-  .spine-node:not(:last-child)::after { content: "→"; position: absolute; top: 18px; right: -11px; z-index: 2; color: var(--faint); font-size: .62rem; }
+  .spine-node { position: relative; min-width: 0; min-height: 68px; padding: 14px 12px 12px; border: 1px solid var(--line); border-radius: 11px; background: rgba(255,255,255,.015); }
+  .spine-node:not(:last-child)::after { content: "→"; position: absolute; top: 25px; right: -12px; z-index: 2; color: var(--faint); font-size: .7rem; }
   .spine-node.active { border-color: var(--mv); background: color-mix(in srgb, var(--mv) 12%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--mv) 30%, transparent); }
   .spine-node b, .spine-node small { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-  .spine-node b { color: var(--ink); font-size: .62rem; }
-  .spine-node small { margin-top: 3px; color: var(--faint); font-size: .51rem; }
+  .spine-node b { color: var(--ink); font-size: .72rem; }
+  .spine-node small { margin-top: 5px; color: var(--faint); font-size: .58rem; }
   .spine-node.active b, .spine-node.active small { color: var(--mv); }
-  .spine-loop { margin-top: 7px; color: var(--faint); font-family: var(--mono); font-size: .54rem; text-align: right; }
+  .spine-loop { margin-top: 11px; color: var(--faint); font-family: var(--mono); font-size: .58rem; text-align: right; }
 
   /* setup screen (position 0) */
   .setup h1 { margin: 4px 0 2px; }
@@ -524,5 +524,4 @@ go(cm ? Math.max(1, Math.min(37, Number(cm[1]))) : 0);
 </script>
 </body>
 </html>
-
 
