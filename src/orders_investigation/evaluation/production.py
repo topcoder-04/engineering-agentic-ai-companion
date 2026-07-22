@@ -188,3 +188,47 @@ def gate_release(
         reasons.append("unit_budget_exceeded")
     return ReleaseDecision(not reasons, tuple(reasons))
 
+
+@dataclass(frozen=True)
+class RedactedEvent:
+    sequence: int
+    kind: str
+    component: str
+    input_digest: str
+    output_digest: str
+    evidence_count: int
+    duration_ms: int
+    units: int
+
+
+def operational_view(trace: SemanticTrace) -> tuple[RedactedEvent, ...]:
+    """Expose useful operational fields without raw prompts or evidence."""
+    return tuple(
+        RedactedEvent(
+            event.sequence, event.kind, event.component, event.input_digest,
+            event.output_digest, len(event.evidence_ids), event.duration_ms,
+            event.input_units + event.output_units,
+        )
+        for event in trace.events
+    )
+
+
+@dataclass(frozen=True)
+class Variation:
+    variation_id: str
+    model_profile: str
+    dependency_fault: str = "none"
+    timing_offset_ms: int = 0
+    evidence_order: tuple[str, ...] = ()
+
+
+def variation_matrix(
+    models: Iterable[str], faults: Iterable[str], timing_offsets: Iterable[int]
+) -> tuple[Variation, ...]:
+    rows: list[Variation] = []
+    for model in models:
+        for fault in faults:
+            for offset in timing_offsets:
+                key = f"{model}|{fault}|{offset}"
+                rows.append(Variation(digest(key)[:12], model, fault, offset))
+    return tuple(rows)

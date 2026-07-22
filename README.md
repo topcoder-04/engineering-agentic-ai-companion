@@ -1,12 +1,12 @@
-# Chapter 25 companion — Observing Production Without Exposing It
+# Chapter 26 companion — Testing What Authored Cases Missed
 
-This checkpoint adds redacted operational views that preserve useful metrics without raw prompts or evidence.
+This checkpoint adds stable variation matrices across models, dependency faults, and timing offsets.
 
 ## What this chapter adds
 
-- The implementation lives in `operations/observability.py`; evaluation remains in `evaluation/production.py`.
+- The implementation lives in `operations/probes.py`; evaluation remains in `evaluation/production.py`.
 - A focused executable failure-path check.
-- A small offline example and all earlier chapter behavior inherited from `chapter-24`.
+- A small offline example and all earlier chapter behavior inherited from `chapter-25`.
 
 ## Code map
 
@@ -50,6 +50,7 @@ src/orders_investigation/memory/__init__.py
 src/orders_investigation/memory/store.py
 src/orders_investigation/operations/__init__.py
 src/orders_investigation/operations/observability.py
+src/orders_investigation/operations/probes.py
 src/orders_investigation/runtime/__init__.py
 src/orders_investigation/runtime/boundary.py
 src/orders_investigation/runtime/contracts/__init__.py
@@ -57,8 +58,8 @@ src/orders_investigation/runtime/contracts/admission.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_25.py
-tests/test_chapter_25.py
+examples/chapter_26.py
+tests/test_chapter_26.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -79,11 +80,11 @@ uv run --no-sync python scripts/run_current_chapter.py
 The full test command includes behavioral, evidence-provenance, README, and folder-evolution gates. The current demo is deterministic and offline; CI runs the same commands.
 ## Deliberately incomplete
 
-No platform capability from Chapters 29–37 exists yet. Chapter 26 introduces the next manuscript pressure.
+No platform capability from Chapters 29–37 exists yet. Chapter 27 introduces the next manuscript pressure.
 
 ## Architecture evolution
 
-Production observation begins an operations layer. No later responsibility appears early.
+Safe probes make blind spots explicit in operations. No later responsibility appears early.
 
 ```text
 src/orders_investigation/
