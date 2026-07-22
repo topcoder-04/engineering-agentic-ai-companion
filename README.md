@@ -1,12 +1,12 @@
-# Chapter 31 companion — Carrying the Caller's Authority
+# Chapter 32 companion — Keeping Tenants and Data Inside Their Boundaries
 
-This checkpoint adds delegation bound to caller, tenant, agent, action, and expiry.
+This checkpoint adds hard tenant, data-class, residency, and retention-aware placement.
 
 ## What this chapter adds
 
-- Caller-bound delegation lives in `platform/authority/`; `platform/controls.py` is compatibility-only.
-- The shared Orders journey carries the caller, tenant, agent, action, and expiry proof into execution.
-- A composition test proves an undelegated action cannot reach the investigation or report write.
+- Tenant, data-class, residency, and retention placement lives in `platform/placement/`.
+- The shared Orders journey must select an exact target before carrying caller authority into execution.
+- A composition test proves a wrong-region target prevents all investigation work.
 
 ## Code map
 
@@ -58,6 +58,7 @@ src/orders_investigation/platform/authority/__init__.py
 src/orders_investigation/platform/capabilities/__init__.py
 src/orders_investigation/platform/controls.py
 src/orders_investigation/platform/identity/__init__.py
+src/orders_investigation/platform/placement/__init__.py
 src/orders_investigation/runtime/__init__.py
 src/orders_investigation/runtime/boundary.py
 src/orders_investigation/runtime/contracts/__init__.py
@@ -66,8 +67,8 @@ src/orders_investigation/runtime/journey.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_31.py
-tests/test_chapter_31.py
+examples/chapter_32.py
+tests/test_chapter_32.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -89,17 +90,17 @@ The full test command includes behavioral, evidence-provenance, README, and fold
 
 ## Behavioral spine
 
-Caller authority now gates the same identity- and capability-admitted Orders path.
-The `report.write` delegation completes the investigation. Asking that unchanged
-delegation to carry `refund.issue` is refused before observation, which prevents the
-platform service identity from becoming a confused deputy.
+Placement now gates the caller-authorized Orders path. The tenant-orders boundary
+selects the compatible `orders-us-west-2` target and the investigation completes.
+Changing only the required residency to `eu-west-1` refuses placement before any
+evidence retrieval or report effect can occur.
 ## Deliberately incomplete
 
-This branch contains no platform capability introduced after Chapter 31. Chapter 32 addresses the next manuscript pressure.
+This branch contains no platform capability introduced after Chapter 32. Chapter 33 addresses the next manuscript pressure.
 
 ## Architecture evolution
 
-Delegated authority becomes visible in the platform map. No later platform responsibility appears early.
+Placement makes data and execution boundaries explicit. No later platform responsibility appears early.
 
 ```text
 src/orders_investigation/platform/
@@ -107,6 +108,7 @@ src/orders_investigation/platform/
 ├── identity/
 ├── capabilities/
 ├── authority/
+├── placement/
 ```
 
-The platform map now exposes `identity/`, `capabilities/`, `authority/`. Each subdomain is introduced only when its contract becomes executable. See `ARCHITECTURE.md`.
+The platform map now exposes `identity/`, `capabilities/`, `authority/`, `placement/`. Each subdomain is introduced only when its contract becomes executable. See `ARCHITECTURE.md`.

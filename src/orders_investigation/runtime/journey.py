@@ -51,6 +51,7 @@ from orders_investigation.platform.authority import (
     Delegation,
     authorize as authorize_caller,
 )
+from orders_investigation.platform.placement import DataBoundary, ExecutionTarget, place
 from orders_investigation.runtime.boundary import ORDERS_BOUNDARY
 from orders_investigation.runtime.contracts.admission import admit
 from orders_investigation.runtime.workflow import replay_pipeline_observation
@@ -97,6 +98,12 @@ class RegisteredRun:
     journey: JourneyResult
 
 
+@dataclass(frozen=True)
+class PlacedRun:
+    target_id: str
+    registered: RegisteredRun
+
+
 def orders_agent_contract(version: str = "1") -> AgentContract:
     return AgentContract(
         "orders-investigator",
@@ -133,6 +140,22 @@ def orders_delegation(*, action: str = "report.write") -> Delegation:
         "orders-investigator",
         frozenset({action}),
         NOW + timedelta(minutes=5),
+    )
+
+
+def orders_data_boundary(*, region: str = "us-west-2") -> DataBoundary:
+    return DataBoundary("tenant-orders", "restricted", region, 7)
+
+
+def orders_execution_targets() -> tuple[ExecutionTarget, ...]:
+    return (
+        ExecutionTarget(
+            "orders-us-west-2",
+            "tenant-orders",
+            frozenset({"restricted"}),
+            "us-west-2",
+            7,
+        ),
     )
 
 
@@ -180,6 +203,18 @@ def run_delegated_orders_investigation(
     return run_capability_admitted_orders_investigation(
         registry, orders_capability_profile()
     )
+
+
+def run_placed_orders_investigation(
+    boundary: DataBoundary,
+    targets: tuple[ExecutionTarget, ...],
+) -> PlacedRun:
+    """Select an exact data-safe target before carrying caller authority."""
+    target_id = place(boundary, targets)
+    registered = run_delegated_orders_investigation(
+        orders_caller(), orders_delegation()
+    )
+    return PlacedRun(target_id, registered)
 
 
 def trace_orders_investigation(
