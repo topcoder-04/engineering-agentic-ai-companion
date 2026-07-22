@@ -1,12 +1,12 @@
-# Chapter 33 companion — Making the Safe Path the Easy Path
+# Chapter 34 companion — Binding Proof to the Release
 
-This checkpoint adds platform scaffolding with visible, declared escape hatches.
+This checkpoint adds conformance receipts bound to the exact candidate, contract, suite, and checks.
 
 ## What this chapter adds
 
-- Safe project scaffolding and scaffold admission live in `platform/defaults/`.
-- The paved Orders project shape feeds the placement-, authority-, capability-, and identity-gated journey.
-- A composition test proves an unapproved override cannot launch work.
+- Artifact-bound conformance receipts live in `platform/releases/`.
+- The exact candidate and contract must carry trace, policy, rollback, authority, and placement checks before execution.
+- A composition test proves a different artifact cannot reuse the passing receipt to run the Orders journey.
 
 ## Code map
 
@@ -60,6 +60,7 @@ src/orders_investigation/platform/controls.py
 src/orders_investigation/platform/defaults/__init__.py
 src/orders_investigation/platform/identity/__init__.py
 src/orders_investigation/platform/placement/__init__.py
+src/orders_investigation/platform/releases/__init__.py
 src/orders_investigation/runtime/__init__.py
 src/orders_investigation/runtime/boundary.py
 src/orders_investigation/runtime/contracts/__init__.py
@@ -68,8 +69,8 @@ src/orders_investigation/runtime/journey.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_33.py
-tests/test_chapter_33.py
+examples/chapter_34.py
+tests/test_chapter_34.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -91,17 +92,17 @@ The full test command includes behavioral, evidence-provenance, README, and fold
 
 ## Behavioral spine
 
-The paved path is now the build-time entrance to the same runtime spine. Its contract,
-conformance test, and runbook allow the Orders project to proceed through placement
-and execute. Adding `custom/router.py` records an exception; without explicit
-approval, scaffold admission refuses the project before launch.
+Conformance is now the release-time entrance to the paved and runtime paths. The
+receipt for `candidate-orders-v1` proves the checks required by the registered Orders
+contract and the investigation completes. Reusing that receipt for
+`candidate-orders-v2` is refused before scaffold or runtime admission.
 ## Deliberately incomplete
 
-This branch contains no platform capability introduced after Chapter 33. Chapter 34 addresses the next manuscript pressure.
+This branch contains no platform capability introduced after Chapter 34. Chapter 35 addresses the next manuscript pressure.
 
 ## Architecture evolution
 
-Safe defaults become a platform contract. No later platform responsibility appears early.
+Artifact-bound conformance becomes a release subdomain. No later platform responsibility appears early.
 
 ```text
 src/orders_investigation/platform/
@@ -111,6 +112,7 @@ src/orders_investigation/platform/
 ├── authority/
 ├── placement/
 ├── defaults/
+├── releases/
 ```
 
-The platform map now exposes `identity/`, `capabilities/`, `authority/`, `placement/`, `defaults/`. Each subdomain is introduced only when its contract becomes executable. See `ARCHITECTURE.md`.
+The platform map now exposes `identity/`, `capabilities/`, `authority/`, `placement/`, `defaults/`, `releases/`. Each subdomain is introduced only when its contract becomes executable. See `ARCHITECTURE.md`.
