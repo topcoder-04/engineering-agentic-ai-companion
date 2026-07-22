@@ -1,12 +1,12 @@
-# Chapter 24 companion — Making Evaluation a Release Boundary
+# Chapter 25 companion — Observing Production Without Exposing It
 
-This checkpoint adds a fail-closed release gate combining quality, safety, latency, and unit budgets.
+This checkpoint adds redacted operational views that preserve useful metrics without raw prompts or evidence.
 
 ## What this chapter adds
 
-- A fail-closed release gate combining quality, safety, latency, and unit budgets.
-- Release evidence is now derived from executed Orders journeys and their Chapter 23 evaluations.
-- A composition test proves one refused effect stops the candidate release.
+- Redacted operational views live in `operations/observability.py`; evaluation remains in its own boundary.
+- The view now consumes accepted and refused traces emitted by the shared Orders journey.
+- A composition test proves the refusal stays visible while pipeline and report values stay absent.
 
 ## Code map
 
@@ -48,6 +48,8 @@ src/orders_investigation/integrations/dependencies.py
 src/orders_investigation/live_demo.py
 src/orders_investigation/memory/__init__.py
 src/orders_investigation/memory/store.py
+src/orders_investigation/operations/__init__.py
+src/orders_investigation/operations/observability.py
 src/orders_investigation/runtime/__init__.py
 src/orders_investigation/runtime/boundary.py
 src/orders_investigation/runtime/contracts/__init__.py
@@ -56,8 +58,8 @@ src/orders_investigation/runtime/journey.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_24.py
-tests/test_chapter_24.py
+examples/chapter_25.py
+tests/test_chapter_25.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -79,17 +81,17 @@ The full test command includes behavioral, evidence-provenance, README, and fold
 
 ## Behavioral spine
 
-The release gate consumes evaluation results and traces created by the shared Orders
-journey. A campaign containing only the completed path advances. Adding the
-stale-evidence refusal lowers the pass rate and spends the safety-failure budget, so
-the same candidate is denied rather than receiving hand-built release evidence.
+Operations no longer observes a separately constructed trace. It projects the same
+accepted and refused Orders executions used by evaluation and release gating. The
+event kind, component, counts, duration, and units remain useful; the prompt,
+pipeline result, and report content never enter the operational view.
 ## Deliberately incomplete
 
-No platform capability from Chapters 29–37 exists yet. Chapter 25 introduces the next manuscript pressure.
+No platform capability from Chapters 29–37 exists yet. Chapter 26 introduces the next manuscript pressure.
 
 ## Architecture evolution
 
-Release gates complete the evaluation boundary. No later responsibility appears early.
+Production observation begins an operations layer. No later responsibility appears early.
 
 ```text
 src/orders_investigation/
@@ -105,8 +107,9 @@ src/orders_investigation/
 ├── coordination/
 ├── governance/
 ├── evaluation/
+├── operations/
 ├── demo.py
 └── live_demo.py
 ```
 
-The real execution path follows the responsibility packages introduced through this chapter. Current packages: `domain/`, `environment/`, `runtime/`, `decisions/`, `graph/`, `context/`, `effects/`, `memory/`, `integrations/`, `coordination/`, `governance/`, `evaluation/`. See `ARCHITECTURE.md`.
+The real execution path follows the responsibility packages introduced through this chapter. Current packages: `domain/`, `environment/`, `runtime/`, `decisions/`, `graph/`, `context/`, `effects/`, `memory/`, `integrations/`, `coordination/`, `governance/`, `evaluation/`, `operations/`. See `ARCHITECTURE.md`.
