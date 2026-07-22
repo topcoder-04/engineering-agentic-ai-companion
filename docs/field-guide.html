@@ -103,21 +103,34 @@
   .ex-actions button, .ex-actions a { display: block; padding: 7px 11px; border: 1px solid var(--line); border-radius: 9px; font-size: .62rem; font-weight: 700; text-align: center; text-decoration: none; white-space: nowrap; }
   .ex-actions button:hover, .ex-actions a:hover { border-color: var(--mv); color: var(--mv); }
 
-  /* one persistent system spine; the active chapter lights up its attachment point */
-  .chapter-spine { flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 210px; margin-top: 20px; padding: 22px 0 20px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  .spine-head { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; margin-bottom: 15px; }
-  .spine-head span { color: var(--faint); font-size: .62rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
-  .spine-head strong { color: var(--mv); font-family: var(--mono); font-size: .69rem; }
-  .spine-flow { display: grid; grid-template-columns: repeat(8, minmax(92px, 1fr)); gap: 14px; min-width: 860px; padding: 4px 1px; }
-  .spine-scroll { overflow-x: auto; padding-bottom: 3px; }
-  .spine-node { position: relative; min-width: 0; min-height: 68px; padding: 14px 12px 12px; border: 1px solid var(--line); border-radius: 11px; background: rgba(255,255,255,.015); }
-  .spine-node:not(:last-child)::after { content: "→"; position: absolute; top: 25px; right: -12px; z-index: 2; color: var(--faint); font-size: .7rem; }
-  .spine-node.active { border-color: var(--mv); background: color-mix(in srgb, var(--mv) 12%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--mv) 30%, transparent); }
-  .spine-node b, .spine-node small { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-  .spine-node b { color: var(--ink); font-size: .72rem; }
-  .spine-node small { margin-top: 5px; color: var(--faint); font-size: .58rem; }
-  .spine-node.active b, .spine-node.active small { color: var(--mv); }
-  .spine-loop { margin-top: 11px; color: var(--faint); font-family: var(--mono); font-size: .58rem; text-align: right; }
+  /* the book's linear contract: inherit → add one boundary → expose the next pressure */
+  .linear-map { flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 275px; margin-top: 18px; padding: 20px 0 18px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .linear-head, .growth-head { display: flex; justify-content: space-between; gap: 14px; align-items: baseline; }
+  .linear-head span, .growth-head span { color: var(--faint); font-size: .6rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+  .linear-head strong, .growth-head strong { color: var(--mv); font-family: var(--mono); font-size: .66rem; }
+  .handoff-scroll, .growth-scroll { overflow-x: auto; padding-bottom: 3px; }
+  .handoff { display: grid; grid-template-columns: minmax(220px,1fr) 26px minmax(250px,1.12fr) 26px minmax(220px,1fr); gap: 8px; align-items: stretch; min-width: 790px; margin-top: 13px; }
+  .handoff-card { min-width: 0; min-height: 92px; padding: 13px 14px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,.015); }
+  .handoff-card.current { border-color: var(--mv); background: color-mix(in srgb, var(--mv) 11%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--mv) 28%, transparent); }
+  .handoff-card small, .handoff-card b, .handoff-card span { display: block; }
+  .handoff-card small { color: var(--faint); font-size: .54rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+  .handoff-card b { margin-top: 7px; color: var(--ink); font-family: var(--serif); font-size: .82rem; font-weight: 600; line-height: 1.25; }
+  .handoff-card span { margin-top: 6px; color: var(--muted); font-size: .58rem; line-height: 1.4; }
+  .handoff-card.current small, .handoff-card.current b { color: var(--mv); }
+  .handoff-arrow { display: grid; place-items: center; color: var(--faint); font-family: var(--mono); font-size: .9rem; }
+  .growth-head { margin-top: 15px; }
+  .growth { display: grid; grid-template-columns: repeat(10,minmax(76px,1fr)); gap: 10px; min-width: 840px; margin-top: 9px; }
+  .growth-node { position: relative; padding: 8px 7px; border: 1px dashed var(--line); border-radius: 8px; color: var(--faint); font-family: var(--mono); font-size: .54rem; text-align: center; opacity: .42; }
+  .growth-node:not(:last-child)::after { content: "→"; position: absolute; right: -8px; color: var(--faint); }
+  .growth-node.earned { border-style: solid; border-color: color-mix(in srgb, var(--mv) 42%, var(--line)); color: var(--ink); opacity: 1; }
+  .growth-node.new { border-color: var(--mv); color: var(--mv); background: color-mix(in srgb, var(--mv) 12%, transparent); box-shadow: 0 0 0 1px color-mix(in srgb, var(--mv) 24%, transparent); }
+  .interlude-map { flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 300px; margin-top: 18px; padding: 22px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .recap-grid { display: grid; grid-template-columns: repeat(7,minmax(110px,1fr)); gap: 9px; margin-top: 14px; }
+  .recap-item { padding: 11px 10px; border: 1px solid color-mix(in srgb, var(--mv) 40%, var(--line)); border-radius: 9px; background: color-mix(in srgb, var(--mv) 6%, transparent); }
+  .recap-item small, .recap-item b { display: block; }
+  .recap-item small { color: var(--mv); font-family: var(--mono); font-size: .52rem; }
+  .recap-item b { margin-top: 5px; font-size: .62rem; line-height: 1.25; }
+  .next-pressure { margin-top: 14px; padding-left: 12px; border-left: 3px solid var(--mv); color: var(--muted); font-family: var(--serif); font-size: .82rem; line-height: 1.45; }
 
   /* setup screen (position 0) */
   .setup h1 { margin: 4px 0 2px; }
@@ -319,29 +332,91 @@ const chapters = [
  why:"The finale: LaunchEvidence is derived from executed variations, lifecycle validation, the bound conformance receipt, caller authorization, and safe placement. No hand-built boolean can approve a launch — run it and watch a stale-evidence candidate get vetoed."},
 ];
 
+const bookTitles = [
+  "When a Good Answer Is Not the Work",
+  "What This Investigation May Touch",
+  "When Permitted Work Still Wastes Time",
+  "When Evidence Changes the Shape of the Work",
+  "What the Model Sees and What May Run",
+  "When Judgment Becomes a Dependency",
+  "Keeping Changed Work Alive After a Restart",
+  "Trying Again Without Doing It Twice",
+  "When an Attempt Ends but Its Effect Is Unknown",
+  "Carrying Forward Only What Helps",
+  "Keeping a Long Investigation on Course",
+  "Sharing Work Without Losing Ownership",
+  "Depending on Systems That May Be Wrong",
+  "Running Generated Work Inside a Boundary",
+  "Choosing How Much Judgment a Decision Needs",
+  "When New Evidence Changes What Comes Next",
+  "When Useful Contributions Do Not Add Up",
+  "Waiting Safely for a Consequential Decision",
+  "Knowing Who May Do What",
+  "Making Rules Independent of Wording",
+  "Enforcing Rules Where Effects Happen",
+  "Seeing the Path, Not Only the Answer",
+  "Judging the Whole Trajectory",
+  "Making Evaluation a Release Boundary",
+  "Observing Production Without Exposing It",
+  "Testing What Authored Cases Missed",
+  "Turning Incidents Into Boundaries",
+  "Operating a Fleet Within Limits",
+  "Making an Agent Identifiable",
+  "Admitting Capabilities, Not Copied Settings",
+  "Carrying the Caller’s Authority",
+  "Keeping Tenants and Data Inside Their Boundaries",
+  "Making the Safe Path the Easy Path",
+  "Binding Proof to the Release",
+  "Owning the Agent After Launch",
+  "Evolving the Platform Without Breaking Every Team",
+  "Making Risk Posture an Engineering Contract",
+];
+chapters.forEach((chapter, index) => chapter.bookTitle = bookTitles[index]);
+
+const interludes = [
+  {movement:0, after:7, title:"Return to the Surface: One Investigation, End to End",
+   summary:"Mira can now bound the Orders investigation, choose through a model seam, grow work from evidence, admit typed proposals, budget judgment, and resume recorded work.",
+   pressure:"The path is controlled, but retries, uncertain effects, memory, dependencies, and generated execution can still make it unreliable."},
+  {movement:1, after:14, title:"Return to the Surface: One Complete Investigation",
+   summary:"The same investigation now retries idempotently, reconciles uncertainty, carries bounded memory, holds its task spine, delegates with ownership, types dependency evidence, and sandboxes generated work.",
+   pressure:"The work can survive failure, but consequential effects still need explicit judgment, approval, authority, and policy."},
+  {movement:2, after:21, title:"One Safe Agent Is Not a Platform",
+   summary:"The Orders path now routes judgment by consequence, replans from evidence, joins contributions safely, waits durably, binds authority, evaluates policy, and enforces it at the report write.",
+   pressure:"One governed run is not enough. The organization still needs to trace, evaluate, release, observe, vary, learn from, and operate the behavior."},
+  {movement:3, after:28, title:"An Operable Fleet Is Not Yet a Platform",
+   summary:"The journey now records semantic traces, judges trajectories, gates releases, exposes redacted operational signals, probes variations, promotes incidents, and routes only eligible fleet cells.",
+   pressure:"A fleet still needs common contracts for identity, capability, caller authority, placement, release proof, ownership, compatibility, and launch risk."},
+];
+
+const epilogue = {
+  title:"The Work Can Now Outlive the Builder",
+  summary:"The Orders investigation can be reconstructed from its evidence, decisions, receipts, ownership, and platform contracts without depending on Mira’s memory.",
+  pressure:"The final system preserves uncertainty, proves its boundaries, and leaves the next engineer a path they can inspect and operate.",
+};
+
+const mainSpine = [
+  {born:1,label:"Incident"}, {born:2,label:"Observe"}, {born:3,label:"Propose"},
+  {born:4,label:"Task graph"}, {born:5,label:"Admit"}, {born:8,label:"Effect"},
+  {born:22,label:"Trace"}, {born:23,label:"Evaluate"}, {born:24,label:"Release"},
+  {born:29,label:"Launch"},
+];
+
+const journeySteps = [{type:"setup"}];
+chapters.forEach(chapter => {
+  journeySteps.push({type:"chapter", n:chapter.n});
+  const interlude = interludes.find(item => item.after === chapter.n);
+  if (interlude) journeySteps.push({type:"interlude", ...interlude});
+});
+journeySteps.push({type:"epilogue", ...epilogue});
+
 const $ = id => document.getElementById(id);
 const pad = n => String(n).padStart(2, "0");
 const mvIndexFor = n => movements.findIndex(m => n >= m.start && n <= m.end);
-let current = 0;                  /* 0 = setup screen, 1..37 = chapters */
-
-const spineStages = [
-  {key:"launch", label:"Launch", role:"may this run?"},
-  {key:"observe", label:"Observe", role:"scoped evidence"},
-  {key:"propose", label:"Propose", role:"model choice"},
-  {key:"admit", label:"Admit", role:"deterministic gate"},
-  {key:"effect", label:"Effect", role:"real-world write"},
-  {key:"trace", label:"Trace", role:"semantic record"},
-  {key:"evaluate", label:"Evaluate", role:"judge trajectory"},
-  {key:"release", label:"Release", role:"fleet admission"},
-];
-
-const chapterStage = [
-  "effect","observe","propose","admit","admit","propose","admit",
-  "effect","effect","propose","propose","admit","observe","effect",
-  "admit","propose","admit","admit","admit","effect","effect",
-  "trace","evaluate","release","trace","evaluate","evaluate","release",
-  "launch","launch","launch","launch","launch","release","launch","launch","launch",
-];
+let stepIndex = 0;
+const entryNow = () => journeySteps[stepIndex];
+const chapterAnchor = entry => entry.type === "chapter" ? entry.n : entry.type === "interlude" ? entry.after : entry.type === "epilogue" ? 37 : 0;
+const movementForEntry = entry => entry.type === "interlude" ? entry.movement : entry.type === "epilogue" ? 4 : entry.type === "chapter" ? mvIndexFor(entry.n) : -1;
+const titleForEntry = entry => entry.type === "chapter" ? `Chapter ${entry.n}: ${chapters[entry.n - 1].bookTitle}` : entry.type === "interlude" ? entry.title : entry.type === "epilogue" ? `Epilogue: ${entry.title}` : "Orders incident + useful answer";
 
 /* ---------- header tabs ---------- */
 movements.forEach((m, i) => {
@@ -350,16 +425,18 @@ movements.forEach((m, i) => {
   b.style.setProperty("--tab", m.hex);
   b.title = `${m.name} (${i + 1})`;
   b.innerHTML = `<span class="key">${i + 1}</span><span class="t-copy"><b>${m.roman}. ${m.short}</b><span>Ch. ${m.start}–${m.end}</span></span>`;
-  b.addEventListener("click", () => go(m.start));
+  b.addEventListener("click", () => goChapter(m.start));
   $("tabs").append(b);
 });
 
 /* ---------- footer progress segments ---------- */
-chapters.forEach(c => {
+journeySteps.slice(1).forEach((entry, index) => {
   const seg = document.createElement("i");
-  seg.style.setProperty("--seg", movements[mvIndexFor(c.n)].hex);
-  seg.title = `Ch. ${c.n} — ${c.lesson}`;
-  seg.addEventListener("click", () => go(c.n));
+  const mi = movementForEntry(entry);
+  seg.style.setProperty("--seg", movements[Math.max(0, mi)].hex);
+  seg.title = titleForEntry(entry);
+  if (entry.type !== "chapter") seg.classList.add("transition");
+  seg.addEventListener("click", () => goStep(index + 1));
   $("prog-bar").append(seg);
 });
 
@@ -369,7 +446,8 @@ function commandsFor(n) {
 }
 
 function renderRail() {
-  const mi = current === 0 ? -1 : mvIndexFor(current);
+  const entry = entryNow();
+  const mi = movementForEntry(entry);
   const m = mi >= 0 ? movements[mi] : null;
   $("rail-roman").textContent = m ? m.roman : "—";
   $("rail-name").textContent = m ? m.name : "Before you begin";
@@ -380,25 +458,42 @@ function renderRail() {
   chapters.filter(c => c.n >= m.start && c.n <= m.end).forEach(c => {
     const b = document.createElement("button");
     b.type = "button";
-    b.className = "rail-item" + (c.n === current ? " current" : "") + (c.n < current ? " passed" : "");
+    b.className = "rail-item" + (entry.type === "chapter" && c.n === entry.n ? " current" : "") + (c.n < chapterAnchor(entry) ? " passed" : "");
     b.setAttribute("role", "option");
-    b.setAttribute("aria-selected", c.n === current);
+    b.setAttribute("aria-selected", entry.type === "chapter" && c.n === entry.n);
     b.innerHTML = `<span class="num">${c.n}</span><b>${c.lesson}</b>`;
-    b.addEventListener("click", () => go(c.n));
+    b.addEventListener("click", () => goChapter(c.n));
     list.append(b);
   });
+  const bridge = interludes.find(item => item.movement === mi);
+  if (bridge) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "rail-item" + (entry.type === "interlude" && entry.movement === mi ? " current" : "");
+    b.innerHTML = `<span class="num">↳</span><b>${bridge.title}</b>`;
+    b.addEventListener("click", () => goToEntry(item => item.type === "interlude" && item.movement === mi));
+    list.append(b);
+  } else if (mi === 4) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "rail-item" + (entry.type === "epilogue" ? " current" : "");
+    b.innerHTML = `<span class="num">↳</span><b>${epilogue.title}</b>`;
+    b.addEventListener("click", () => goToEntry(item => item.type === "epilogue"));
+    list.append(b);
+  }
 }
 
 function renderDetail() {
   const d = $("detail");
-  if (current === 0) {
+  const entry = entryNow();
+  if (entry.type === "setup") {
     document.documentElement.style.setProperty("--mv", "#55d9ff");
     d.className = "detail setup";
     d.innerHTML = `
       <div class="ch-meta"><span class="chip">SETUP</span><span class="mv-of">read once, then navigate by keyboard</span></div>
       <h1 class="lesson">The book, in one screen</h1>
       <p class="change">Mira is handed an incident in the Orders service and a model that can produce a useful answer. Across 37 chapters she turns that answer into work her organization can admit, observe, evaluate, operate — and refuse.</p>
-      <p class="why">Each chapter of the book ends in a runnable checkpoint: <b>every branch is the complete system as it exists at that point</b>, and tests are cumulative (Chapter 13 runs Chapters 1–13). Use <b>→</b> to walk the chapters in reading order and <b>1–5</b> to jump between the five movements. You need <b>Python 3.11+</b>, <b>Git</b>, and <b>uv</b>; everything runs offline. Two chapters have extra prerequisites — Docker (Ch. 14) and OPA (Ch. 20) — flagged when you get there.</p>
+      <p class="why">Each chapter of the book ends in a runnable checkpoint: <b>every branch is the complete system as it exists at that point</b>, and tests are cumulative (Chapter 13 runs Chapters 1–13). Use <b>→</b> to follow all 37 chapters, four interludes, and the epilogue in manuscript order; use <b>1–5</b> to jump between movements. You need <b>Python 3.11+</b>, <b>Git</b>, and <b>uv</b>; everything runs offline. The optional Docker isolation probe (Ch. 14) and OPA mapping (Ch. 20) are flagged when you reach them.</p>
       <div class="loop">
         <span class="st" style="border-color:var(--c1);color:var(--c1)">observe</span><span class="ar">→</span>
         <span class="st" style="border-color:var(--c1);color:var(--c1)">propose</span><span class="ar">→</span>
@@ -419,13 +514,13 @@ cd engineering-agentic-ai-companion</code>
           </div>
         </div>
       </div>`;
-  } else {
-    const c = chapters[current - 1];
-    const mi = mvIndexFor(current), m = movements[mi];
+  } else if (entry.type === "chapter") {
+    const c = chapters[entry.n - 1];
+    const mi = mvIndexFor(entry.n), m = movements[mi];
     document.documentElement.style.setProperty("--mv", m.hex);
     const badges = [];
-    if (c.docker) badges.push(`<span class="badge b-req">requires Docker</span>`);
-    if (c.opa) badges.push(`<span class="badge b-req">requires OPA</span>`);
+    if (c.docker) badges.push(`<span class="badge b-opt">optional proof: Docker isolation probe</span>`);
+    if (c.opa) badges.push(`<span class="badge b-opt">optional proof: OPA Rego mapping</span>`);
     if (c.live) badges.push(`<span class="badge b-opt">optional: live model comparison (--extra live)</span>`);
     d.className = "detail";
     d.innerHTML = `
@@ -434,11 +529,11 @@ cd engineering-agentic-ai-companion</code>
         <span class="mv-of">${m.roman}. ${m.name}</span>
         <span class="refusal">now impossible: <b>${c.refusal}</b></span>
       </div>
-      <h1 class="lesson">${c.lesson}</h1>
+      <h1 class="lesson">${c.bookTitle}</h1>
       <p class="change">${c.change}</p>
       <p class="why">${c.why}</p>
       ${badges.length ? `<div class="badges">${badges.join("")}</div>` : ""}
-      ${renderSpine(c)}
+      ${renderLinearMap(c)}
       <div class="ex-block">
         <div class="ex-label">Exercise — run this chapter's checkpoint <span>This guide never executes it.</span></div>
         <div class="ex-row">
@@ -450,51 +545,109 @@ cd engineering-agentic-ai-companion</code>
           </div>
         </div>
       </div>`;
+  } else if (entry.type === "interlude") {
+    const m = movements[entry.movement];
+    document.documentElement.style.setProperty("--mv", m.hex);
+    d.className = "detail";
+    d.innerHTML = `
+      <div class="ch-meta"><span class="chip">MOVEMENT ${m.roman} COMPLETE</span><span class="mv-of">manuscript interlude</span></div>
+      <h1 class="lesson">${entry.title}</h1>
+      <p class="change">${entry.summary}</p>
+      ${renderInterludeMap(entry)}
+      <p class="next-pressure"><b>Next unresolved pressure:</b> ${entry.pressure}</p>`;
+  } else {
+    document.documentElement.style.setProperty("--mv", movements[4].hex);
+    d.className = "detail";
+    d.innerHTML = `
+      <div class="ch-meta"><span class="chip">EPILOGUE</span><span class="mv-of">after Chapter 37</span></div>
+      <h1 class="lesson">${entry.title}</h1>
+      <p class="change">${entry.summary}</p>
+      ${renderEpilogueMap()}
+      <p class="next-pressure">${entry.pressure}</p>`;
   }
-  d.querySelector("#copy").addEventListener("click", copyCommands);
+  const copy = d.querySelector("#copy");
+  if (copy) copy.addEventListener("click", copyCommands);
   d.scrollTop = 0;
 }
 
 function renderFooter() {
-  $("progress-count").textContent = current === 0 ? "Setup" : `Chapter ${current} / 37`;
+  const entry = entryNow();
+  $("progress-count").textContent = entry.type === "chapter" ? `Chapter ${entry.n} / 37` : entry.type === "interlude" ? `Interlude ${movements[entry.movement].roman}` : entry.type === "epilogue" ? "Epilogue" : "Setup";
   [...$("prog-bar").children].forEach((seg, i) => {
-    seg.classList.toggle("passed", current > i + 1);
-    seg.classList.toggle("at", i + 1 === current);
+    seg.classList.toggle("passed", stepIndex > i + 1);
+    seg.classList.toggle("at", i + 1 === stepIndex);
   });
-  const next = current < 37 ? chapters[current] : null;
-  $("upnext").textContent = current === 37
-    ? "Journey complete — switch to main and run both sides of the boundary."
-    : next ? `Up next: Ch. ${next.n} — ${next.lesson}` : "Use → to begin with Chapter 1.";
-  $("pos").textContent = current === 0 ? "setup" : `${pad(current)} / 37`;
-  $("prev").disabled = current === 0;
-  $("next").disabled = current === 37;
+  const next = journeySteps[stepIndex + 1];
+  $("upnext").textContent = next ? `Up next: ${titleForEntry(next)}` : "Journey complete — switch to main and run both sides of the boundary.";
+  $("pos").textContent = entry.type === "chapter" ? `${pad(entry.n)} / 37` : entry.type === "interlude" ? "interlude" : entry.type;
+  $("prev").disabled = stepIndex === 0;
+  $("next").disabled = stepIndex === journeySteps.length - 1;
   const tabs = [...$("tabs").children];
-  const mi = current === 0 ? -1 : mvIndexFor(current);
+  const mi = movementForEntry(entry), anchor = chapterAnchor(entry);
   tabs.forEach((t, i) => {
     t.classList.toggle("current", i === mi);
-    t.classList.toggle("progressed", current > movements[i].end);
+    t.classList.toggle("progressed", anchor > movements[i].end);
   });
 }
 
 function syncHash() {
-  history.replaceState(null, "", current > 0 ? "#chapter-" + pad(current) : location.pathname + location.search);
+  const entry = entryNow();
+  const hash = entry.type === "chapter" ? `#chapter-${pad(entry.n)}` : entry.type === "interlude" ? `#interlude-${entry.movement + 1}` : entry.type === "epilogue" ? "#epilogue" : "";
+  history.replaceState(null, "", hash || location.pathname + location.search);
 }
 
-function go(n) { current = Math.max(0, Math.min(37, n)); renderRail(); renderDetail(); renderFooter(); syncHash(); }
+function goStep(index) { stepIndex = Math.max(0, Math.min(journeySteps.length - 1, index)); renderRail(); renderDetail(); renderFooter(); syncHash(); }
+function goToEntry(predicate) { const index = journeySteps.findIndex(predicate); if (index >= 0) goStep(index); }
+function goChapter(n) { goToEntry(entry => entry.type === "chapter" && entry.n === n); }
 
-function renderSpine(c) {
-  const active = chapterStage[c.n - 1];
-  const nodes = spineStages.map(stage => `<div class="spine-node${stage.key === active ? " active" : ""}"><b>${stage.label}</b><small>${stage.role}</small></div>`).join("");
-  return `<section class="chapter-spine" aria-label="Chapter ${c.n} attachment to the executable system path">
-    <div class="spine-head"><span>One executable path</span><strong>CH ${pad(c.n)} hardens ${active.toUpperCase()}</strong></div>
-    <div class="spine-scroll"><div class="spine-flow">${nodes}</div></div>
-    <div class="spine-loop">↺ evaluation and release evidence inform the next launch</div>
+function entrySummary(entry) {
+  if (entry.type === "chapter") return chapters[entry.n - 1].change;
+  if (entry.type === "interlude" || entry.type === "epilogue") return entry.summary;
+  return "The Orders incident exists, but a useful answer is not yet dependable work.";
+}
+
+function renderLinearMap(c) {
+  const previous = journeySteps[Math.max(0, stepIndex - 1)];
+  const next = journeySteps[Math.min(journeySteps.length - 1, stepIndex + 1)];
+  const growth = mainSpine.map(node => `<div class="growth-node${c.n >= node.born ? " earned" : ""}${c.n === node.born ? " new" : ""}">${node.label}</div>`).join("");
+  return `<section class="linear-map" aria-label="How Chapter ${c.n} inherits the prior system and creates the next pressure">
+    <div class="linear-head"><span>Linear handoff</span><strong>EVERY CHAPTER INHERITS THE COMPLETE SYSTEM</strong></div>
+    <div class="handoff-scroll"><div class="handoff">
+      <div class="handoff-card"><small>Inherited</small><b>${titleForEntry(previous)}</b><span>${entrySummary(previous)}</span></div>
+      <div class="handoff-arrow">→</div>
+      <div class="handoff-card current"><small>New boundary · CH ${pad(c.n)}</small><b>${c.lesson}</b><span>Refuses ${c.refusal.toLowerCase()}.</span></div>
+      <div class="handoff-arrow">→</div>
+      <div class="handoff-card"><small>Next unresolved pressure</small><b>${titleForEntry(next)}</b><span>${entrySummary(next)}</span></div>
+    </div></div>
+    <div class="growth-head"><span>System through Chapter ${c.n}</span><strong>BRIGHT = EARNED · OUTLINE = STILL AHEAD</strong></div>
+    <div class="growth-scroll"><div class="growth">${growth}</div></div>
+  </section>`;
+}
+
+function renderInterludeMap(entry) {
+  const m = movements[entry.movement];
+  const items = chapters.filter(c => c.n >= m.start && c.n <= m.end).map(c => `<div class="recap-item"><small>CH ${pad(c.n)}</small><b>${c.lesson}</b></div>`).join("");
+  return `<section class="interlude-map" aria-label="Responsibilities earned in Movement ${m.roman}">
+    <div class="linear-head"><span>What the investigation now carries</span><strong>CHAPTERS ${m.start}–${m.end}</strong></div>
+    <div class="recap-grid">${items}</div>
+  </section>`;
+}
+
+function renderEpilogueMap() {
+  const items = movements.map(m => `<div class="recap-item"><small>MOVEMENT ${m.roman}</small><b>${m.short}</b></div>`).join("");
+  const growth = mainSpine.map(node => `<div class="growth-node earned">${node.label}</div>`).join("");
+  return `<section class="interlude-map" aria-label="The complete journey">
+    <div class="linear-head"><span>Five movements, one investigation</span><strong>ALL 37 BOUNDARIES EARNED</strong></div>
+    <div class="recap-grid" style="grid-template-columns:repeat(5,minmax(130px,1fr))">${items}</div>
+    <div class="growth-head"><span>The complete executable path</span><strong>EVIDENCE RETURNS TO THE NEXT LAUNCH</strong></div>
+    <div class="growth-scroll"><div class="growth">${growth}</div></div>
   </section>`;
 }
 
 async function copyCommands() {
-  const text = $("cmd").textContent;
-  const btn = $("copy");
+  const cmd = $("cmd"), btn = $("copy");
+  if (!cmd || !btn) return;
+  const text = cmd.textContent;
   try { await navigator.clipboard.writeText(text); }
   catch {
     const ta = document.createElement("textarea"); ta.value = text; document.body.append(ta);
@@ -503,25 +656,28 @@ async function copyCommands() {
   btn.textContent = "Copied"; setTimeout(() => btn.textContent = "Copy (C)", 1200);
 }
 
-$("prev").addEventListener("click", () => go(current - 1));
-$("next").addEventListener("click", () => go(current + 1));
-$("go-setup").addEventListener("click", () => go(0));
+$("prev").addEventListener("click", () => goStep(stepIndex - 1));
+$("next").addEventListener("click", () => goStep(stepIndex + 1));
+$("go-setup").addEventListener("click", () => goStep(0));
 
 window.addEventListener("keydown", e => {
   if ((e.target instanceof Element && e.target.closest("input, textarea")) || e.metaKey || e.ctrlKey || e.altKey) return;
-  if (e.key === "ArrowRight") { e.preventDefault(); go(current + 1); }
-  else if (e.key === "ArrowLeft") { e.preventDefault(); go(current - 1); }
-  else if (e.key === "ArrowDown") { e.preventDefault(); const mi = current === 0 ? -1 : mvIndexFor(current); go(movements[Math.min(4, mi + 1)].start); }
-  else if (e.key === "ArrowUp") { e.preventDefault(); const mi = current === 0 ? 0 : mvIndexFor(current); go(mi <= 0 ? 0 : movements[mi - 1].start); }
-  else if (/^[1-5]$/.test(e.key)) { go(movements[Number(e.key) - 1].start); }
-  else if (e.key === "0") { go(0); }
+  if (e.key === "ArrowRight") { e.preventDefault(); goStep(stepIndex + 1); }
+  else if (e.key === "ArrowLeft") { e.preventDefault(); goStep(stepIndex - 1); }
+  else if (e.key === "ArrowDown") { e.preventDefault(); const mi = movementForEntry(entryNow()); goChapter(movements[Math.min(4, mi + 1)].start); }
+  else if (e.key === "ArrowUp") { e.preventDefault(); const mi = movementForEntry(entryNow()); mi <= 0 ? goStep(0) : goChapter(movements[mi - 1].start); }
+  else if (/^[1-5]$/.test(e.key)) { goChapter(movements[Number(e.key) - 1].start); }
+  else if (e.key === "0") { goStep(0); }
   else if (e.key.toLowerCase() === "c") { copyCommands(); }
 });
 
 /* ---------- restore from hash ---------- */
 const cm = location.hash.match(/chapter-(\d{1,2})/);
-go(cm ? Math.max(1, Math.min(37, Number(cm[1]))) : 0);
+const im = location.hash.match(/interlude-([1-4])/);
+if (cm) goChapter(Math.max(1, Math.min(37, Number(cm[1]))));
+else if (im) goToEntry(entry => entry.type === "interlude" && entry.movement === Number(im[1]) - 1);
+else if (location.hash === "#epilogue") goToEntry(entry => entry.type === "epilogue");
+else goStep(0);
 </script>
 </body>
 </html>
-
