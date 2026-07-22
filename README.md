@@ -1,12 +1,12 @@
-# Chapter 28 companion — Operating a Fleet Within Limits
+# Chapter 29 companion — Making an Agent Identifiable
 
-This checkpoint adds version-aware fleet routing, capacity refusal, and rollout stop gates.
+This checkpoint adds immutable, owned, versioned agent contracts in a registry.
 
 ## What this chapter adds
 
-- The implementation lives in `operations/fleet.py`; evaluation remains in `evaluation/production.py`.
-- A focused executable failure-path check.
-- A small offline example and all earlier chapter behavior inherited from `chapter-27`.
+- The Chapter 29 implementation lives in `platform/identity/`; `platform/controls.py` is compatibility-only.
+- A focused executable admission or refusal check.
+- A small offline example and the complete earlier journey inherited from `chapter-28`.
 
 ## Code map
 
@@ -53,6 +53,9 @@ src/orders_investigation/operations/fleet.py
 src/orders_investigation/operations/learning.py
 src/orders_investigation/operations/observability.py
 src/orders_investigation/operations/probes.py
+src/orders_investigation/platform/__init__.py
+src/orders_investigation/platform/controls.py
+src/orders_investigation/platform/identity/__init__.py
 src/orders_investigation/runtime/__init__.py
 src/orders_investigation/runtime/boundary.py
 src/orders_investigation/runtime/contracts/__init__.py
@@ -60,8 +63,8 @@ src/orders_investigation/runtime/contracts/admission.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_28.py
-tests/test_chapter_28.py
+examples/chapter_29.py
+tests/test_chapter_29.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -82,29 +85,16 @@ uv run --no-sync python scripts/run_current_chapter.py
 The full test command includes behavioral, evidence-provenance, README, and folder-evolution gates. The current demo is deterministic and offline; CI runs the same commands.
 ## Deliberately incomplete
 
-No platform capability from Chapters 29–37 exists yet. Chapter 29 introduces the next manuscript pressure.
+This branch contains no platform capability introduced after Chapter 29. Chapter 30 addresses the next manuscript pressure.
 
 ## Architecture evolution
 
-Fleet limits complete the operations layer. No later responsibility appears early.
+Stable agent identity begins the platform map. No later platform responsibility appears early.
 
 ```text
-src/orders_investigation/
-├── domain/
-├── environment/
-├── runtime/
-├── decisions/
-├── graph/
-├── context/
-├── effects/
-├── memory/
-├── integrations/
-├── coordination/
-├── governance/
-├── evaluation/
-├── operations/
-├── demo.py
-└── live_demo.py
+src/orders_investigation/platform/
+├── controls.py
+├── identity/
 ```
 
-The real execution path follows the responsibility packages introduced through this chapter. Current packages: `domain/`, `environment/`, `runtime/`, `decisions/`, `graph/`, `context/`, `effects/`, `memory/`, `integrations/`, `coordination/`, `governance/`, `evaluation/`, `operations/`. See `ARCHITECTURE.md`.
+The platform map now exposes `identity/`. Each subdomain is introduced only when its contract becomes executable. See `ARCHITECTURE.md`.
