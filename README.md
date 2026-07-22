@@ -1,12 +1,12 @@
-# Chapter 31 companion — Carrying the Caller's Authority
+# Chapter 32 companion — Keeping Tenants and Data Inside Their Boundaries
 
-This checkpoint adds delegation bound to caller, tenant, agent, action, and expiry.
+This checkpoint adds hard tenant, data-class, residency, and retention-aware placement.
 
 ## What this chapter adds
 
-- The Chapter 31 implementation lives in `platform/authority/`; `platform/controls.py` is compatibility-only.
+- The Chapter 32 implementation lives in `platform/placement/`; `platform/controls.py` is compatibility-only.
 - A focused executable admission or refusal check.
-- A small offline example and the complete earlier journey inherited from `chapter-30`.
+- A small offline example and the complete earlier journey inherited from `chapter-31`.
 
 ## Code map
 
@@ -58,6 +58,7 @@ src/orders_investigation/platform/authority/__init__.py
 src/orders_investigation/platform/capabilities/__init__.py
 src/orders_investigation/platform/controls.py
 src/orders_investigation/platform/identity/__init__.py
+src/orders_investigation/platform/placement/__init__.py
 src/orders_investigation/runtime/__init__.py
 src/orders_investigation/runtime/boundary.py
 src/orders_investigation/runtime/contracts/__init__.py
@@ -65,8 +66,8 @@ src/orders_investigation/runtime/contracts/admission.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_31.py
-tests/test_chapter_31.py
+examples/chapter_32.py
+tests/test_chapter_32.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -87,11 +88,11 @@ uv run --no-sync python scripts/run_current_chapter.py
 The full test command includes behavioral, evidence-provenance, README, and folder-evolution gates. The current demo is deterministic and offline; CI runs the same commands.
 ## Deliberately incomplete
 
-This branch contains no platform capability introduced after Chapter 31. Chapter 32 addresses the next manuscript pressure.
+This branch contains no platform capability introduced after Chapter 32. Chapter 33 addresses the next manuscript pressure.
 
 ## Architecture evolution
 
-Delegated authority becomes visible in the platform map. No later platform responsibility appears early.
+Placement makes data and execution boundaries explicit. No later platform responsibility appears early.
 
 ```text
 src/orders_investigation/platform/
@@ -99,6 +100,7 @@ src/orders_investigation/platform/
 ├── identity/
 ├── capabilities/
 ├── authority/
+├── placement/
 ```
 
-The platform map now exposes `identity/`, `capabilities/`, `authority/`. Each subdomain is introduced only when its contract becomes executable. See `ARCHITECTURE.md`.
+The platform map now exposes `identity/`, `capabilities/`, `authority/`, `placement/`. Each subdomain is introduced only when its contract becomes executable. See `ARCHITECTURE.md`.
