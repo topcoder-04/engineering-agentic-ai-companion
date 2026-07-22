@@ -1,12 +1,12 @@
-# Chapter 33 companion — Making the Safe Path the Easy Path
+# Chapter 34 companion — Binding Proof to the Release
 
-This checkpoint adds platform scaffolding with visible, declared escape hatches.
+This checkpoint adds conformance receipts bound to the exact candidate, contract, suite, and checks.
 
 ## What this chapter adds
 
-- The Chapter 33 implementation lives in `platform/defaults/`; `platform/controls.py` is compatibility-only.
+- The Chapter 34 implementation lives in `platform/releases/`; `platform/controls.py` is compatibility-only.
 - A focused executable admission or refusal check.
-- A small offline example and the complete earlier journey inherited from `chapter-32`.
+- A small offline example and the complete earlier journey inherited from `chapter-33`.
 
 ## Code map
 
@@ -60,6 +60,7 @@ src/orders_investigation/platform/controls.py
 src/orders_investigation/platform/defaults/__init__.py
 src/orders_investigation/platform/identity/__init__.py
 src/orders_investigation/platform/placement/__init__.py
+src/orders_investigation/platform/releases/__init__.py
 src/orders_investigation/runtime/__init__.py
 src/orders_investigation/runtime/boundary.py
 src/orders_investigation/runtime/contracts/__init__.py
@@ -67,8 +68,8 @@ src/orders_investigation/runtime/contracts/admission.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_33.py
-tests/test_chapter_33.py
+examples/chapter_34.py
+tests/test_chapter_34.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -89,11 +90,11 @@ uv run --no-sync python scripts/run_current_chapter.py
 The full test command includes behavioral, evidence-provenance, README, and folder-evolution gates. The current demo is deterministic and offline; CI runs the same commands.
 ## Deliberately incomplete
 
-This branch contains no platform capability introduced after Chapter 33. Chapter 34 addresses the next manuscript pressure.
+This branch contains no platform capability introduced after Chapter 34. Chapter 35 addresses the next manuscript pressure.
 
 ## Architecture evolution
 
-Safe defaults become a platform contract. No later platform responsibility appears early.
+Artifact-bound conformance becomes a release subdomain. No later platform responsibility appears early.
 
 ```text
 src/orders_investigation/platform/
@@ -103,6 +104,7 @@ src/orders_investigation/platform/
 ├── authority/
 ├── placement/
 ├── defaults/
+├── releases/
 ```
 
-The platform map now exposes `identity/`, `capabilities/`, `authority/`, `placement/`, `defaults/`. Each subdomain is introduced only when its contract becomes executable. See `ARCHITECTURE.md`.
+The platform map now exposes `identity/`, `capabilities/`, `authority/`, `placement/`, `defaults/`, `releases/`. Each subdomain is introduced only when its contract becomes executable. See `ARCHITECTURE.md`.
