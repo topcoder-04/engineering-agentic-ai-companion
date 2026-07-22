@@ -38,3 +38,4 @@ ORDERS_BOUNDARY = InvestigationBoundary(
     }),
     writable_resource="incident_report",
 )
+

@@ -15,3 +15,4 @@ print(f"Eligible: {selection.eligible_count}")
 print(f"Included: {len(selection.selected)}")
 print(f"Omitted: {selection.omitted_count}")
 print(f"Limit: {selection.limit_reason}")
+

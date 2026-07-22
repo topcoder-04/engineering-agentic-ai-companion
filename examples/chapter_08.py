@@ -11,3 +11,4 @@ except ResponseLost:
 receipt = service.apply(report_update_intent(), idempotency_key=key)
 print(f"Effects applied: {service.effect_count}")
 print(f"Retry replayed: {receipt.replayed}")
+

@@ -16,3 +16,4 @@ demo = ROOT / "examples" / f"chapter_{chapter:02d}.py"
 if not demo.exists():
     raise SystemExit(f"missing current-chapter demo: {demo.relative_to(ROOT)}")
 runpy.run_path(str(demo), run_name="__main__")
+

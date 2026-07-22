@@ -33,3 +33,4 @@ The repository tree is part of the teaching. A responsibility becomes a package 
 7. Moving a module does not change its behavior in the same checkpoint.
 8. Every adjacent chapter remains a clean cumulative diff.
 9. `main` moves only after all behavioral and structural gates pass.
+

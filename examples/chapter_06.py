@@ -6,3 +6,4 @@ print(f"Attempts: {len(ledger.attempts)}")
 print(f"Elapsed: {ledger.total_elapsed_ms} ms")
 print(f"Choice: {result.choice}")
 print(f"Stop reason: {result.stop_reason}")
+

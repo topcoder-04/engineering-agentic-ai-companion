@@ -12,3 +12,4 @@ restored_incident, restored_graph, restored_ledger = store.load_full("run-1042")
 print(f"Restored evidence: {len(restored_incident.recorded_evidence)}")
 print(f"Ready work: {', '.join(restored_graph.ready_ids())}")
 print(f"Decision attempts: {len(restored_ledger.attempts)}")
+

@@ -43,3 +43,4 @@ def test_completion_requires_evidence_and_observed_report_result() -> None:
 
     del investigation.evidence[EvidenceKey.PIPELINE_TRIGGER]
     assert not investigation.investigation_complete
+

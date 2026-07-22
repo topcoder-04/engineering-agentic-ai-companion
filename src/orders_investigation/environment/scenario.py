@@ -47,3 +47,4 @@ def current_case() -> tuple[Incident, InvestigationGraph]:
         based_on=(EvidenceKey.WRITER_ACTIVITY, EvidenceKey.MIGRATION_JOB),
     )
     return incident, graph
+

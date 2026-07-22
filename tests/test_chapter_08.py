@@ -63,3 +63,4 @@ def test_changing_the_key_can_duplicate_the_same_intent(tmp_path):
     assert service.effect_count == 2
     connection.close()
 
+

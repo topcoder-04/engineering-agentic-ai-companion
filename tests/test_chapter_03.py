@@ -52,11 +52,14 @@ def test_instructions_bound_choice_without_claiming_execution():
     assert "Do not describe an action as completed" in request.instructions
 
 
-def test_chapter_three_has_declared_choices_but_no_task_graph():
+def test_chapter_three_preserves_the_declared_choice_set_as_the_graph_evolves():
     incident, observations = load_scenario("chapter-03")
-    assert tuple(sorted(observations)) == tuple(
-        sorted(OPENING_OBSERVATION_REQUESTS)
+    ready = (
+        tuple(sorted(observations))
+        if isinstance(observations, dict)
+        else tuple(sorted(observations.ready_ids()))
     )
+    assert ready == tuple(sorted(OPENING_OBSERVATION_REQUESTS))
     assert EvidenceKey.DATABASE_TOPOLOGY not in incident.recorded_evidence
 
 

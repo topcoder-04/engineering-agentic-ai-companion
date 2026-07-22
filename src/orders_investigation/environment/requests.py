@@ -17,3 +17,4 @@ OPENING_OBSERVATION_REQUESTS = {
         "observe", "service_metrics", "orders-production", "orders-api", "dependency_health"
     ),
 }
+
