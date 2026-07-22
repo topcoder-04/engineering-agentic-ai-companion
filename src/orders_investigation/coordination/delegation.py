@@ -208,3 +208,4 @@ class SpecialistCoordinator:
             results_refused=self._results_refused,
             joins_attempted=self._joins_attempted,
         )
+

@@ -175,3 +175,4 @@ class EnforcedReportStore:
         except Exception:
             self.connection.rollback()
             raise
+

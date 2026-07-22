@@ -152,3 +152,4 @@ def test_approval_record_does_not_claim_who_decided_or_what_they_may_decide():
     stored = record.create(request())
 
     assert set(stored.__dict__) == {"request", "status", "decision_signal_id"}
+

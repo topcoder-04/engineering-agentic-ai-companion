@@ -132,3 +132,4 @@ def authorize_effect(
         resource=effect.resource,
         intent_digest=effect.intent_digest,
     )
+

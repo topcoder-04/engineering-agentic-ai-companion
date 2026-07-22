@@ -88,3 +88,4 @@ def test_configured_classes_are_policy_inputs_not_observed_measurements():
     profiles = orders_model_profiles()
     assert profiles[0].model_id == "configured-quick-model"
     assert all("observed" not in profile.model_id for profile in profiles)
+

@@ -224,3 +224,4 @@ def test_join_creates_a_proposal_but_performs_no_outside_effect():
     assert joined.proposal is not None
     assert joined.proposal.proposed_intent.startswith("publish")
     assert not hasattr(joined.proposal, "effect_result")
+

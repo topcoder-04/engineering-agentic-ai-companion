@@ -130,3 +130,4 @@ def orders_model_profiles() -> tuple[ModelProfile, ...]:
             accepts_restricted_data=True,
         ),
     )
+

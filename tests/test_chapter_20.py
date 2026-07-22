@@ -94,3 +94,4 @@ def test_rego_mapping_has_success_and_changed_fact_tests():
     assert "test_exact_input_allows" in source
     assert "test_changed_evidence_denies" in source
     assert 'with input as changed' in source
+

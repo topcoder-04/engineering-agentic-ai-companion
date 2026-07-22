@@ -123,3 +123,4 @@ def test_replacement_requires_an_observed_change():
             replacement_plan(),
             {"migration_status": "running", "writer_pressure": "high"},
         )
+
