@@ -1,12 +1,12 @@
-# Chapter 35 companion — Owning the Agent After Launch
+# Chapter 36 companion — Evolving the Platform Without Breaking Every Team
 
-This checkpoint adds owned, expiring exceptions that cannot waive hard boundaries.
+This checkpoint adds reader-first compatibility windows for contract and schema migration.
 
 ## What this chapter adds
 
-- Durable operating ownership and controlled exceptions live in `platform/lifecycle/`.
-- The conformant Orders candidate must name its operator, runbook, and rollback owner before execution.
-- A composition test proves an ownerless candidate cannot run despite valid artifact evidence.
+- Reader-first compatibility windows live in `platform/compatibility/`.
+- Compatibility is checked after lifecycle ownership and before the Orders candidate can execute.
+- A composition test proves an unrecognized trace reader holds the candidate.
 
 ## Code map
 
@@ -56,6 +56,7 @@ src/orders_investigation/operations/probes.py
 src/orders_investigation/platform/__init__.py
 src/orders_investigation/platform/authority/__init__.py
 src/orders_investigation/platform/capabilities/__init__.py
+src/orders_investigation/platform/compatibility/__init__.py
 src/orders_investigation/platform/controls.py
 src/orders_investigation/platform/defaults/__init__.py
 src/orders_investigation/platform/identity/__init__.py
@@ -70,8 +71,8 @@ src/orders_investigation/runtime/journey.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_35.py
-tests/test_chapter_35.py
+examples/chapter_36.py
+tests/test_chapter_36.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -93,17 +94,17 @@ The full test command includes behavioral, evidence-provenance, README, and fold
 
 ## Behavioral spine
 
-Lifecycle ownership follows artifact conformance and remains a launch veto. The
-owned Orders candidate continues through the paved path and completes. Removing its
-operator does not invalidate the receipt, but it still prevents execution: proof of
-what passed cannot replace proof of who owns the running system.
+Contract evolution is a launch-time gate, not a synthetic migration answer. Readers
+that accept the candidate's trace schema let the owned, conformant Orders path run.
+An observed `trace/v0` reader falls outside the compatibility window and holds the
+candidate before any new writer can emit an unreadable trace.
 ## Deliberately incomplete
 
-This branch contains no platform capability introduced after Chapter 35. Chapter 36 addresses the next manuscript pressure.
+This branch contains no platform capability introduced after Chapter 36. Chapter 37 addresses the next manuscript pressure.
 
 ## Architecture evolution
 
-Expiring exceptions gain lifecycle ownership. No later platform responsibility appears early.
+Compatible contract evolution gains its own boundary. No later platform responsibility appears early.
 
 ```text
 src/orders_investigation/platform/
@@ -115,6 +116,7 @@ src/orders_investigation/platform/
 ├── defaults/
 ├── releases/
 ├── lifecycle/
+├── compatibility/
 ```
 
-The platform map now exposes `identity/`, `capabilities/`, `authority/`, `placement/`, `defaults/`, `releases/`, `lifecycle/`. Each subdomain is introduced only when its contract becomes executable. See `ARCHITECTURE.md`.
+The platform map now exposes `identity/`, `capabilities/`, `authority/`, `placement/`, `defaults/`, `releases/`, `lifecycle/`, `compatibility/`. Each subdomain is introduced only when its contract becomes executable. See `ARCHITECTURE.md`.

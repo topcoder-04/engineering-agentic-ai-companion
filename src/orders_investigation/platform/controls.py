@@ -1,4 +1,4 @@
-"""Compatibility imports for platform contracts introduced through Chapter 35.
+"""Compatibility imports for platform contracts introduced through Chapter 36.
 
 Implementations live in their responsibility subdomains. New code should import the
 specific subdomain so the source path teaches the boundary it uses.
@@ -11,6 +11,7 @@ from .placement import DataBoundary, ExecutionTarget, place
 from .defaults import Scaffold, ScaffoldRequest, scaffold
 from .releases import ConformanceReceipt, release_conforms
 from .lifecycle import ExceptionGrant, validate_exception
+from .compatibility import CompatibilityWindow, migration_step
 
 __all__ = [
     "AgentContract",
@@ -29,5 +30,7 @@ __all__ = [
     "ConformanceReceipt",
     "release_conforms",
     "ExceptionGrant",
-    "validate_exception"
+    "validate_exception",
+    "CompatibilityWindow",
+    "migration_step"
 ]
