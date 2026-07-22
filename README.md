@@ -1,12 +1,12 @@
-# Chapter 32 companion — Keeping Tenants and Data Inside Their Boundaries
+# Chapter 33 companion — Making the Safe Path the Easy Path
 
-This checkpoint adds hard tenant, data-class, residency, and retention-aware placement.
+This checkpoint adds platform scaffolding with visible, declared escape hatches.
 
 ## What this chapter adds
 
-- The Chapter 32 implementation lives in `platform/placement/`; `platform/controls.py` is compatibility-only.
+- The Chapter 33 implementation lives in `platform/defaults/`; `platform/controls.py` is compatibility-only.
 - A focused executable admission or refusal check.
-- A small offline example and the complete earlier journey inherited from `chapter-31`.
+- A small offline example and the complete earlier journey inherited from `chapter-32`.
 
 ## Code map
 
@@ -57,6 +57,7 @@ src/orders_investigation/platform/__init__.py
 src/orders_investigation/platform/authority/__init__.py
 src/orders_investigation/platform/capabilities/__init__.py
 src/orders_investigation/platform/controls.py
+src/orders_investigation/platform/defaults/__init__.py
 src/orders_investigation/platform/identity/__init__.py
 src/orders_investigation/platform/placement/__init__.py
 src/orders_investigation/runtime/__init__.py
@@ -66,8 +67,8 @@ src/orders_investigation/runtime/contracts/admission.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_32.py
-tests/test_chapter_32.py
+examples/chapter_33.py
+tests/test_chapter_33.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -88,11 +89,11 @@ uv run --no-sync python scripts/run_current_chapter.py
 The full test command includes behavioral, evidence-provenance, README, and folder-evolution gates. The current demo is deterministic and offline; CI runs the same commands.
 ## Deliberately incomplete
 
-This branch contains no platform capability introduced after Chapter 32. Chapter 33 addresses the next manuscript pressure.
+This branch contains no platform capability introduced after Chapter 33. Chapter 34 addresses the next manuscript pressure.
 
 ## Architecture evolution
 
-Placement makes data and execution boundaries explicit. No later platform responsibility appears early.
+Safe defaults become a platform contract. No later platform responsibility appears early.
 
 ```text
 src/orders_investigation/platform/
@@ -101,6 +102,7 @@ src/orders_investigation/platform/
 ├── capabilities/
 ├── authority/
 ├── placement/
+├── defaults/
 ```
 
-The platform map now exposes `identity/`, `capabilities/`, `authority/`, `placement/`. Each subdomain is introduced only when its contract becomes executable. See `ARCHITECTURE.md`.
+The platform map now exposes `identity/`, `capabilities/`, `authority/`, `placement/`, `defaults/`. Each subdomain is introduced only when its contract becomes executable. See `ARCHITECTURE.md`.

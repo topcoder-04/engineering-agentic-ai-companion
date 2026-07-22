@@ -1,4 +1,4 @@
-"""Compatibility imports for platform contracts introduced through Chapter 32.
+"""Compatibility imports for platform contracts introduced through Chapter 33.
 
 Implementations live in their responsibility subdomains. New code should import the
 specific subdomain so the source path teaches the boundary it uses.
@@ -8,6 +8,7 @@ from .identity import AgentContract, AgentRegistry
 from .capabilities import CapabilityProfile, admit_contract
 from .authority import CallerIdentity, Delegation, authorize
 from .placement import DataBoundary, ExecutionTarget, place
+from .defaults import Scaffold, ScaffoldRequest, scaffold
 
 __all__ = [
     "AgentContract",
@@ -19,5 +20,8 @@ __all__ = [
     "authorize",
     "DataBoundary",
     "ExecutionTarget",
-    "place"
+    "place",
+    "Scaffold",
+    "ScaffoldRequest",
+    "scaffold"
 ]
