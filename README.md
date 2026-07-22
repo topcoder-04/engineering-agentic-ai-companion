@@ -1,12 +1,12 @@
-# Chapter 19 companion — Knowing Who May Do What
+# Chapter 20 companion — Making Rules Independent of Wording
 
-Chapter 18 exposes the next engineering pressure. This checkpoint adds verified session identity, delegated grants, and effect-scoped authorization.
+Chapter 19 exposes the next engineering pressure. This checkpoint adds policy facts and deterministic authorization independent of prompt phrasing.
 
 ## What this chapter adds
 
-- One manuscript-aligned responsibility boundary in `src/orders_investigation/governance/authority.py`.
+- One manuscript-aligned responsibility boundary in `src/orders_investigation/governance/policy.py`.
 - A deterministic, offline chapter example.
-- Focused failure-path tests plus every earlier chapter test inherited from `chapter-18`.
+- Focused failure-path tests plus every earlier chapter test inherited from `chapter-19`.
 - No empty folders or placeholders for later capabilities.
 
 ## Code map
@@ -36,6 +36,7 @@ src/orders_investigation/environment/scenario.py
 src/orders_investigation/governance/__init__.py
 src/orders_investigation/governance/approval.py
 src/orders_investigation/governance/authority.py
+src/orders_investigation/governance/policy.py
 src/orders_investigation/graph/__init__.py
 src/orders_investigation/graph/planning.py
 src/orders_investigation/graph/spine.py
@@ -52,8 +53,8 @@ src/orders_investigation/runtime/contracts/admission.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_19.py
-tests/test_chapter_19.py
+examples/chapter_20.py
+tests/test_chapter_20.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -78,11 +79,11 @@ Routine execution is offline. Historical live evidence is retained only where th
 
 ## Deliberately incomplete
 
-This branch contains only capabilities introduced through Chapter 19. Read the manuscript's closing transition for the pressure that Chapter 20 addresses.
+This branch contains only capabilities introduced through Chapter 20. Read the manuscript's closing transition for the pressure that Chapter 21 addresses.
 
 ## Architecture evolution
 
-Verified authority joins governance without becoming execution. No later responsibility appears early.
+Versioned policy completes the governance decision path. No later responsibility appears early.
 
 ```text
 src/orders_investigation/
