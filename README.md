@@ -1,12 +1,12 @@
-# Chapter 23 companion — Judging the Whole Trajectory
+# Chapter 24 companion — Making Evaluation a Release Boundary
 
-This checkpoint adds multi-dimensional trajectory evaluation instead of outcome-only scoring.
+This checkpoint adds a fail-closed release gate combining quality, safety, latency, and unit budgets.
 
 ## What this chapter adds
 
-- Multi-dimensional evaluation over the semantic trace introduced in Chapter 22.
-- The accepted and refused Orders paths are judged against the same evidence, path, action, and outcome contract.
-- A composition test proves a refused report effect cannot pass merely because earlier observations were useful.
+- A fail-closed release gate combining quality, safety, latency, and unit budgets.
+- Release evidence is now derived from executed Orders journeys and their Chapter 23 evaluations.
+- A composition test proves one refused effect stops the candidate release.
 
 ## Code map
 
@@ -56,8 +56,8 @@ src/orders_investigation/runtime/journey.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_23.py
-tests/test_chapter_23.py
+examples/chapter_24.py
+tests/test_chapter_24.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -79,17 +79,17 @@ The full test command includes behavioral, evidence-provenance, README, and fold
 
 ## Behavioral spine
 
-Evaluation now consumes the trace emitted by the shared Orders journey. The complete
-path passes every dimension. When current evidence is refused at the report boundary,
-the resulting `effect_refused` event and refused final status fail path compliance
-and outcome evaluation; a useful partial investigation is not counted as completion.
+The release gate consumes evaluation results and traces created by the shared Orders
+journey. A campaign containing only the completed path advances. Adding the
+stale-evidence refusal lowers the pass rate and spends the safety-failure budget, so
+the same candidate is denied rather than receiving hand-built release evidence.
 ## Deliberately incomplete
 
-No platform capability from Chapters 29–37 exists yet. Chapter 24 introduces the next manuscript pressure.
+No platform capability from Chapters 29–37 exists yet. Chapter 25 introduces the next manuscript pressure.
 
 ## Architecture evolution
 
-Outcome evaluation extends the same evaluation surface. No later responsibility appears early.
+Release gates complete the evaluation boundary. No later responsibility appears early.
 
 ```text
 src/orders_investigation/
