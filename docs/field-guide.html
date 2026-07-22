@@ -81,46 +81,55 @@
   /* detail */
   .detail { display: flex; flex-direction: column; min-width: 0; min-height: 0; padding: 20px 26px 14px; overflow-y: auto; }
   .ch-meta { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-  .ch-meta .chip { font-family: var(--mono); font-size: .62rem; color: var(--mv); }
-  .ch-meta .mv-of { color: var(--faint); font-size: .62rem; }
-  .refusal { margin-left: auto; padding: 4px 10px; border: 1px solid color-mix(in srgb, var(--mv) 45%, transparent); border-radius: 8px; background: color-mix(in srgb, var(--mv) 8%, transparent); font-size: .62rem; white-space: nowrap; }
+  .ch-meta .chip { font-family: var(--mono); font-size: .68rem; color: var(--mv); }
+  .ch-meta .mv-of { color: var(--faint); font-size: .68rem; }
+  .refusal { margin-left: auto; padding: 5px 11px; border: 1px solid color-mix(in srgb, var(--mv) 45%, transparent); border-radius: 8px; background: color-mix(in srgb, var(--mv) 8%, transparent); font-size: .68rem; white-space: nowrap; }
   .refusal b { color: var(--mv); font-weight: 800; }
-  h1.lesson { margin: 8px 0 2px; font-family: var(--serif); font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 600; letter-spacing: -.01em; line-height: 1.12; }
-  .change { margin: 6px 0 0; padding-left: 12px; border-left: 3px solid var(--mv); font-family: var(--serif); font-style: italic; color: var(--ink); font-size: .95rem; line-height: 1.5; max-width: 62ch; }
-  .why { margin: 12px 0 0; color: var(--muted); font-size: .8rem; line-height: 1.65; max-width: 72ch; }
+  h1.lesson { margin: 9px 0 3px; font-family: var(--serif); font-size: clamp(1.7rem, 3.2vw, 2.35rem); font-weight: 600; letter-spacing: -.01em; line-height: 1.1; }
+  .change { margin: 8px 0 0; padding-left: 13px; border-left: 3px solid var(--mv); font-family: var(--serif); font-style: italic; color: var(--ink); font-size: 1.08rem; line-height: 1.5; max-width: 66ch; }
+  .why { margin: 14px 0 0; color: var(--muted); font-size: .9rem; line-height: 1.65; max-width: 76ch; }
   .why b { color: var(--ink); font-weight: 650; }
   .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
   .badge { padding: 3px 9px; border: 1px dashed; border-radius: 7px; font-family: var(--mono); font-size: .6rem; }
   .b-req { border-color: var(--c3); color: var(--c3); }
   .b-opt { border-color: var(--faint); color: var(--muted); }
 
-  .ex-block { margin-top: auto; padding-top: 18px; }
-  .ex-label { display: flex; justify-content: space-between; gap: 12px; color: var(--faint); font-size: .56rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+  .ex-block { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--line); }
+  .ex-block > summary { display: flex; justify-content: space-between; gap: 16px; align-items: center; padding: 11px 14px; border: 1px solid var(--line); border-radius: 10px; background: rgba(255,255,255,.018); cursor: pointer; list-style: none; }
+  .ex-block > summary::-webkit-details-marker { display: none; }
+  .ex-block > summary:hover, .ex-block > summary:focus-visible { border-color: var(--mv); outline: none; }
+  .try-title b, .try-title small { display: block; }
+  .try-title b { color: var(--ink); font-size: .76rem; }
+  .try-title small { margin-top: 2px; color: var(--muted); font-size: .6rem; }
+  .try-chevron { color: var(--mv); font-family: var(--mono); font-size: .8rem; transition: transform .18s ease; }
+  .ex-block[open] .try-chevron { transform: rotate(180deg); }
+  .ex-body { padding-top: 10px; }
+  .ex-label { display: flex; justify-content: space-between; gap: 12px; color: var(--faint); font-size: .58rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
   .ex-label span { font-weight: 500; letter-spacing: .04em; text-transform: none; }
-  .ex-row { display: flex; gap: 10px; align-items: stretch; margin-top: 7px; }
+  .ex-row { display: flex; gap: 10px; align-items: stretch; margin-top: 8px; }
   .ex-row code { flex: 1; overflow-x: auto; padding: 10px 13px; border: 1px solid var(--line); border-radius: 11px; background: #0a0f1b; font-family: var(--mono); font-size: .69rem; line-height: 1.75; color: var(--c2); white-space: pre; }
   .ex-actions { display: flex; flex-direction: column; gap: 6px; }
   .ex-actions button, .ex-actions a { display: block; padding: 7px 11px; border: 1px solid var(--line); border-radius: 9px; font-size: .62rem; font-weight: 700; text-align: center; text-decoration: none; white-space: nowrap; }
   .ex-actions button:hover, .ex-actions a:hover { border-color: var(--mv); color: var(--mv); }
 
   /* the book's linear contract: inherit → add one boundary → expose the next pressure */
-  .linear-map { flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 275px; margin-top: 18px; padding: 20px 0 18px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .linear-map { flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 320px; margin-top: 20px; padding: 24px 0 22px; }
   .linear-head, .growth-head { display: flex; justify-content: space-between; gap: 14px; align-items: baseline; }
   .linear-head span, .growth-head span { color: var(--faint); font-size: .6rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
   .linear-head strong, .growth-head strong { color: var(--mv); font-family: var(--mono); font-size: .66rem; }
   .handoff-scroll, .growth-scroll { overflow-x: auto; padding-bottom: 3px; }
   .handoff { display: grid; grid-template-columns: minmax(220px,1fr) 26px minmax(250px,1.12fr) 26px minmax(220px,1fr); gap: 8px; align-items: stretch; min-width: 790px; margin-top: 13px; }
-  .handoff-card { min-width: 0; min-height: 92px; padding: 13px 14px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,.015); }
+  .handoff-card { min-width: 0; min-height: 106px; padding: 15px 16px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,.015); }
   .handoff-card.current { border-color: var(--mv); background: color-mix(in srgb, var(--mv) 11%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--mv) 28%, transparent); }
   .handoff-card small, .handoff-card b, .handoff-card span { display: block; }
   .handoff-card small { color: var(--faint); font-size: .54rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-  .handoff-card b { margin-top: 7px; color: var(--ink); font-family: var(--serif); font-size: .82rem; font-weight: 600; line-height: 1.25; }
-  .handoff-card span { margin-top: 6px; color: var(--muted); font-size: .58rem; line-height: 1.4; }
+  .handoff-card b { margin-top: 8px; color: var(--ink); font-family: var(--serif); font-size: .94rem; font-weight: 600; line-height: 1.25; }
+  .handoff-card span { margin-top: 7px; color: var(--muted); font-size: .65rem; line-height: 1.45; }
   .handoff-card.current small, .handoff-card.current b { color: var(--mv); }
   .handoff-arrow { display: grid; place-items: center; color: var(--faint); font-family: var(--mono); font-size: .9rem; }
   .growth-head { margin-top: 15px; }
   .growth { display: grid; grid-template-columns: repeat(10,minmax(76px,1fr)); gap: 10px; min-width: 840px; margin-top: 9px; }
-  .growth-node { position: relative; padding: 8px 7px; border: 1px dashed var(--line); border-radius: 8px; color: var(--faint); font-family: var(--mono); font-size: .54rem; text-align: center; opacity: .42; }
+  .growth-node { position: relative; padding: 10px 8px; border: 1px dashed var(--line); border-radius: 8px; color: var(--faint); font-family: var(--mono); font-size: .61rem; text-align: center; opacity: .42; }
   .growth-node:not(:last-child)::after { content: "→"; position: absolute; right: -8px; color: var(--faint); }
   .growth-node.earned { border-style: solid; border-color: color-mix(in srgb, var(--mv) 42%, var(--line)); color: var(--ink); opacity: 1; }
   .growth-node.new { border-color: var(--mv); color: var(--mv); background: color-mix(in srgb, var(--mv) 12%, transparent); box-shadow: 0 0 0 1px color-mix(in srgb, var(--mv) 24%, transparent); }
@@ -503,17 +512,23 @@ function renderDetail() {
         <span class="st" style="border-color:var(--c4);color:var(--c4)">evaluate</span>
         <span class="ar" style="margin-left:6px">— the loop every chapter hardens; the model only ever holds “propose”</span>
       </div>
-      <div class="ex-block">
-        <div class="ex-label">Set up once <span>This guide only copies commands; it never runs them.</span></div>
-        <div class="ex-row">
-          <code id="cmd">git clone ${repo.replace("https://github.com/", "https://github.com/")}
+      <details class="ex-block">
+        <summary>
+          <span class="try-title"><b>Try yourself</b><small>Set up the companion once</small></span>
+          <span class="try-chevron" aria-hidden="true">⌄</span>
+        </summary>
+        <div class="ex-body">
+          <div class="ex-label">Setup commands <span>This guide only copies commands; it never runs them.</span></div>
+          <div class="ex-row">
+            <code id="cmd">git clone ${repo.replace("https://github.com/", "https://github.com/")}
 cd engineering-agentic-ai-companion</code>
-          <div class="ex-actions">
-            <button id="copy" type="button">Copy (C)</button>
-            <a href="${repo}" target="_blank" rel="noreferrer">Repository ↗</a>
+            <div class="ex-actions">
+              <button id="copy" type="button">Copy (C)</button>
+              <a href="${repo}" target="_blank" rel="noreferrer">Repository ↗</a>
+            </div>
           </div>
         </div>
-      </div>`;
+      </details>`;
   } else if (entry.type === "chapter") {
     const c = chapters[entry.n - 1];
     const mi = mvIndexFor(entry.n), m = movements[mi];
@@ -534,17 +549,23 @@ cd engineering-agentic-ai-companion</code>
       <p class="why">${c.why}</p>
       ${badges.length ? `<div class="badges">${badges.join("")}</div>` : ""}
       ${renderLinearMap(c)}
-      <div class="ex-block">
-        <div class="ex-label">Exercise — run this chapter's checkpoint <span>This guide never executes it.</span></div>
-        <div class="ex-row">
-          <code id="cmd">${commandsFor(c.n)}</code>
-          <div class="ex-actions">
-            <button id="copy" type="button">Copy (C)</button>
-            <a href="${repo}/tree/chapter-${pad(c.n)}" target="_blank" rel="noreferrer">Branch ↗</a>
-            <a href="${repo}/blob/chapter-${pad(c.n)}/examples/chapter_${pad(c.n)}.py" target="_blank" rel="noreferrer">Example ↗</a>
+      <details class="ex-block">
+        <summary>
+          <span class="try-title"><b>Try yourself</b><small>Run Chapter ${c.n}'s checkpoint</small></span>
+          <span class="try-chevron" aria-hidden="true">⌄</span>
+        </summary>
+        <div class="ex-body">
+          <div class="ex-label">Checkpoint commands <span>This guide never executes them.</span></div>
+          <div class="ex-row">
+            <code id="cmd">${commandsFor(c.n)}</code>
+            <div class="ex-actions">
+              <button id="copy" type="button">Copy (C)</button>
+              <a href="${repo}/tree/chapter-${pad(c.n)}" target="_blank" rel="noreferrer">Branch ↗</a>
+              <a href="${repo}/blob/chapter-${pad(c.n)}/examples/chapter_${pad(c.n)}.py" target="_blank" rel="noreferrer">Example ↗</a>
+            </div>
           </div>
         </div>
-      </div>`;
+      </details>`;
   } else if (entry.type === "interlude") {
     const m = movements[entry.movement];
     document.documentElement.style.setProperty("--mv", m.hex);
