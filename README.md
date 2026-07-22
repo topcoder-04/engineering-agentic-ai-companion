@@ -1,12 +1,12 @@
-# Chapter 16 companion — When New Evidence Changes What Comes Next
+# Chapter 17 companion — When Useful Contributions Do Not Add Up
 
-Chapter 15 exposes the next engineering pressure. This checkpoint adds versioned plans, evidence references, supersession, and bounded replanning.
+Chapter 16 exposes the next engineering pressure. This checkpoint adds typed specialist assignments, join contracts, and contradiction-aware coordination.
 
 ## What this chapter adds
 
-- One manuscript-aligned responsibility boundary in `src/orders_investigation/graph/planning.py`.
+- One manuscript-aligned responsibility boundary in `src/orders_investigation/coordination/delegation.py`.
 - A deterministic, offline chapter example.
-- Focused failure-path tests plus every earlier chapter test inherited from `chapter-15`.
+- Focused failure-path tests plus every earlier chapter test inherited from `chapter-16`.
 - No empty folders or placeholders for later capabilities.
 
 ## Code map
@@ -15,6 +15,8 @@ Chapter 15 exposes the next engineering pressure. This checkpoint adds versioned
 src/orders_investigation/__init__.py
 src/orders_investigation/context/__init__.py
 src/orders_investigation/context/surface.py
+src/orders_investigation/coordination/__init__.py
+src/orders_investigation/coordination/delegation.py
 src/orders_investigation/decisions/__init__.py
 src/orders_investigation/decisions/budget.py
 src/orders_investigation/decisions/model.py
@@ -47,8 +49,8 @@ src/orders_investigation/runtime/contracts/admission.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_16.py
-tests/test_chapter_16.py
+examples/chapter_17.py
+tests/test_chapter_17.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -73,11 +75,11 @@ Routine execution is offline. Historical live evidence is retained only where th
 
 ## Deliberately incomplete
 
-This branch contains only capabilities introduced through Chapter 16. Read the manuscript's closing transition for the pressure that Chapter 17 addresses.
+This branch contains only capabilities introduced through Chapter 17. Read the manuscript's closing transition for the pressure that Chapter 18 addresses.
 
 ## Architecture evolution
 
-Plan replacement becomes visible in the graph. No later responsibility appears early.
+Specialist work gains an explicit coordination boundary. No later responsibility appears early.
 
 ```text
 src/orders_investigation/
@@ -90,8 +92,9 @@ src/orders_investigation/
 ├── effects/
 ├── memory/
 ├── integrations/
+├── coordination/
 ├── demo.py
 └── live_demo.py
 ```
 
-The real execution path follows the responsibility packages introduced through this chapter. Current packages: `domain/`, `environment/`, `runtime/`, `decisions/`, `graph/`, `context/`, `effects/`, `memory/`, `integrations/`. See `ARCHITECTURE.md`.
+The real execution path follows the responsibility packages introduced through this chapter. Current packages: `domain/`, `environment/`, `runtime/`, `decisions/`, `graph/`, `context/`, `effects/`, `memory/`, `integrations/`, `coordination/`. See `ARCHITECTURE.md`.
