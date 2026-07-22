@@ -1,0 +1,2 @@
+"""integrations responsibility package."""
+
