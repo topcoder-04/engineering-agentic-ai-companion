@@ -141,6 +141,30 @@
   .recap-item b { margin-top: 5px; font-size: .62rem; line-height: 1.25; }
   .next-pressure { margin-top: 14px; padding-left: 12px; border-left: 3px solid var(--mv); color: var(--muted); font-family: var(--serif); font-size: .82rem; line-height: 1.45; }
 
+  /* epilogue: proof earns execution; execution earns the next proof */
+  .epilogue-map { justify-content: flex-start; min-height: 490px; padding: 18px 0; }
+  .epilogue-map .recap-grid { margin-top: 10px; }
+  .exec-flow { display: grid; gap: 5px; margin-top: 17px; }
+  .exec-lane { position: relative; padding-left: 118px; }
+  .exec-lane-label { position: absolute; inset: 50% auto auto 0; width: 102px; transform: translateY(-50%); }
+  .exec-lane-label small, .exec-lane-label b { display: block; }
+  .exec-lane-label small { color: var(--lane); font-family: var(--mono); font-size: .56rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+  .exec-lane-label b { margin-top: 5px; color: var(--ink); font-family: var(--serif); font-size: .78rem; font-weight: 600; line-height: 1.2; }
+  .exec-scroll { overflow-x: auto; padding: 2px 2px 4px; }
+  .exec-chain { display: grid; gap: 10px; align-items: stretch; }
+  .proof-chain { grid-template-columns: repeat(9,minmax(94px,1fr)) minmax(108px,1.08fr); min-width: 1030px; }
+  .run-chain { grid-template-columns: repeat(10,minmax(94px,1fr)); min-width: 1030px; }
+  .feedback-chain { grid-template-columns: repeat(6,minmax(120px,1fr)); min-width: 780px; }
+  .exec-node { position: relative; display: grid; place-items: center; min-height: 50px; padding: 8px 9px; border: 1px solid color-mix(in srgb, var(--lane) 55%, var(--line)); border-radius: 9px; background: color-mix(in srgb, var(--lane) 6%, transparent); color: var(--ink); font-size: .65rem; font-weight: 700; line-height: 1.22; text-align: center; }
+  .exec-node:not(:last-child)::after { content: "→"; position: absolute; right: -9px; color: var(--faint); font-family: var(--mono); font-size: .7rem; }
+  .exec-node.gate { border-color: var(--lane); background: color-mix(in srgb, var(--lane) 18%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--lane) 30%, transparent); color: var(--lane); }
+  .exec-node.govern { --lane: var(--c3); }
+  .exec-node.effect { --lane: var(--c2); }
+  .exec-node.loopback { border-color: var(--lane); color: var(--lane); }
+  .exec-bridge { display: flex; justify-content: center; align-items: center; gap: 8px; min-height: 28px; color: var(--muted); font-family: var(--mono); font-size: .58rem; }
+  .exec-bridge b { color: var(--bridge); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; }
+  .exec-bridge .down { color: var(--bridge); font-size: .9rem; }
+
   /* setup screen (position 0) */
   .setup h1 { margin: 4px 0 2px; }
   .setup .why { max-width: 66ch; }
@@ -656,12 +680,33 @@ function renderInterludeMap(entry) {
 
 function renderEpilogueMap() {
   const items = movements.map(m => `<div class="recap-item"><small>MOVEMENT ${m.roman}</small><b>${m.short}</b></div>`).join("");
-  const growth = mainSpine.map(node => `<div class="growth-node earned">${node.label}</div>`).join("");
-  return `<section class="interlude-map" aria-label="The complete journey">
+  const proof = ["Identity", "Capability", "Paved defaults", "Conformance", "Ownership", "Compatibility", "Authority proof", "Placement proof", "Eval campaign"]
+    .map(label => `<div class="exec-node">${label}</div>`).join("");
+  const runtime = ["Carry caller", "Place work", "Observe", "Propose", "Admit"]
+    .map(label => `<div class="exec-node">${label}</div>`).join("")
+    + ["Approval", "Authority", "Policy"].map(label => `<div class="exec-node govern">${label}</div>`).join("")
+    + ["Enforced effect", "Orders report"].map(label => `<div class="exec-node effect">${label}</div>`).join("");
+  const feedback = ["Trace", "Evaluate", "Release gate", "Operate", "Incident lesson"]
+    .map(label => `<div class="exec-node">${label}</div>`).join("");
+  return `<section class="interlude-map epilogue-map" aria-label="The complete proof, execution, and feedback journey">
     <div class="linear-head"><span>Five movements, one investigation</span><strong>ALL 37 BOUNDARIES EARNED</strong></div>
     <div class="recap-grid" style="grid-template-columns:repeat(5,minmax(130px,1fr))">${items}</div>
-    <div class="growth-head"><span>The complete executable path</span><strong>EVIDENCE RETURNS TO THE NEXT LAUNCH</strong></div>
-    <div class="growth-scroll"><div class="growth">${growth}</div></div>
+    <div class="exec-flow">
+      <div class="exec-lane" style="--lane:var(--c5)">
+        <div class="exec-lane-label"><small>1 · prove</small><b>Before launch</b></div>
+        <div class="exec-scroll"><div class="exec-chain proof-chain">${proof}<div class="exec-node gate">Risk gate</div></div></div>
+      </div>
+      <div class="exec-bridge" style="--bridge:var(--c5)"><span>all evidence admitted</span><span class="down">↓</span><b>candidate may execute</b></div>
+      <div class="exec-lane" style="--lane:var(--c1)">
+        <div class="exec-lane-label"><small>2 · execute</small><b>One governed run</b></div>
+        <div class="exec-scroll"><div class="exec-chain run-chain">${runtime}</div></div>
+      </div>
+      <div class="exec-bridge" style="--bridge:var(--c2)"><span>report + receipts + trace</span><span class="down">↓</span><b>run becomes evidence</b></div>
+      <div class="exec-lane" style="--lane:var(--c4)">
+        <div class="exec-lane-label"><small>3 · learn</small><b>For the next launch</b></div>
+        <div class="exec-scroll"><div class="exec-chain feedback-chain">${feedback}<div class="exec-node loopback">Next launch ↺</div></div></div>
+      </div>
+    </div>
   </section>`;
 }
 
