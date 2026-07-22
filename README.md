@@ -1,12 +1,12 @@
-# Chapter 34 companion — Binding Proof to the Release
+# Chapter 35 companion — Owning the Agent After Launch
 
-This checkpoint adds conformance receipts bound to the exact candidate, contract, suite, and checks.
+This checkpoint adds owned, expiring exceptions that cannot waive hard boundaries.
 
 ## What this chapter adds
 
-- Artifact-bound conformance receipts live in `platform/releases/`.
-- The exact candidate and contract must carry trace, policy, rollback, authority, and placement checks before execution.
-- A composition test proves a different artifact cannot reuse the passing receipt to run the Orders journey.
+- Durable operating ownership and controlled exceptions live in `platform/lifecycle/`.
+- The conformant Orders candidate must name its operator, runbook, and rollback owner before execution.
+- A composition test proves an ownerless candidate cannot run despite valid artifact evidence.
 
 ## Code map
 
@@ -59,6 +59,7 @@ src/orders_investigation/platform/capabilities/__init__.py
 src/orders_investigation/platform/controls.py
 src/orders_investigation/platform/defaults/__init__.py
 src/orders_investigation/platform/identity/__init__.py
+src/orders_investigation/platform/lifecycle/__init__.py
 src/orders_investigation/platform/placement/__init__.py
 src/orders_investigation/platform/releases/__init__.py
 src/orders_investigation/runtime/__init__.py
@@ -69,8 +70,8 @@ src/orders_investigation/runtime/journey.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_34.py
-tests/test_chapter_34.py
+examples/chapter_35.py
+tests/test_chapter_35.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -92,17 +93,17 @@ The full test command includes behavioral, evidence-provenance, README, and fold
 
 ## Behavioral spine
 
-Conformance is now the release-time entrance to the paved and runtime paths. The
-receipt for `candidate-orders-v1` proves the checks required by the registered Orders
-contract and the investigation completes. Reusing that receipt for
-`candidate-orders-v2` is refused before scaffold or runtime admission.
+Lifecycle ownership follows artifact conformance and remains a launch veto. The
+owned Orders candidate continues through the paved path and completes. Removing its
+operator does not invalidate the receipt, but it still prevents execution: proof of
+what passed cannot replace proof of who owns the running system.
 ## Deliberately incomplete
 
-This branch contains no platform capability introduced after Chapter 34. Chapter 35 addresses the next manuscript pressure.
+This branch contains no platform capability introduced after Chapter 35. Chapter 36 addresses the next manuscript pressure.
 
 ## Architecture evolution
 
-Artifact-bound conformance becomes a release subdomain. No later platform responsibility appears early.
+Expiring exceptions gain lifecycle ownership. No later platform responsibility appears early.
 
 ```text
 src/orders_investigation/platform/
@@ -113,6 +114,7 @@ src/orders_investigation/platform/
 ├── placement/
 ├── defaults/
 ├── releases/
+├── lifecycle/
 ```
 
-The platform map now exposes `identity/`, `capabilities/`, `authority/`, `placement/`, `defaults/`, `releases/`. Each subdomain is introduced only when its contract becomes executable. See `ARCHITECTURE.md`.
+The platform map now exposes `identity/`, `capabilities/`, `authority/`, `placement/`, `defaults/`, `releases/`, `lifecycle/`. Each subdomain is introduced only when its contract becomes executable. See `ARCHITECTURE.md`.
