@@ -1,179 +1,184 @@
 # Mira's Journey — complete voice-over script
 
-Target runtime: **9 minutes 14 seconds**  
+Video runtime: **9 minutes 18.833 seconds**  
+Narrated journey: **9 minutes 14.333 seconds**  
 Pace: calm and direct, around **140–150 words per minute**  
 Playback: Chapter 1 holds for 15 seconds; Chapters 2–37 hold for 12 seconds; movement transitions hold for 18 seconds; the epilogue holds for 20 seconds; examples hold for 15 seconds.
 
-The recording begins on Chapter 1. The setup screen remains available to readers, but it is not part of autoplay.
+These timecodes were measured from the final MP4 at 30 frames per second. Let each new block begin landing before speaking: start roughly **0.4 seconds after** its listed timestamp and aim to finish **0.6 seconds before** the next one.
 
-## 01 — Chapter 1: When a Good Answer Is Not the Work (00:00–00:15)
+**00:00.000–00:01.267 — opening silence.** The video briefly shows the empty ground before Chapter 1 appears.
+
+## 01 — Chapter 1: When a Good Answer Is Not the Work (00:01.267–00:16.267)
 
 At 2:05 p.m., Orders starts timing out. Mira writes a useful update, but useful is not finished. The journey begins by separating evidence, hypothesis, and completed work.
 
-## 02 — Chapter 2: What This Investigation May Touch (00:15–00:27)
+## 02 — Chapter 2: What This Investigation May Touch (00:16.267–00:28.267)
 
 The next clue may sit in metrics, database monitoring, jobs, or deployments. The investigation now names what it may touch and rejects everything else.
 
-## 03 — Chapter 3: When Permitted Work Still Wastes Time (00:27–00:39)
+## 03 — Chapter 3: When Permitted Work Still Wastes Time (00:28.267–00:40.267)
 
 Several checks are allowed, but only one is worth doing next. The model chooses among permitted work; deterministic code keeps control of execution.
 
-## 04 — Chapter 4: When Evidence Changes the Shape of the Work (00:39–00:51)
+## 04 — Chapter 4: When Evidence Changes the Shape of the Work (00:40.267–00:52.300)
 
 Topology reveals that reads and writes follow different paths. Recorded evidence can add the next bounded task. Missing evidence cannot invent one.
 
-## 05 — Chapter 5: What the Model Sees and What May Run (00:51–01:03)
+## 05 — Chapter 5: What the Model Sees and What May Run (00:52.300–01:04.300)
 
 The model sees one explicit decision surface. Its answer is only a proposal, and typed admission checks it against the system's current recorded state.
 
-## 06 — Chapter 6: When Judgment Becomes a Dependency (01:03–01:15)
+## 06 — Chapter 6: When Judgment Becomes a Dependency (01:04.300–01:16.300)
 
 Every model turn costs time and money. Judgment gets a fixed budget and a fallback, so exploration stops deliberately instead of running forever.
 
-## 07 — Chapter 7: Keeping Changed Work Alive After a Restart (01:15–01:27)
+## 07 — Chapter 7: Keeping Changed Work Alive After a Restart (01:16.300–01:28.333)
 
 The process dies after three observations. Checkpointed state preserves the graph, evidence, and remaining budget, so the same investigation continues after restart.
 
-## 08 — Controlled Work → Reliable Work (01:27–01:45)
+## 08 — Controlled Work → Reliable Work (01:28.333–01:46.333)
 
 The first layer is complete. Mira can now bound the investigation, let evidence shape the graph, admit proposals, limit judgment, and resume after failure. Next, that controlled work must survive retries, uncertainty, delegation, and hostile inputs.
 
-## 09 — Chapter 8: Trying Again Without Doing It Twice (01:45–01:57)
+## 09 — Chapter 8: Trying Again Without Doing It Twice (01:46.333–01:58.333)
 
 The report service may already have accepted the write. A stable effect identity makes retry safe and prevents the same identity from hiding different work.
 
-## 10 — Chapter 9: When an Attempt Ends but Its Effect Is Unknown (01:57–02:09)
+## 10 — Chapter 9: When an Attempt Ends but Its Effect Is Unknown (01:58.333–02:10.333)
 
 A timeout does not prove failure. Unknown becomes a real outcome, and the system checks authoritative state before deciding whether to retry.
 
-## 11 — Chapter 10: Carrying Forward Only What Helps (02:09–02:21)
+## 11 — Chapter 10: Carrying Forward Only What Helps (02:10.333–02:22.367)
 
 Old incidents may help, but more context is not always better. Memory is filtered, bounded, and kept separate from evidence gathered in this run.
 
-## 12 — Chapter 11: Keeping a Long Investigation on Course (02:21–02:33)
+## 12 — Chapter 11: Keeping a Long Investigation on Course (02:22.367–02:34.367)
 
 Reasonable next steps can still answer the wrong question. A task spine keeps the investigation's current mission in charge while preserving useful side findings.
 
-## 13 — Chapter 12: Sharing Work Without Losing Ownership (02:33–02:45)
+## 13 — Chapter 12: Sharing Work Without Losing Ownership (02:34.367–02:46.367)
 
 Two workers can see the same ready task. A time-limited claim and fencing token decide who owns it and block a stale worker from committing.
 
-## 14 — Chapter 13: Depending on Systems That May Be Wrong (02:45–02:57)
+## 14 — Chapter 13: Depending on Systems That May Be Wrong (02:46.367–02:58.367)
 
 Valid JSON can still contain instructions instead of facts. Dependency output becomes typed, sourced evidence; suspicious content is quarantined before it reaches judgment.
 
-## 15 — Chapter 14: Running Generated Work Inside a Boundary (02:57–03:09)
+## 15 — Chapter 14: Running Generated Work Inside a Boundary (02:58.367–03:10.367)
 
 Sometimes the model must generate a small analysis. It runs inside a fixed sandbox, and its result returns as untrusted data—not as authority.
 
-## 16 — Reliable Work → Governed Effects (03:09–03:27)
+## 16 — Reliable Work → Governed Effects (03:10.367–03:28.400)
 
 The investigation now handles retries, unknown outcomes, memory, ownership, untrusted dependencies, and generated code without losing its shape. Reliability is necessary, but it does not answer who may approve a consequential effect or which policy governs it.
 
-## 17 — Chapter 15: Choosing How Much Judgment a Decision Needs (03:27–03:39)
+## 17 — Chapter 15: Choosing How Much Judgment a Decision Needs (03:28.400–03:40.400)
 
 Not every decision needs the strongest model. Each choice declares the capability and data handling it requires, and the system selects a qualified option.
 
-## 18 — Chapter 16: When New Evidence Changes What Comes Next (03:39–03:51)
+## 18 — Chapter 16: When New Evidence Changes What Comes Next (03:40.400–03:52.400)
 
 New evidence can make a reasonable plan stale. Replanning replaces only future work, and late results from the old plan cannot take over.
 
-## 19 — Chapter 17: When Useful Contributions Do Not Add Up (03:51–04:03)
+## 19 — Chapter 17: When Useful Contributions Do Not Add Up (03:52.400–04:04.400)
 
 Specialists can each be right without proving the whole case. Their assignments are explicit, and only compatible, complete results may be joined.
 
-## 20 — Chapter 18: Waiting Safely for a Consequential Decision (04:03–04:15)
+## 20 — Chapter 18: Waiting Safely for a Consequential Decision (04:04.400–04:16.400)
 
 Human approval may arrive hours later. The exact intent is frozen first, so an expired answer or approval for different work is refused.
 
-## 21 — Chapter 19: Knowing Who May Do What (04:15–04:27)
+## 21 — Chapter 19: Knowing Who May Do What (04:16.400–04:28.433)
 
 A valid session is not enough. The effect needs an exact grant for this action and resource; authority from a nearby system does not count.
 
-## 22 — Chapter 20: Making Rules Independent of Wording (04:27–04:39)
+## 22 — Chapter 20: Making Rules Independent of Wording (04:28.433–04:40.433)
 
 Policy reads recorded facts, not persuasive language. Change a fact and the decision changes, with explicit obligations attached to every allowed action.
 
-## 23 — Chapter 21: Enforcing Rules Where Effects Happen (04:39–04:51)
+## 23 — Chapter 21: Enforcing Rules Where Effects Happen (04:40.433–04:52.433)
 
 An earlier allow decision can become stale. The write boundary checks current facts again, applies every obligation, and records an enforcement receipt.
 
-## 24 — Governed Effects → Judged Operations (04:51–05:09)
+## 24 — Governed Effects → Judged Operations (04:52.433–05:10.433)
 
 The effect path now carries model selection, replanning, joins, approval, authority, policy, and enforcement. The next question is operational: can we reconstruct the route, judge the full behavior, and stop a bad candidate from reaching production?
 
-## 25 — Chapter 22: Seeing the Path, Not Only the Answer (05:09–05:21)
+## 25 — Chapter 22: Seeing the Path, Not Only the Answer (05:10.433–05:22.433)
 
 Logs alone cannot explain the result. A semantic trace connects evidence, decisions, joins, and effects while leaving sensitive content out.
 
-## 26 — Chapter 23: Judging the Whole Trajectory (05:21–05:33)
+## 26 — Chapter 23: Judging the Whole Trajectory (05:22.433–05:34.467)
 
 A correct report can still come from a bad route. Evaluation now judges the full trajectory, with named cases, rubrics, versions, and visible disagreement.
 
-## 27 — Chapter 24: Making Evaluation a Release Boundary (05:33–05:45)
+## 27 — Chapter 24: Making Evaluation a Release Boundary (05:34.467–05:46.467)
 
 A better average can hide a safety regression. Independent gates check safety and performance, and a failed evaluation blocks that exact candidate.
 
-## 28 — Chapter 25: Observing Production Without Exposing It (05:45–05:57)
+## 28 — Chapter 25: Observing Production Without Exposing It (05:46.467–05:58.467)
 
 Green infrastructure can hide failed investigations. Redacted semantic events show where trajectories break without exposing the evidence that moved through them.
 
-## 29 — Chapter 26: Testing What Authored Cases Missed (05:57–06:09)
+## 29 — Chapter 26: Testing What Authored Cases Missed (05:58.467–06:10.467)
 
 Production finds combinations the authored suite missed. Variation testing changes one declared condition at a time, and important failures become permanent cases.
 
-## 30 — Chapter 27: Turning Incidents Into Boundaries (06:09–06:21)
+## 30 — Chapter 27: Turning Incidents Into Boundaries (06:10.467–06:22.467)
 
 An incident is not closed by a restart. It becomes a missing invariant, a regression case, and an owned fix that must be proven.
 
-## 31 — Chapter 28: Operating a Fleet Within Limits (06:21–06:33)
+## 31 — Chapter 28: Operating a Fleet Within Limits (06:22.467–06:34.500)
 
 A healthy cell may still be the wrong cell. Routing checks location, authority, versions, capacity, and rollout stage before sending the run.
 
-## 32 — Judged Operations → Operable Platform (06:33–06:51)
+## 32 — Judged Operations → Operable Platform (06:34.500–06:52.500)
 
 Mira can now trace, evaluate, release, observe, vary, learn from incidents, and route a fleet. But copied settings still drift between teams. The final layer turns those hard-won boundaries into platform contracts that every agent must satisfy.
 
-## 33 — Chapter 29: Making an Agent Identifiable (06:51–07:03)
+## 33 — Chapter 29: Making an Agent Identifiable (06:52.500–07:04.500)
 
 Approving an agent requires knowing exactly what it is. Prompt, tools, policy, and evaluations become one immutable runnable identity.
 
-## 34 — Chapter 30: Admitting Capabilities, Not Copied Settings (07:03–07:15)
+## 34 — Chapter 30: Admitting Capabilities, Not Copied Settings (07:04.500–07:16.500)
 
 Teams declare the powers their agent needs. Central admission decides whether those capabilities are supported; a local settings edit cannot grant more.
 
-## 35 — Chapter 31: Carrying the Caller's Authority (07:15–07:27)
+## 35 — Chapter 31: Carrying the Caller's Authority (07:16.500–07:28.533)
 
 The platform's service account is not the caller's permission. Delegated authority follows the request, and missing, expired, or wrong scope stops it.
 
-## 36 — Chapter 32: Keeping Tenants and Data Inside Their Boundaries (07:27–07:39)
+## 36 — Chapter 32: Keeping Tenants and Data Inside Their Boundaries (07:28.533–07:40.533)
 
 Tenant, data class, region, and retention rules determine where evidence may run and live. Cross-boundary sharing needs an explicit contract.
 
-## 37 — Chapter 33: Making the Safe Path the Easy Path (07:39–07:51)
+## 37 — Chapter 33: Making the Safe Path the Easy Path (07:40.533–07:52.533)
 
 Safety loses when bypassing it is easier. A paved path supplies conforming defaults, keeps exceptions visible, and makes the approved route the fast route.
 
-## 38 — Chapter 34: Binding Proof to the Release (07:51–08:03)
+## 38 — Chapter 34: Binding Proof to the Release (07:52.533–08:04.567)
 
 Evaluation proof must match what ships. The conformance receipt binds evidence to the exact artifact digest, so candidate A cannot release candidate B.
 
-## 39 — Chapter 35: Owning the Agent After Launch (08:03–08:15)
+## 39 — Chapter 35: Owning the Agent After Launch (08:04.567–08:16.567)
 
 Launch is not the end of ownership. A named operator, runbook, rollback path, and budget owner stay attached to the running agent.
 
-## 40 — Chapter 36: Evolving the Platform Without Breaking Every Team (08:15–08:27)
+## 40 — Chapter 36: Evolving the Platform Without Breaking Every Team (08:16.567–08:28.567)
 
 Shared contracts will change at different speeds. Compatibility windows keep supported versions working and block migrations that would break existing readers.
 
-## 41 — Chapter 37: Making Risk Posture an Engineering Contract (08:27–08:39)
+## 41 — Chapter 37: Making Risk Posture an Engineering Contract (08:28.567–08:40.600)
 
 Risk becomes executable evidence, not a review note. Consequential work cannot launch until evaluation, ownership, rollback, caller authority, and placement are proven.
 
-## 42 — Epilogue: The Work Can Now Outlive the Builder (08:39–08:59)
+## 42 — Epilogue: The Work Can Now Outlive the Builder (08:40.600–09:00.600)
 
-Six months later, a new on-call engineer opens the run without Mira beside them. The evidence, task graph, decisions, model calls, report intent, receipts, and ownership are still there. The system can explain itself because its boundaries live in the work, not in one person's memory.
+Six months later, a new on-call engineer opens the run without Mira. Evidence, decisions, receipts, and ownership are still there. The system explains itself because its boundaries live in the work, not in one person's memory.
 
-## 43 — Examples: Run the System (08:59–09:14)
+## 43 — Examples: Run the System (09:00.600–09:15.600)
 
-The journey is meant to be used. Run the Orders investigation, open any chapter branch to study one boundary, or change one condition and watch the system refuse unsafe work. That is where the diagram becomes engineering practice.
+Now run it yourself: replay the investigation, open any chapter to inspect one boundary, then change a condition and watch unsafe work fail. The picture becomes engineering when the refusal is real.
+
+**09:15.600–09:18.833 — closing silence.** Let the examples remain on screen before the video ends.
