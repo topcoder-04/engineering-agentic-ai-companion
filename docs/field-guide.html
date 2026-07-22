@@ -177,7 +177,7 @@
     </div>
     <nav class="tabs" id="tabs" aria-label="Jump to a part"></nav>
     <div class="stepper" role="group" aria-label="Navigation">
-      <button class="play" id="play" type="button" aria-label="Play the journey slowly" title="Advance every 12 seconds · play or pause with Space">▶ Play slowly</button>
+      <button class="play" id="play" type="button" aria-label="Play the journey slowly" title="Narration-aware timing · play or pause with Space">▶ Play slowly</button>
       <button id="prev" type="button" aria-label="Previous stop" title="Previous (←)">←</button>
       <span id="pos" aria-live="polite">setup</span>
       <button id="next" type="button" aria-label="Next stop" title="Next (→)">→</button>
@@ -443,7 +443,13 @@ const $ = id => document.getElementById(id);
 const pad = n => String(n).padStart(2,"0");
 const mvIndexFor = n => movements.findIndex(m => n >= m.start && n <= m.end);
 let cur = 0;                       /* index into stops */
-const PLAY_DELAY_MS = 12000;
+const PLAY_DELAYS_MS = {
+  chapterOne: 15000,
+  chapter: 12000,
+  waypoint: 18000,
+  epilogue: 20000,
+  examples: 15000,
+};
 let playTimer = null;
 
 const chIndex = {}; stops.forEach((s,i)=>{ if(s.type==="ch") chIndex[s.n]=i; });
@@ -705,12 +711,24 @@ function syncHash() {
 }
 
 function stopPlayback(replay = false) {
-  if (playTimer) clearInterval(playTimer);
+  if (playTimer) clearTimeout(playTimer);
   playTimer = null;
   const button = $("play");
   button.textContent = replay ? "↻ Replay slowly" : "▶ Play slowly";
   button.setAttribute("aria-label", replay ? "Replay the journey slowly" : "Play the journey slowly");
   button.setAttribute("aria-pressed", "false");
+}
+
+function playbackDelayFor(stop) {
+  if (stop.type === "ch") return stop.n === 1 ? PLAY_DELAYS_MS.chapterOne : PLAY_DELAYS_MS.chapter;
+  if (stop.type === "wp") return stop.id === "epilogue" ? PLAY_DELAYS_MS.epilogue : PLAY_DELAYS_MS.waypoint;
+  if (stop.type === "examples") return PLAY_DELAYS_MS.examples;
+  return PLAY_DELAYS_MS.chapterOne;
+}
+
+function schedulePlayback() {
+  if (playTimer) clearTimeout(playTimer);
+  playTimer = setTimeout(advancePlayback, playbackDelayFor(stops[cur]));
 }
 
 function advancePlayback() {
@@ -719,6 +737,7 @@ function advancePlayback() {
     return;
   }
   go(cur + 1, true);
+  schedulePlayback();
 }
 
 function togglePlayback() {
@@ -726,12 +745,12 @@ function togglePlayback() {
     stopPlayback();
     return;
   }
-  if (cur >= stops.length - 1) go(0, true);
+  if (cur === 0 || cur >= stops.length - 1) go(chIndex[1], true);
   const button = $("play");
   button.textContent = "❚❚ Pause";
   button.setAttribute("aria-label", "Pause the journey");
   button.setAttribute("aria-pressed", "true");
-  playTimer = setInterval(advancePlayback, PLAY_DELAY_MS);
+  schedulePlayback();
 }
 
 function go(i, keepPlaying = false) {
@@ -774,7 +793,7 @@ const im = location.hash.match(/interlude-(\d)/);
 go(cm ? chIndex[Math.max(1, Math.min(37, Number(cm[1])))] :
    im ? wpIndex["int"+im[1]] :
    location.hash.includes("epilogue") ? wpIndex.epilogue :
-   location.hash.includes("examples") ? examplesIndex : 0);
+   location.hash.includes("examples") ? examplesIndex : chIndex[1]);
 togglePlayback();
 </script>
 </body>
