@@ -1,114 +1,128 @@
-# Chapter 36 companion — Evolving the Platform Without Breaking Every Team
+# Engineering Agentic AI — executable companion
 
-This checkpoint adds reader-first compatibility windows for contract and schema migration.
+This repository is the working system behind *Engineering Agentic AI: From Useful Answers to Dependable Work*. It is organized as 37 cumulative checkpoints: each `chapter-NN` branch is a true prefix of the final system, and `main` is the complete Chapter 37 journey.
 
-## What this chapter adds
+The model may be flexible because the boundary is not. Every checkpoint keeps the model-facing choice separate from deterministic admission, evidence provenance, effect identity, evaluation, and platform governance.
 
-- The Chapter 36 implementation lives in `platform/compatibility/`; `platform/controls.py` is compatibility-only.
-- A focused executable admission or refusal check.
-- A small offline example and the complete earlier journey inherited from `chapter-35`.
+## Start here
 
-## Code map
+Prerequisites:
 
-```text
-src/orders_investigation/__init__.py
-src/orders_investigation/context/__init__.py
-src/orders_investigation/context/surface.py
-src/orders_investigation/coordination/__init__.py
-src/orders_investigation/coordination/delegation.py
-src/orders_investigation/decisions/__init__.py
-src/orders_investigation/decisions/budget.py
-src/orders_investigation/decisions/model.py
-src/orders_investigation/decisions/routing.py
-src/orders_investigation/demo.py
-src/orders_investigation/domain/__init__.py
-src/orders_investigation/domain/evidence.py
-src/orders_investigation/domain/incident.py
-src/orders_investigation/domain/investigation.py
-src/orders_investigation/effects/__init__.py
-src/orders_investigation/effects/enforcement.py
-src/orders_investigation/effects/idempotency.py
-src/orders_investigation/effects/reconciliation.py
-src/orders_investigation/environment/__init__.py
-src/orders_investigation/environment/opening_case.py
-src/orders_investigation/environment/requests.py
-src/orders_investigation/environment/scenario.py
-src/orders_investigation/evaluation/__init__.py
-src/orders_investigation/evaluation/production.py
-src/orders_investigation/governance/__init__.py
-src/orders_investigation/governance/approval.py
-src/orders_investigation/governance/authority.py
-src/orders_investigation/governance/policy.py
-src/orders_investigation/graph/__init__.py
-src/orders_investigation/graph/planning.py
-src/orders_investigation/graph/spine.py
-src/orders_investigation/graph/tasks.py
-src/orders_investigation/integrations/__init__.py
-src/orders_investigation/integrations/dependencies.py
-src/orders_investigation/live_demo.py
-src/orders_investigation/memory/__init__.py
-src/orders_investigation/memory/store.py
-src/orders_investigation/operations/__init__.py
-src/orders_investigation/operations/fleet.py
-src/orders_investigation/operations/learning.py
-src/orders_investigation/operations/observability.py
-src/orders_investigation/operations/probes.py
-src/orders_investigation/platform/__init__.py
-src/orders_investigation/platform/authority/__init__.py
-src/orders_investigation/platform/capabilities/__init__.py
-src/orders_investigation/platform/compatibility/__init__.py
-src/orders_investigation/platform/controls.py
-src/orders_investigation/platform/defaults/__init__.py
-src/orders_investigation/platform/identity/__init__.py
-src/orders_investigation/platform/lifecycle/__init__.py
-src/orders_investigation/platform/placement/__init__.py
-src/orders_investigation/platform/releases/__init__.py
-src/orders_investigation/runtime/__init__.py
-src/orders_investigation/runtime/boundary.py
-src/orders_investigation/runtime/contracts/__init__.py
-src/orders_investigation/runtime/contracts/admission.py
-src/orders_investigation/runtime/ownership.py
-src/orders_investigation/runtime/sandbox.py
-src/orders_investigation/runtime/workflow.py
-examples/chapter_36.py
-tests/test_chapter_36.py
-evidence/chapter-03/live-call.json
-evidence/chapter-05/live-call.json
-evidence/chapter-11/current.json
-evidence/chapter-11/memory.json
-evidence/chapter-11/spine.json
-evidence/chapter-14/docker-isolation.json
-```
+- Python 3.11 or newer
+- Git
+- [uv](https://docs.astral.sh/uv/)
+- Docker only for the Chapter 14 isolation probe
+- OPA only for the Chapter 20 Rego example
 
-The map lists the actual cumulative implementation surface at this checkpoint. A responsibility appears only when this chapter or an earlier chapter has earned it; `ARCHITECTURE.md` and the structural tests enforce that timing.
-## Run this checkpoint
+Choose the chapter you are reading and run that exact checkpoint:
 
 ```bash
+git switch chapter-05
 uv sync --extra test
 uv run --no-sync pytest
 uv run --no-sync python scripts/run_current_chapter.py
 ```
 
-The full test command includes behavioral, evidence-provenance, README, and folder-evolution gates. The current demo is deterministic and offline; CI runs the same commands.
-## Deliberately incomplete
+The first command changes both the implementation and the README to the state earned by that chapter. Tests are cumulative: Chapter 13 runs Chapters 1–13, never a disconnected Chapter 13 sample.
 
-This branch contains no platform capability introduced after Chapter 36. Chapter 37 addresses the next manuscript pressure.
+For the complete system:
 
-## Architecture evolution
-
-Compatible contract evolution gains its own boundary. No later platform responsibility appears early.
-
-```text
-src/orders_investigation/platform/
-├── controls.py
-├── identity/
-├── capabilities/
-├── authority/
-├── placement/
-├── defaults/
-├── releases/
-├── lifecycle/
-├── compatibility/
+```bash
+git switch main
+uv sync --all-extras
+uv run --no-sync pytest
+uv run --no-sync python scripts/run_current_chapter.py
+uv run --no-sync python scripts/validate_evidence.py
 ```
 
-The platform map now exposes `identity/`, `capabilities/`, `authority/`, `placement/`, `defaults/`, `releases/`, `lifecycle/`, `compatibility/`. Each subdomain is introduced only when its contract becomes executable. See `ARCHITECTURE.md`.
+## Dependency profiles
+
+The offline project does not require an OpenAI SDK, LangGraph, or its SQLite checkpointer. Install only the surface you want:
+
+| Extra | Purpose |
+|---|---|
+| `test` | Offline behavioral and structural verification |
+| `live` | Optional OpenAI live comparison |
+| `langgraph` | Optional LangGraph execution and SQLite checkpoint integration |
+| `integrations` | Optional HTTP dependency adapter |
+| `--all-extras` | CI and full maintainer verification |
+
+## The checkpoint journey
+
+| Branch | Capability introduced |
+|---|---|
+| `chapter-01` | Separate a useful answer from completed work |
+| `chapter-02` | Bound what the investigation may touch |
+| `chapter-03` | Separate model choice from permitted execution |
+| `chapter-04` | Expand work from recorded evidence |
+| `chapter-05` | Admit a schema-validated model proposal |
+| `chapter-06` | Budget variable judgment |
+| `chapter-07` | Persist and resume the controlled workflow |
+| `chapter-08` | Retry without duplicating an effect |
+| `chapter-09` | Reconcile an effect whose outcome is unknown |
+| `chapter-10` | Retrieve only relevant, bounded memory |
+| `chapter-11` | Keep the investigation on an explicit task spine |
+| `chapter-12` | Delegate work without losing ownership |
+| `chapter-13` | Admit typed dependency evidence and quarantine instruction-bearing content |
+| `chapter-14` | Execute generated work inside a sandbox |
+| `chapter-15` | Match decision consequence to required judgment |
+| `chapter-16` | Replan when evidence changes the next useful action |
+| `chapter-17` | Merge contributions without confusing them for completion |
+| `chapter-18` | Wait safely for consequential approval |
+| `chapter-19` | Bind authority to explicit capabilities |
+| `chapter-20` | Express policy independently of model wording |
+| `chapter-21` | Enforce policy where effects occur |
+| `chapter-22` | Trace the path, not only the answer |
+| `chapter-23` | Evaluate the complete trajectory |
+| `chapter-24` | Make evaluation a release boundary |
+| `chapter-25` | Observe production without exposing sensitive content |
+| `chapter-26` | Test variations authored cases miss |
+| `chapter-27` | Turn incident lessons into executable boundaries |
+| `chapter-28` | Operate a fleet within shared limits |
+| `chapter-29` | Give every agent a verifiable identity |
+| `chapter-30` | Admit capabilities instead of copying settings |
+| `chapter-31` | Carry the caller's authority without becoming a confused deputy |
+| `chapter-32` | Keep tenant data inside its boundary |
+| `chapter-33` | Make the safe platform path the easy path |
+| `chapter-34` | Bind conformance evidence to the released artifact |
+| `chapter-35` | Preserve ownership after launch |
+| `chapter-36` | Evolve platform contracts through compatibility windows |
+| `chapter-37` | Make launch risk an executable engineering contract |
+
+## Repository map
+
+```text
+src/orders_investigation/domain/
+src/orders_investigation/environment/
+src/orders_investigation/runtime/
+src/orders_investigation/decisions/
+src/orders_investigation/graph/
+src/orders_investigation/context/
+src/orders_investigation/effects/
+src/orders_investigation/memory/
+src/orders_investigation/integrations/
+src/orders_investigation/coordination/
+src/orders_investigation/governance/
+src/orders_investigation/evaluation/
+src/orders_investigation/operations/
+src/orders_investigation/platform/
+examples/chapter_37.py
+tests/test_chapter_37.py
+```
+
+`ARCHITECTURE.md` records when each responsibility folder is allowed to appear. `tests/test_folder_birth.py` enforces that schedule on every branch.
+
+## Evidence and provenance
+
+`evidence/` contains retained observations used by the manuscript. A retained file is not accepted merely because it exists: `scripts/validate_evidence.py` checks its source kind, timestamp, scenario, and deterministic result. Current retained evidence includes:
+
+- observed model comparisons for Chapters 3 and 5;
+- current, memory, and task-spine comparisons for Chapter 11;
+- the Docker isolation probe for Chapter 14.
+
+Offline fixtures remain the acceptance authority. Live calls are comparative evidence, not an undocumented prerequisite.
+
+## Chapter 37 completion boundary
+
+The final checkpoint combines workload identity, capability admission, delegated caller authority, tenant placement, paved defaults, release receipts, lifecycle ownership, compatibility windows, and risk-tier launch decisions. It is complete only when the cumulative tests, structural gates, demos, and retained-evidence validation all pass.
+
