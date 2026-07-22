@@ -1,12 +1,12 @@
-# Chapter 35 companion — Owning the Agent After Launch
+# Chapter 36 companion — Evolving the Platform Without Breaking Every Team
 
-This checkpoint adds owned, expiring exceptions that cannot waive hard boundaries.
+This checkpoint adds reader-first compatibility windows for contract and schema migration.
 
 ## What this chapter adds
 
-- The Chapter 35 implementation lives in `platform/lifecycle/`; `platform/controls.py` is compatibility-only.
+- The Chapter 36 implementation lives in `platform/compatibility/`; `platform/controls.py` is compatibility-only.
 - A focused executable admission or refusal check.
-- A small offline example and the complete earlier journey inherited from `chapter-34`.
+- A small offline example and the complete earlier journey inherited from `chapter-35`.
 
 ## Code map
 
@@ -56,6 +56,7 @@ src/orders_investigation/operations/probes.py
 src/orders_investigation/platform/__init__.py
 src/orders_investigation/platform/authority/__init__.py
 src/orders_investigation/platform/capabilities/__init__.py
+src/orders_investigation/platform/compatibility/__init__.py
 src/orders_investigation/platform/controls.py
 src/orders_investigation/platform/defaults/__init__.py
 src/orders_investigation/platform/identity/__init__.py
@@ -69,8 +70,8 @@ src/orders_investigation/runtime/contracts/admission.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_35.py
-tests/test_chapter_35.py
+examples/chapter_36.py
+tests/test_chapter_36.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -91,11 +92,11 @@ uv run --no-sync python scripts/run_current_chapter.py
 The full test command includes behavioral, evidence-provenance, README, and folder-evolution gates. The current demo is deterministic and offline; CI runs the same commands.
 ## Deliberately incomplete
 
-This branch contains no platform capability introduced after Chapter 35. Chapter 36 addresses the next manuscript pressure.
+This branch contains no platform capability introduced after Chapter 36. Chapter 37 addresses the next manuscript pressure.
 
 ## Architecture evolution
 
-Expiring exceptions gain lifecycle ownership. No later platform responsibility appears early.
+Compatible contract evolution gains its own boundary. No later platform responsibility appears early.
 
 ```text
 src/orders_investigation/platform/
@@ -107,6 +108,7 @@ src/orders_investigation/platform/
 ├── defaults/
 ├── releases/
 ├── lifecycle/
+├── compatibility/
 ```
 
-The platform map now exposes `identity/`, `capabilities/`, `authority/`, `placement/`, `defaults/`, `releases/`, `lifecycle/`. Each subdomain is introduced only when its contract becomes executable. See `ARCHITECTURE.md`.
+The platform map now exposes `identity/`, `capabilities/`, `authority/`, `placement/`, `defaults/`, `releases/`, `lifecycle/`, `compatibility/`. Each subdomain is introduced only when its contract becomes executable. See `ARCHITECTURE.md`.
