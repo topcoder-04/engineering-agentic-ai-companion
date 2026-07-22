@@ -44,6 +44,7 @@ from orders_investigation.governance.authority import (
 )
 from orders_investigation.governance.policy import PolicyFacts, orders_report_policy
 from orders_investigation.operations.probes import Variation, variation_matrix
+from orders_investigation.platform.identity import AgentContract, AgentRegistry
 from orders_investigation.runtime.boundary import ORDERS_BOUNDARY
 from orders_investigation.runtime.contracts.admission import admit
 from orders_investigation.runtime.workflow import replay_pipeline_observation
@@ -81,6 +82,38 @@ class VariationRun:
     variation: Variation
     journey: JourneyResult
     evaluation: EvaluationResult
+
+
+@dataclass(frozen=True)
+class RegisteredRun:
+    contract: AgentContract
+    manifest_digest: str
+    journey: JourneyResult
+
+
+def orders_agent_contract(version: str = "1") -> AgentContract:
+    return AgentContract(
+        "orders-investigator",
+        version,
+        "orders-oncall",
+        "goal/v1",
+        "trace/v2",
+        ("database.read/v2",),
+        "consequential/v4",
+        "reasoning-restricted",
+        frozenset({"restricted"}),
+    )
+
+
+def run_registered_orders_investigation(
+    registry: AgentRegistry,
+    *,
+    agent_id: str = "orders-investigator",
+    version: str = "1",
+) -> RegisteredRun:
+    """Resolve an exact workload identity before any investigation work begins."""
+    contract = registry.resolve(agent_id, version)
+    return RegisteredRun(contract, contract.manifest_digest, run_orders_investigation())
 
 
 def trace_orders_investigation(
