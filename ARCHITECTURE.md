@@ -17,7 +17,7 @@ The repository tree is part of the teaching. A responsibility becomes a package 
 | 12–14 | `runtime/`, `integrations/` | Add owned work, dependency admission, and isolated analysis. |
 | 15–17 | `decisions/`, `graph/`, `coordination/` | Route judgment, replace plans, and join specialist evidence. |
 | 18–20 | `governance/` | Separate approval, authority, and policy. |
-| 21 | `effects/enforcement.py` | Recheck policy at the exact effect boundary. |
+| 21 | `effects/enforcement.py`, `runtime/journey.py` | Recheck policy at the exact effect boundary and expose later controls through one cumulative Orders path. |
 | 22–24 | `evaluation/` | Trace trajectories, evaluate outcomes, and gate releases. |
 | 25–28 | `operations/` | Observe safely, probe blind spots, learn boundaries, and enforce fleet limits. |
 | 29–37 | `platform/` subdomains | Grow identity through executable launch risk one platform contract at a time. |
@@ -33,4 +33,4 @@ The repository tree is part of the teaching. A responsibility becomes a package 
 7. Moving a module does not change its behavior in the same checkpoint.
 8. Every adjacent chapter remains a clean cumulative diff.
 9. `main` moves only after all behavioral and structural gates pass.
-
+10. Every late checkpoint keeps its unit proof and adds one composition proof showing what the Orders journey can no longer do without it.

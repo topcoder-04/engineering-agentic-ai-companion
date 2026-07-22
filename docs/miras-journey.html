@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Watch the Orders investigation gain one executable responsibility in each chapter of Engineering Agentic AI.">
+  <title>From Answer to Operable Agent — Engineering Agentic AI</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080b14;
+      --panel: #101624;
+      --ink: #f5f7ff;
+      --muted: #909ab2;
+      --line: rgba(255,255,255,.11);
+      --c1: #55d9ff;
+      --c2: #63e59a;
+      --c3: #ffd166;
+      --c4: #ff82aa;
+      --c5: #b99aff;
+      --current: #55d9ff;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: var(--bg); }
+    body { color: var(--ink); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    button { color: inherit; font: inherit; }
+
+    .app {
+      display: grid;
+      grid-template-rows: 62px minmax(0, 1fr) 82px;
+      width: 100vw;
+      height: 100dvh;
+      min-height: 650px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 8% 18%, rgba(85,217,255,.07), transparent 28rem),
+        radial-gradient(circle at 92% 12%, rgba(185,154,255,.07), transparent 28rem),
+        var(--bg);
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: minmax(220px,.8fr) minmax(620px,2fr) minmax(180px,.6fr);
+      gap: 20px;
+      align-items: center;
+      padding: 10px 22px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(8,11,20,.95);
+    }
+    .brand { display: flex; gap: 10px; align-items: center; }
+    .brand-mark { display: grid; place-items: center; width: 35px; height: 35px; border-radius: 10px; color: #071019; background: var(--current); font-weight: 950; }
+    .brand strong, .brand small { display: block; white-space: nowrap; }
+    .brand strong { font-size: .92rem; }
+    .brand small { margin-top: 2px; color: var(--muted); font-size: .6rem; letter-spacing: .07em; text-transform: uppercase; }
+
+    .destinations { display: grid; grid-template-columns: repeat(5,1fr); gap: 6px; }
+    .destinations button { display: flex; gap: 7px; align-items: center; padding: 7px 9px; border: 1px solid transparent; border-radius: 10px; color: #626c82; background: transparent; cursor: pointer; }
+    .destinations button:hover, .destinations button:focus-visible { border-color: var(--line); outline: none; }
+    .destinations button.progressed { color: #adb6c9; }
+    .destinations button.current { color: var(--ink); background: color-mix(in srgb,var(--current) 9%,transparent); }
+    .dot { width: 9px; height: 9px; flex: 0 0 auto; border-radius: 50%; background: var(--color); }
+    .destination-copy strong, .destination-copy span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .destination-copy strong { font-size: .66rem; }
+    .destination-copy span { margin-top: 1px; opacity: .65; font-size: .54rem; }
+    .header-actions { display: flex; justify-content: flex-end; }
+    .step-controls { display: flex; align-items: center; gap: 7px; }
+    .step-controls span { min-width: 40px; color: var(--muted); font-size: .62rem; font-weight: 800; text-align: center; }
+    .step { display: grid; place-items: center; width: 38px; height: 38px; padding: 0; border: 1px solid var(--current); border-radius: 50%; background: color-mix(in srgb,var(--current) 12%,transparent); font-size: 1rem; font-weight: 900; cursor: pointer; }
+    .step:hover, .step:focus-visible { background: color-mix(in srgb,var(--current) 24%,transparent); outline: none; }
+    .step:disabled { border-color: var(--line); color: #515a70; background: transparent; cursor: not-allowed; }
+
+    .map { position: relative; min-height: 0; overflow: hidden; }
+    .map svg { display: block; width: 100%; height: 100%; }
+    .empty-prompt { position: absolute; top: 50%; left: 50%; z-index: 3; width: min(430px,70%); padding: 24px; border: 1px dashed rgba(255,255,255,.18); border-radius: 18px; text-align: center; transform: translate(-50%,-50%); background: rgba(12,16,28,.88); transition: opacity .2s ease; }
+    .empty-prompt strong { display: block; margin-bottom: 7px; font-size: 1rem; }
+    .empty-prompt span { color: var(--muted); font-size: .72rem; line-height: 1.5; }
+    .empty-prompt.hidden { opacity: 0; pointer-events: none; }
+
+    .lane-label { opacity: 0; fill: var(--lane-color); font-size: 11px; font-weight: 900; letter-spacing: 1.8px; transition: opacity .42s ease; }
+    .lane-label.visible { opacity: 1; }
+    .lane-rail { opacity: 0; fill: none; stroke: var(--lane-color); stroke-width: 1.5; stroke-dasharray: 6 7; transition: opacity .42s ease; }
+    .lane-rail.visible { opacity: .32; }
+
+    .edge { opacity: 0; fill: none; stroke: var(--edge-color); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transition: opacity .42s ease; }
+    .edge.visible { opacity: .55; }
+    .edge.retired { opacity: 0; }
+    .edge.dashed { stroke-dasharray: 7 7; }
+    .edge.current { opacity: 1; filter: drop-shadow(0 0 5px var(--edge-color)); }
+
+    .component { opacity: 0; pointer-events: none; cursor: pointer; outline: none; transition: opacity .42s ease; }
+    .component.visible { opacity: 1; pointer-events: auto; }
+    .component .card { fill: #111827; stroke: var(--node-color); stroke-width: 1.7; }
+    .component .icon-disc { fill: color-mix(in srgb,var(--node-color) 18%,#111827); stroke: var(--node-color); stroke-width: 1.2; }
+    .component .icon { fill: var(--node-color); font-size: 14px; font-weight: 950; text-anchor: middle; dominant-baseline: middle; }
+    .component .chapter { fill: var(--node-color); font-size: 7px; font-weight: 900; letter-spacing: 1px; }
+    .component .label { fill: var(--ink); font-size: 11px; font-weight: 850; }
+    .component .sub { fill: #818ba2; font-size: 7.5px; font-weight: 650; }
+    .component.current .card { stroke: #fff; stroke-width: 2.6; filter: drop-shadow(0 0 8px var(--node-color)); }
+    .component:hover .card, .component:focus-visible .card { stroke: #fff; stroke-width: 2.4; }
+
+    .output { opacity: 0; transition: opacity .2s ease; }
+    .output.visible { opacity: 1; }
+    .output circle { fill: #111827; stroke: var(--c2); stroke-width: 2; }
+    .output text { fill: var(--ink); font-size: 10px; font-weight: 850; text-anchor: middle; }
+    .output .micro { fill: var(--muted); font-size: 7px; letter-spacing: 1px; }
+    .sandbox-boundary { opacity: 0; fill: rgba(99,229,154,.035); stroke: var(--c2); stroke-width: 1.7; stroke-dasharray: 7 6; transition: opacity .42s ease; }
+    .sandbox-boundary.visible { opacity: .8; }
+    .effect-boundary { opacity: 0; fill: rgba(255,209,102,.04); stroke: var(--c3); stroke-width: 2; transition: opacity .42s ease; }
+    .effect-boundary.visible { opacity: 1; filter: drop-shadow(0 0 6px rgba(255,209,102,.25)); }
+
+    footer { display: grid; grid-template-columns: 220px minmax(420px,1fr) minmax(270px,.65fr); gap: 18px; align-items: center; padding: 11px 22px; border-top: 1px solid var(--line); background: rgba(10,14,24,.98); }
+    .status { display: flex; gap: 10px; align-items: center; }
+    .status-mark { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 10px; color: var(--current); font-size: .72rem; font-weight: 900; }
+    .counter strong, .counter span { display: block; }
+    .counter strong { color: var(--current); font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; }
+    .counter span { margin-top: 2px; color: var(--muted); font-size: .61rem; }
+    .detail strong { display: block; overflow: hidden; font-size: 1rem; text-overflow: ellipsis; white-space: nowrap; }
+    .detail p { margin: 4px 0 0; overflow: hidden; color: var(--muted); font-size: .7rem; text-overflow: ellipsis; white-space: nowrap; }
+    .refusal { padding: 9px 12px; border: 1px solid color-mix(in srgb,var(--current) 36%,transparent); border-radius: 11px; background: color-mix(in srgb,var(--current) 8%,transparent); }
+    .refusal small, .refusal strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .refusal small { color: var(--current); font-size: .56rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+    .refusal strong { margin-top: 3px; font-size: .77rem; }
+    .checkpoint { color: var(--muted); font-size: .58rem; text-decoration: none; }
+    .checkpoint:hover { color: var(--ink); }
+
+    @media (max-width:1050px) {
+      header { grid-template-columns:minmax(210px,1fr) 2fr auto; }
+      .destination-copy span { display:none; }
+      footer { grid-template-columns:200px 1fr 250px; }
+    }
+    @media (max-width:760px) { .app { min-width:760px; overflow-x:auto; } }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none!important; } }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header>
+      <div class="brand"><div class="brand-mark">M</div><div><strong>From Answer to Operable Agent</strong><small>Mira's 37-chapter engineering journey</small></div></div>
+      <nav class="destinations" aria-label="Jump to a movement">
+        <button style="--color:var(--c1)"><i class="dot"></i><span class="destination-copy"><strong>Controlled work</strong><span>through Chapter 7</span></span></button>
+        <button style="--color:var(--c2)"><i class="dot"></i><span class="destination-copy"><strong>Reliable work</strong><span>through Chapter 14</span></span></button>
+        <button style="--color:var(--c3)"><i class="dot"></i><span class="destination-copy"><strong>Governed effects</strong><span>through Chapter 21</span></span></button>
+        <button style="--color:var(--c4)"><i class="dot"></i><span class="destination-copy"><strong>Judged operations</strong><span>through Chapter 28</span></span></button>
+        <button style="--color:var(--c5)"><i class="dot"></i><span class="destination-copy"><strong>Operable platform</strong><span>through Chapter 37</span></span></button>
+      </nav>
+      <div class="header-actions">
+        <div class="step-controls" role="group" aria-label="Chapter navigation">
+          <button class="step" id="previous" type="button" aria-label="Previous chapter" title="Previous chapter (Left arrow)">←</button>
+          <span id="step-count" aria-live="polite">0 / 37</span>
+          <button class="step" id="next" type="button" aria-label="Next chapter" title="Next chapter (Right arrow)">→</button>
+        </div>
+      </div>
+    </header>
+
+    <section class="map">
+      <div class="empty-prompt" id="empty-prompt"><strong id="prompt-title">Begin with an empty system</strong><span id="prompt-copy">Use → to add one chapter at a time. Use ← to step back.</span></div>
+      <svg id="journey-map" viewBox="25 150 970 460" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="map-title map-description">
+        <title id="map-title">Mira's Orders investigation growing across 37 chapters</title>
+        <desc id="map-description">Each chapter introduces a component, gate, store, branch, or feedback loop. The graph grows from an incident into a governed and operable platform.</desc>
+
+        <text class="lane-label" data-born="29" x="70" y="45" style="--lane-color:var(--c5)">PLATFORM LAUNCH CHAIN · CHAPTERS 29–37</text>
+        <path class="lane-rail" data-born="29" d="M70 145 H1545" style="--lane-color:var(--c5)"/>
+        <text class="lane-label" data-born="15" x="430" y="165" style="--lane-color:var(--c3)">GOVERNANCE INSERTS CHECKS INTO THE EFFECT PATH · CHAPTERS 15–21</text>
+        <text class="lane-label" data-born="1" x="70" y="270" style="--lane-color:var(--c1)">ORDERS INVESTIGATION · OBSERVE → PROPOSE → ADMIT → EFFECT</text>
+        <text class="lane-label" data-born="6" x="70" y="450" style="--lane-color:var(--c2)">SUPPORTING RESPONSIBILITIES · CHAPTERS 6–14</text>
+        <path class="lane-rail" data-born="11" d="M70 570 H1535" style="--lane-color:var(--c2)"/>
+        <text class="lane-label" data-born="22" x="230" y="625" style="--lane-color:var(--c4)">BEHAVIOR FEEDBACK LOOP · TRACE → EVALUATE → RELEASE → OPERATE</text>
+        <path class="lane-rail" data-born="22" d="M220 720 H1510" style="--lane-color:var(--c4)"/>
+
+        <g id="edges"></g>
+        <rect class="sandbox-boundary" data-born="14" x="948" y="454" width="348" height="108" rx="17"/>
+        <path class="effect-boundary" data-born="21" d="M1165 178 H1375 Q1395 178 1395 198 V405 Q1395 425 1375 425 H1165 Q1145 425 1145 405 V198 Q1145 178 1165 178 Z"/>
+        <g id="components"></g>
+        <g class="output" data-born="8" transform="translate(1490 333)"><circle r="38"/><text class="micro" y="-5">ORDERS</text><text y="13">Report</text></g>
+      </svg>
+    </section>
+
+    <footer>
+      <div class="status"><div class="status-mark" id="status-mark">—</div><div class="counter"><strong id="chapter-number">Not started</strong><span id="movement-name">Choose a destination</span></div></div>
+      <div class="detail"><strong id="chapter-title">The architecture canvas is empty</strong><p id="chapter-shift">Play will add the responsibility earned by each chapter.</p></div>
+      <div class="refusal"><small>Boundary introduced</small><strong id="chapter-blocks">Nothing has run</strong><a class="checkpoint" id="checkpoint" target="_blank" rel="noreferrer" hidden>Open executable checkpoint ↗</a></div>
+    </footer>
+  </main>
+
+  <script>
+    const repo = "https://github.com/topcoder-04/engineering-agentic-ai-companion";
+    const movements = [
+      { start:1, end:7, name:"Controlled work", color:"#55d9ff" },
+      { start:8, end:14, name:"Reliable work", color:"#63e59a" },
+      { start:15, end:21, name:"Governed effects", color:"#ffd166" },
+      { start:22, end:28, name:"Judged operations", color:"#ff82aa" },
+      { start:29, end:37, name:"Operable platform", color:"#b99aff" },
+    ];
+
+    const chapters = [
+      {n:1,x:70,y:300,w:150,label:"Incident",sub:"answer ≠ work",symbol:"!",title:"Separate an answer from work",shift:"A plausible explanation no longer claims completion.",blocks:"False completion"},
+      {n:2,x:250,y:300,w:150,label:"Observe",sub:"scoped evidence",symbol:"◎",title:"Bound the investigation",shift:"The Orders investigation receives an explicit scope.",blocks:"Out-of-scope work"},
+      {n:3,x:430,y:300,w:150,label:"Propose",sub:"model choice",symbol:"◇",title:"Separate choice from execution",shift:"The model proposes; deterministic routing permits execution.",blocks:"Unknown actions"},
+      {n:4,x:610,y:300,w:150,label:"Task graph",sub:"evidence expands work",symbol:"⌘",title:"Grow only from evidence",shift:"Recorded observations create the next bounded task.",blocks:"Invented tasks"},
+      {n:5,x:790,y:300,w:150,label:"Admission",sub:"typed contract",symbol:"✓",title:"Admit typed proposals",shift:"Model proposals cross a schema-validated decision surface.",blocks:"Malformed proposals"},
+      {n:6,x:430,y:470,w:140,label:"Budget",sub:"bounded judgment",symbol:"%",title:"Budget judgment",shift:"Exploration receives a deterministic work limit.",blocks:"Endless exploration"},
+      {n:7,x:610,y:470,w:140,label:"Checkpoint",sub:"persist + resume",symbol:"▣",title:"Persist the workflow",shift:"The investigation resumes from recorded state.",blocks:"Restarted work"},
+      {n:8,x:1240,y:300,w:160,label:"Effect writer",sub:"idempotent report",symbol:"↻",title:"Make effects idempotent",shift:"Stable effect identity makes report retries safe.",blocks:"Duplicate writes"},
+      {n:9,x:1410,y:470,w:140,label:"Reconciler",sub:"resolve unknown",symbol:"?",title:"Reconcile unknown outcomes",shift:"Lost responses are checked against authoritative state.",blocks:"Blind retries"},
+      {n:10,x:250,y:470,w:140,label:"Memory",sub:"ranked + bounded",symbol:"▤",title:"Bound memory",shift:"Only relevant evidence within limits reaches the model.",blocks:"Context sprawl"},
+      {n:11,x:790,y:470,w:140,label:"Task spine",sub:"mission backbone",symbol:"━",title:"Keep a task spine",shift:"Interesting evidence cannot replace the declared mission.",blocks:"Mission drift"},
+      {n:12,x:970,y:470,w:140,label:"Delegated task",sub:"owned subtask",symbol:"⇄",title:"Keep ownership through delegation",shift:"Subtasks retain parent, purpose, and completion obligation.",blocks:"Orphaned work"},
+      {n:13,x:70,y:470,w:140,label:"Evidence adapter",sub:"typed dependency",symbol:"↓",title:"Type dependency evidence",shift:"External content becomes evidence, never instruction.",blocks:"Injected commands"},
+      {n:14,x:1150,y:470,w:140,label:"Sandbox",sub:"isolated execution",symbol:"□",title:"Sandbox generated work",shift:"Generated diagnostics execute inside explicit limits.",blocks:"Boundary escape"},
+      {n:15,x:610,y:185,w:145,label:"Consequence",sub:"judgment tier",symbol:"▲",title:"Match judgment to consequence",shift:"Higher-consequence decisions require stronger evidence.",blocks:"Weak approval"},
+      {n:16,x:430,y:185,w:145,label:"Replanner",sub:"fresh evidence loop",symbol:"↶",title:"Replan from new evidence",shift:"Fresh observations may change the next action.",blocks:"Stale plans"},
+      {n:17,x:790,y:185,w:145,label:"Merge",sub:"completion contract",symbol:"⋈",title:"Merge without false completion",shift:"Parallel findings combine under an explicit completion rule.",blocks:"Partial completion"},
+      {n:18,x:980,y:245,w:140,label:"Approval",sub:"durable wait",symbol:"Ⅱ",title:"Wait safely for approval",shift:"Consequential approval becomes a durable workflow pause.",blocks:"Stale approval"},
+      {n:19,x:980,y:325,w:140,label:"Authority",sub:"explicit capability",symbol:"⌁",title:"Bind explicit capabilities",shift:"The worker receives only the required authority.",blocks:"Ambient authority"},
+      {n:20,x:980,y:405,w:140,label:"Policy",sub:"wording-independent",symbol:"§",title:"Separate policy from wording",shift:"Deterministic policy ignores persuasive phrasing.",blocks:"Policy by persuasion"},
+      {n:21,x:1190,y:195,w:170,label:"Enforced effect",sub:"policy at write",symbol:"◆",title:"Enforce policy at the effect",shift:"Evidence, approval, authority, and policy gate the report write.",blocks:"Stale report writes"},
+      {n:22,x:230,y:650,w:145,label:"Trace",sub:"semantic path",symbol:"⌁",title:"Trace the path",shift:"Accepted and refused journeys emit semantic events.",blocks:"Invisible refusal"},
+      {n:23,x:410,y:650,w:145,label:"Evaluation",sub:"judge trajectory",symbol:"✓",title:"Evaluate the trajectory",shift:"Path, evidence, refusal, and outcome are judged together.",blocks:"Plausible bad paths"},
+      {n:24,x:590,y:650,w:145,label:"Release gate",sub:"evaluation admits",symbol:"│",title:"Gate the release",shift:"Candidates must pass evaluation before release.",blocks:"Failed candidates"},
+      {n:25,x:770,y:650,w:145,label:"Monitor",sub:"redacted view",symbol:"◉",title:"Observe without exposure",shift:"Operators see signals without raw tenant evidence.",blocks:"Sensitive traces"},
+      {n:26,x:950,y:650,w:145,label:"Variation runner",sub:"systematic cases",symbol:"⌘",title:"Test variations",shift:"The real journey runs across scenario changes.",blocks:"Stale variations"},
+      {n:27,x:1130,y:650,w:145,label:"Regression",sub:"incident lesson",symbol:"↺",title:"Make incidents executable",shift:"Production failures become durable regression boundaries.",blocks:"Repeated incidents"},
+      {n:28,x:1310,y:650,w:145,label:"Fleet router",sub:"released only",symbol:"⌬",title:"Control the fleet",shift:"Only released candidates enter shared routing.",blocks:"Unreleased routing"},
+      {n:29,x:70,y:70,w:140,label:"Identity",sub:"registered workload",symbol:"ID",title:"Verify agent identity",shift:"Only the registered Orders workload may start.",blocks:"Unknown agents"},
+      {n:30,x:235,y:70,w:140,label:"Capability",sub:"admitted contract",symbol:"+",title:"Admit capability contracts",shift:"Requested capabilities are checked before launch.",blocks:"Unsupported powers"},
+      {n:31,x:400,y:70,w:140,label:"Caller",sub:"delegated authority",symbol:"@",title:"Carry caller authority",shift:"The workload carries delegated caller scope.",blocks:"Confused deputy"},
+      {n:32,x:565,y:70,w:140,label:"Placement",sub:"tenant boundary",symbol:"⌖",title:"Keep data in bounds",shift:"Tenant evidence receives a validated location.",blocks:"Unsafe placement"},
+      {n:33,x:730,y:70,w:140,label:"Paved path",sub:"safe defaults",symbol:"→",title:"Pave the safe path",shift:"Approved controls become the default launch path.",blocks:"Unsafe overrides"},
+      {n:34,x:895,y:70,w:140,label:"Receipt",sub:"artifact-bound",symbol:"#",title:"Bind evidence to artifacts",shift:"Conformance names the exact tested candidate.",blocks:"Receipt swapping"},
+      {n:35,x:1060,y:70,w:140,label:"Ownership",sub:"operator + rollback",symbol:"⌂",title:"Preserve ownership",shift:"Operator, runbook, and rollback remain required.",blocks:"Ownerless launch"},
+      {n:36,x:1225,y:70,w:140,label:"Compatibility",sub:"version window",symbol:"≈",title:"Evolve contracts safely",shift:"Compatibility windows make platform change deliberate.",blocks:"Incompatible agents"},
+      {n:37,x:1390,y:70,w:140,label:"Risk",sub:"evidence-derived veto",symbol:"!",title:"Make risk executable",shift:"Real evidence—not booleans—determines launch approval.",blocks:"Unproven launch"},
+    ];
+
+    const edges = [
+      {born:2,m:1,d:"M220 333 H250"},{born:3,m:1,d:"M400 333 H430"},{born:4,m:1,d:"M580 333 H610"},{born:5,m:1,d:"M760 333 H790"},
+      {born:6,m:1,d:"M500 470 C500 420 505 390 505 362"},{born:7,m:1,d:"M680 470 C680 420 685 390 685 362"},
+      {born:8,until:17,m:2,d:"M940 333 H1240"},{born:8,m:2,d:"M1400 333 H1452"},
+      {born:9,m:2,d:"M1480 470 C1550 470 1550 333 1400 333",dashed:true},{born:10,m:2,d:"M320 470 C320 425 480 420 500 362"},
+      {born:11,m:2,d:"M860 470 V570"},{born:12,m:2,d:"M1040 470 C980 420 720 420 685 362"},{born:13,m:2,d:"M140 470 C140 420 300 410 325 362"},{born:14,m:2,d:"M1150 501 H1110"},
+      {born:15,m:3,d:"M682 247 C700 275 830 275 850 300"},{born:16,m:3,d:"M500 247 C430 250 360 270 325 300",dashed:true},{born:17,m:3,d:"M862 247 V300"},
+      {born:18,m:3,d:"M940 333 C965 333 955 278 980 278"},{born:19,m:3,d:"M1050 307 V325"},{born:20,m:3,d:"M1050 387 V405"},
+      {born:21,m:3,d:"M1120 438 C1170 438 1150 228 1190 228"},{born:21,m:3,d:"M1275 257 V300"},
+      {born:22,m:4,d:"M1528 333 C1580 333 1580 720 1455 720 H302 V708",dashed:true},{born:23,m:4,d:"M375 681 H410"},{born:24,m:4,d:"M555 681 H590"},{born:25,m:4,d:"M735 681 H770"},{born:26,m:4,d:"M915 681 H950"},{born:27,m:4,d:"M1095 681 H1130"},{born:28,m:4,d:"M1275 681 H1310"},
+      {born:30,m:5,d:"M210 101 H235"},{born:31,m:5,d:"M375 101 H400"},{born:32,m:5,d:"M540 101 H565"},{born:33,m:5,d:"M705 101 H730"},{born:34,m:5,d:"M870 101 H895"},{born:35,m:5,d:"M1035 101 H1060"},{born:36,m:5,d:"M1200 101 H1225"},{born:37,m:5,d:"M1365 101 H1390"},{born:37,m:5,d:"M1460 132 C1460 210 1470 250 1490 295",dashed:true},
+    ];
+
+    const cameraBounds = [
+      {x:25,y:150,width:970,height:460},
+      {x:25,y:150,width:1540,height:460},
+      {x:25,y:145,width:1540,height:470},
+      {x:25,y:140,width:1540,height:610},
+      {x:20,y:15,width:1560,height:735},
+    ];
+
+    const ns = "http://www.w3.org/2000/svg";
+    const el = id => document.getElementById(id);
+    const movementFor = chapter => movements.findIndex(m => chapter >= m.start && chapter <= m.end);
+    let built=0, inspected=0, cameraMovement=0, cameraFrame=null;
+
+    function svgElement(name,attrs={}) { const node=document.createElementNS(ns,name); Object.entries(attrs).forEach(([key,value])=>node.setAttribute(key,value)); return node; }
+
+    function buildGraph() {
+      edges.forEach(edge => {
+        const path=svgElement("path",{d:edge.d,class:`edge movement-${edge.m}${edge.dashed?" dashed":""}`,"data-born":edge.born});
+        if(edge.until) path.dataset.until=edge.until;
+        path.style.setProperty("--edge-color",movements[edge.m-1].color);
+        el("edges").append(path);
+      });
+      chapters.forEach(chapter => {
+        const mi=movementFor(chapter.n), group=svgElement("g",{class:`component movement-${mi+1}`,transform:`translate(${chapter.x} ${chapter.y})`,"data-born":chapter.n,"data-chapter":chapter.n,tabindex:"0",role:"button","aria-label":`Chapter ${chapter.n}: ${chapter.title}`});
+        group.style.setProperty("--node-color",movements[mi].color);
+        const title=svgElement("title"); title.textContent=`Chapter ${chapter.n}: ${chapter.title}`;
+        const card=svgElement("rect",{class:"card",width:chapter.w,height:62,rx:13});
+        const disc=svgElement("circle",{class:"icon-disc",cx:24,cy:31,r:14});
+        const icon=svgElement("text",{class:"icon",x:24,y:31}); icon.textContent=chapter.symbol;
+        const badge=svgElement("text",{class:"chapter",x:43,y:17}); badge.textContent=`CH ${chapter.n}`;
+        const label=svgElement("text",{class:"label",x:43,y:35}); label.textContent=chapter.label;
+        const sub=svgElement("text",{class:"sub",x:43,y:50}); sub.textContent=chapter.sub;
+        group.append(title,card,disc,icon,badge,label,sub);
+        group.addEventListener("click",()=>inspectChapter(chapter.n));
+        group.addEventListener("keydown",event=>{if(event.key==="Enter"||event.key===" ")inspectChapter(chapter.n)});
+        el("components").append(group);
+      });
+    }
+
+    function fittedCamera(index) {
+      const svg=el("journey-map"), b=cameraBounds[index], ratio=svg.clientWidth&&svg.clientHeight?svg.clientWidth/svg.clientHeight:2.1;
+      let {x,y,width,height}=b;
+      if(width/height>ratio){const h=width/ratio;y-=(h-height)/2;height=h}else{const w=height*ratio;x-=(w-width)/2;width=w}
+      return [x,y,width,height];
+    }
+
+    function focusCamera(index,animate=true) {
+      const svg=el("journey-map"),destination=fittedCamera(index);cameraMovement=index;
+      if(cameraFrame&&window.cancelAnimationFrame)cancelAnimationFrame(cameraFrame);
+      if(!animate||!window.requestAnimationFrame){svg.setAttribute("viewBox",destination.join(" "));return}
+      const start=svg.getAttribute("viewBox").split(/\s+/).map(Number),started=performance.now(),duration=650;
+      const frame=now=>{const p=Math.min(1,(now-started)/duration),e=1-Math.pow(1-p,3),v=start.map((n,i)=>n+(destination[i]-n)*e);svg.setAttribute("viewBox",v.join(" "));if(p<1)cameraFrame=requestAnimationFrame(frame);else cameraFrame=null};
+      cameraFrame=requestAnimationFrame(frame);
+    }
+
+    function paintState() {
+      const active=inspected||built,mi=active?movementFor(active):-1,movement=mi>=0?movements[mi]:null;
+      if(movement)document.documentElement.style.setProperty("--current",movement.color);
+      el("empty-prompt").classList.toggle("hidden",built>0);el("status-mark").textContent=built||"—";el("step-count").textContent=`${built} / 37`;el("previous").disabled=built===0;el("next").disabled=built===37;
+      document.querySelectorAll("[data-born]").forEach(item=>{const born=Number(item.dataset.born),until=Number(item.dataset.until||999);item.classList.toggle("visible",built>=born&&built<=until);item.classList.toggle("retired",built>until)});
+      document.querySelectorAll(".component").forEach(item=>item.classList.toggle("current",Number(item.dataset.chapter)===inspected));
+      document.querySelectorAll(".destinations button").forEach((button,index)=>{button.classList.toggle("progressed",built>=movements[index].start);button.classList.toggle("current",mi===index)});
+    }
+
+    function inspectChapter(value,updateHash=true) {
+      const number=Number(value);if(number<1||number>built)return;inspected=number;
+      const chapter=chapters[number-1],movement=movements[movementFor(number)];document.documentElement.style.setProperty("--current",movement.color);
+      el("chapter-number").textContent=`Chapter ${number}`;el("movement-name").textContent=movement.name;el("chapter-title").textContent=chapter.title;el("chapter-shift").textContent=chapter.shift;el("chapter-blocks").textContent=chapter.blocks;el("checkpoint").href=`${repo}/tree/chapter-${String(number).padStart(2,"0")}`;el("checkpoint").hidden=false;paintState();
+      if(updateHash)history.replaceState(null,"",`#chapter-${String(number).padStart(2,"0")}`);
+    }
+
+    function revealChapter(number) {const previous=built?movementFor(built):0;built=Math.max(0,Math.min(37,Number(number)));inspected=built;const next=built?movementFor(built):0;if(next!==previous||cameraMovement!==next)focusCamera(next,built>1);if(built)inspectChapter(built);else resetJourney()}
+    function resetJourney(){built=0;inspected=0;el("chapter-number").textContent="Not started";el("movement-name").textContent="Use the arrow controls";el("chapter-title").textContent="The architecture canvas is empty";el("chapter-shift").textContent="Each → adds exactly one earned responsibility.";el("chapter-blocks").textContent="Nothing has run";el("checkpoint").hidden=true;el("prompt-title").textContent="Begin with an empty system";el("prompt-copy").textContent="Use → to add one chapter at a time. Use ← to step back.";focusCamera(0,false);paintState();history.replaceState(null,"",location.pathname+location.search)}
+    function stepForward(){if(built<37)revealChapter(built+1)}
+    function stepBackward(){if(built>1)revealChapter(built-1);else if(built===1)resetJourney()}
+    function jumpToMovement(index){revealChapter(movements[index].end)}
+
+    buildGraph();
+    document.querySelectorAll(".destinations button").forEach((button,index)=>button.addEventListener("click",()=>jumpToMovement(index)));
+    el("previous").addEventListener("click",stepBackward);el("next").addEventListener("click",stepForward);
+    window.addEventListener("keydown",event=>{if(event.key==="ArrowRight"){event.preventDefault();stepForward()}else if(event.key==="ArrowLeft"){event.preventDefault();stepBackward()}});
+    window.addEventListener("resize",()=>focusCamera(cameraMovement,false));
+    const hash=window.location.hash.match(/chapter-(\d{1,2})/);if(hash){revealChapter(Math.max(1,Math.min(37,Number(hash[1]))))}else resetJourney();
+  </script>
+</body>
+</html>

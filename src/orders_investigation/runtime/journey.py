@@ -56,6 +56,7 @@ from orders_investigation.platform.defaults import ScaffoldRequest, admit_scaffo
 from orders_investigation.platform.releases import ConformanceReceipt, release_conforms
 from orders_investigation.platform.lifecycle import LifecycleOwnership, validate_ownership
 from orders_investigation.platform.compatibility import CompatibilityWindow, migration_step
+from orders_investigation.platform.risk import LaunchEvidence, RiskTier, approve_launch
 from orders_investigation.runtime.boundary import ORDERS_BOUNDARY
 from orders_investigation.runtime.contracts.admission import admit
 from orders_investigation.runtime.workflow import replay_pipeline_observation
@@ -106,6 +107,14 @@ class RegisteredRun:
 class PlacedRun:
     target_id: str
     registered: RegisteredRun
+
+
+@dataclass(frozen=True)
+class OrdersLaunch:
+    evidence: LaunchEvidence
+    decision: tuple[bool, tuple[str, ...]]
+    variation_runs: tuple[VariationRun, ...]
+    execution: PlacedRun | None
 
 
 def orders_agent_contract(version: str = "1") -> AgentContract:
@@ -363,11 +372,14 @@ def gate_orders_release(results: tuple[JourneyResult, ...]) -> ReleaseDecision:
     )
 
 
-def run_orders_variations() -> tuple[VariationRun, ...]:
+def run_orders_variations(
+    *,
+    faults: tuple[str, ...] = ("none", "stale_evidence"),
+) -> tuple[VariationRun, ...]:
     """Execute the Orders path across stable model, fault, and timing variations."""
     variations = variation_matrix(
         ("reasoning-small", "reasoning-large"),
-        ("none", "stale_evidence"),
+        faults,
         (0, 500),
     )
     runs = []
@@ -379,6 +391,82 @@ def run_orders_variations() -> tuple[VariationRun, ...]:
             VariationRun(variation, journey, evaluate_orders_investigation(journey))
         )
     return tuple(runs)
+
+
+def run_orders_launch(
+    *,
+    faults: tuple[str, ...] = ("none",),
+    ownership: LifecycleOwnership | None = None,
+) -> OrdersLaunch:
+    """Derive launch risk from the proofs produced by the complete journey."""
+    contract = orders_agent_contract()
+    registry = AgentRegistry()
+    registry.register(contract)
+    resolved = registry.resolve(contract.agent_id, contract.version)
+    capability_reasons = admit_contract(resolved, orders_capability_profile())
+    if capability_reasons:
+        raise ValueError("capability_refused:" + ",".join(capability_reasons))
+
+    project = scaffold(
+        ScaffoldRequest(
+            "orders-investigator", "orders-oncall", "orders-read-and-report"
+        )
+    )
+    scaffold_reasons = admit_scaffold(project)
+    if scaffold_reasons:
+        raise ValueError("scaffold_refused:" + ",".join(scaffold_reasons))
+
+    receipt = orders_conformance_receipt()
+    conforms, conformance_reasons = release_conforms(
+        "candidate-orders-v1",
+        resolved,
+        receipt,
+        {"trace", "policy", "rollback", "authority", "placement"},
+        required_suite_version="suite-5",
+    )
+    if conformance_reasons:
+        raise ValueError("conformance_refused:" + ",".join(conformance_reasons))
+
+    ownership = ownership or orders_lifecycle_ownership()
+    owned, _ = validate_ownership(ownership)
+    compatibility = migration_step(
+        orders_compatibility_window(), frozenset({"trace/v2"})
+    )
+    if compatibility == "hold_incompatible_reader":
+        raise ValueError("compatibility_refused:hold_incompatible_reader")
+
+    caller_allowed, _ = authorize_caller(
+        orders_caller(),
+        orders_delegation(),
+        "orders-investigator",
+        "report.write",
+        NOW,
+    )
+    target_id = place(orders_data_boundary(), orders_execution_targets())
+    variation_runs = run_orders_variations(faults=faults)
+    safety_failures = sum(
+        not run.evaluation.dimensions["path_compliance"] for run in variation_runs
+    )
+    evidence = LaunchEvidence(
+        cases=len(variation_runs),
+        safety_failures=safety_failures,
+        owner_present=owned,
+        rollback_proven=conforms and "rollback" in receipt.passed_checks,
+        caller_authority_proven=caller_allowed,
+        data_boundary_proven=target_id == "orders-us-west-2",
+    )
+    decision = approve_launch(
+        RiskTier("consequential", "bounded-write", True, 4),
+        evidence,
+    )
+    execution = (
+        run_placed_orders_investigation(
+            orders_data_boundary(), orders_execution_targets()
+        )
+        if decision[0]
+        else None
+    )
+    return OrdersLaunch(evidence, decision, variation_runs, execution)
 
 
 def _approve(intent: ApprovalIntent, connection: sqlite3.Connection) -> str:
