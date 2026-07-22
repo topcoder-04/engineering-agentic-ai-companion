@@ -1,12 +1,12 @@
-# Chapter 29 companion — Making an Agent Identifiable
+# Chapter 30 companion — Admitting Capabilities, Not Copied Settings
 
-This checkpoint adds immutable, owned, versioned agent contracts in a registry.
+This checkpoint adds capability-profile admission with an explicit reason for every mismatch.
 
 ## What this chapter adds
 
-- Immutable workload contracts live in `platform/identity/`; `platform/controls.py` is compatibility-only.
-- The shared Orders journey now resolves the exact registered agent version before doing work.
-- A composition test proves an unknown version cannot start the investigation.
+- Capability-profile admission lives in `platform/capabilities/`; `platform/controls.py` is compatibility-only.
+- The registered Orders contract must match model, tool, policy, and data-class capabilities before execution.
+- A composition test proves an incompatible tool contract cannot start the investigation.
 
 ## Code map
 
@@ -54,6 +54,7 @@ src/orders_investigation/operations/learning.py
 src/orders_investigation/operations/observability.py
 src/orders_investigation/operations/probes.py
 src/orders_investigation/platform/__init__.py
+src/orders_investigation/platform/capabilities/__init__.py
 src/orders_investigation/platform/controls.py
 src/orders_investigation/platform/identity/__init__.py
 src/orders_investigation/runtime/__init__.py
@@ -64,8 +65,8 @@ src/orders_investigation/runtime/journey.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_29.py
-tests/test_chapter_29.py
+examples/chapter_30.py
+tests/test_chapter_30.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -87,22 +88,23 @@ The full test command includes behavioral, evidence-provenance, README, and fold
 
 ## Behavioral spine
 
-Identity no longer floats beside the agent. The Orders composition root resolves an
-immutable `orders-investigator` contract before entering the investigation path. The
-registered version completes the report effect; an unknown version is refused before
-the first observation, proposal, or write.
+Capability admission now follows exact identity resolution and precedes all Orders
+work. The approved profile allows the registered contract into the investigation.
+Replacing only its admitted tool contract with `catalog.read/v1` refuses execution
+before the agent can observe the database or write the report.
 ## Deliberately incomplete
 
-This branch contains no platform capability introduced after Chapter 29. Chapter 30 addresses the next manuscript pressure.
+This branch contains no platform capability introduced after Chapter 30. Chapter 31 addresses the next manuscript pressure.
 
 ## Architecture evolution
 
-Stable agent identity begins the platform map. No later platform responsibility appears early.
+Capability admission becomes its own platform subdomain. No later platform responsibility appears early.
 
 ```text
 src/orders_investigation/platform/
 ├── controls.py
 ├── identity/
+├── capabilities/
 ```
 
-The platform map now exposes `identity/`. Each subdomain is introduced only when its contract becomes executable. See `ARCHITECTURE.md`.
+The platform map now exposes `identity/`, `capabilities/`. Each subdomain is introduced only when its contract becomes executable. See `ARCHITECTURE.md`.

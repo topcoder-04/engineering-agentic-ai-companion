@@ -45,6 +45,7 @@ from orders_investigation.governance.authority import (
 from orders_investigation.governance.policy import PolicyFacts, orders_report_policy
 from orders_investigation.operations.probes import Variation, variation_matrix
 from orders_investigation.platform.identity import AgentContract, AgentRegistry
+from orders_investigation.platform.capabilities import CapabilityProfile, admit_contract
 from orders_investigation.runtime.boundary import ORDERS_BOUNDARY
 from orders_investigation.runtime.contracts.admission import admit
 from orders_investigation.runtime.workflow import replay_pipeline_observation
@@ -105,6 +106,16 @@ def orders_agent_contract(version: str = "1") -> AgentContract:
     )
 
 
+def orders_capability_profile() -> CapabilityProfile:
+    return CapabilityProfile(
+        "orders-read-and-report",
+        frozenset({"reasoning-restricted"}),
+        frozenset({"database.read/v2"}),
+        frozenset({"consequential/v4"}),
+        frozenset({"restricted"}),
+    )
+
+
 def run_registered_orders_investigation(
     registry: AgentRegistry,
     *,
@@ -114,6 +125,18 @@ def run_registered_orders_investigation(
     """Resolve an exact workload identity before any investigation work begins."""
     contract = registry.resolve(agent_id, version)
     return RegisteredRun(contract, contract.manifest_digest, run_orders_investigation())
+
+
+def run_capability_admitted_orders_investigation(
+    registry: AgentRegistry,
+    profile: CapabilityProfile,
+) -> RegisteredRun:
+    """Admit the resolved contract before the investigation may execute."""
+    contract = registry.resolve("orders-investigator", "1")
+    reasons = admit_contract(contract, profile)
+    if reasons:
+        raise ValueError("capability_refused:" + ",".join(reasons))
+    return run_registered_orders_investigation(registry)
 
 
 def trace_orders_investigation(
