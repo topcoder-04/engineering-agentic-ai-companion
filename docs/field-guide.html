@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A single-screen reader's guide to Engineering Agentic AI: every movement and chapter reachable by keyboard, with the lesson and runnable exercise for each.">
+<title>Field Guide — Engineering Agentic AI</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #080b14;
+    --panel: #0e1524;
+    --panel-2: #121a2c;
+    --ink: #f5f7ff;
+    --muted: #939db5;
+    --faint: #5c6579;
+    --line: rgba(255,255,255,.1);
+    --c1: #55d9ff; --c2: #63e59a; --c3: #ffd166; --c4: #ff82aa; --c5: #b99aff;
+    --mv: #55d9ff;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; background: var(--bg); }
+  body { color: var(--ink); font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+  button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+  a { color: inherit; }
+
+  .app {
+    display: grid;
+    grid-template-rows: 62px minmax(0, 1fr) 74px;
+    width: 100vw; height: 100dvh; min-height: 640px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 8% 12%, rgba(85,217,255,.06), transparent 28rem),
+      radial-gradient(circle at 92% 8%, rgba(185,154,255,.06), transparent 28rem),
+      var(--bg);
+  }
+
+  /* ================= header ================= */
+  header { display: grid; grid-template-columns: minmax(230px, .9fr) minmax(560px, 2fr) auto; gap: 18px; align-items: center; padding: 10px 20px; border-bottom: 1px solid var(--line); background: rgba(8,11,20,.95); }
+  .brand { min-width: 0; }
+  .brand strong { display: block; overflow: hidden; font-family: var(--serif); font-size: .95rem; font-weight: 600; white-space: nowrap; text-overflow: ellipsis; }
+  .brand strong em { font-style: italic; color: var(--mv); }
+  .brand small { display: block; margin-top: 2px; color: var(--faint); font-size: .56rem; letter-spacing: .1em; text-transform: uppercase; }
+
+  .tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .tabs button { display: flex; gap: 8px; align-items: center; min-width: 0; padding: 7px 9px; border: 1px solid transparent; border-radius: 10px; color: #626c82; text-align: left; }
+  .tabs button:hover, .tabs button:focus-visible { border-color: var(--line); outline: none; }
+  .tabs button.progressed { color: #adb6c9; }
+  .tabs button.current { color: var(--ink); background: color-mix(in srgb, var(--tab) 10%, transparent); border-color: color-mix(in srgb, var(--tab) 35%, transparent); }
+  .tabs .key { flex: 0 0 auto; display: grid; place-items: center; width: 17px; height: 17px; border: 1px solid color-mix(in srgb, var(--tab) 60%, transparent); border-radius: 5px; color: var(--tab); font-family: var(--mono); font-size: .58rem; }
+  .tabs .t-copy { min-width: 0; }
+  .tabs .t-copy b, .tabs .t-copy span { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .tabs .t-copy b { font-size: .64rem; }
+  .tabs .t-copy span { margin-top: 1px; opacity: .6; font-size: .52rem; }
+
+  .stepper { display: flex; align-items: center; gap: 7px; }
+  .stepper span { min-width: 56px; text-align: center; font-family: var(--mono); font-size: .68rem; color: var(--muted); }
+  .stepper button { display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid var(--mv); border-radius: 50%; background: color-mix(in srgb, var(--mv) 12%, transparent); font-weight: 900; }
+  .stepper button:hover, .stepper button:focus-visible { background: color-mix(in srgb, var(--mv) 25%, transparent); outline: none; }
+  .stepper button:disabled { border-color: var(--line); color: var(--faint); background: transparent; cursor: not-allowed; }
+
+  /* ================= main ================= */
+  main { display: grid; grid-template-columns: 258px minmax(0, 1fr); min-height: 0; }
+
+  /* left rail */
+  .rail { display: flex; flex-direction: column; min-height: 0; padding: 14px 12px 12px 18px; border-right: 1px solid var(--line); background: rgba(10,14,24,.55); }
+  .mv-roman { font-family: var(--serif); color: var(--mv); font-size: 1.5rem; line-height: 1; }
+  .mv-name { margin: 4px 0 0; font-family: var(--serif); font-size: .92rem; font-weight: 600; line-height: 1.25; }
+  .mv-question { margin: 7px 0 10px; font-family: var(--serif); font-style: italic; color: var(--mv); font-size: .7rem; line-height: 1.45; }
+  .rail-list { display: flex; flex-direction: column; gap: 3px; min-height: 0; overflow-y: auto; margin: 0 -4px; padding: 2px 4px; }
+  .rail-item { display: flex; gap: 9px; align-items: center; padding: 6px 8px; border: 1px solid transparent; border-radius: 9px; color: var(--muted); text-align: left; }
+  .rail-item:hover, .rail-item:focus-visible { border-color: var(--line); outline: none; }
+  .rail-item.current { color: var(--ink); background: color-mix(in srgb, var(--mv) 10%, transparent); border-color: color-mix(in srgb, var(--mv) 40%, transparent); }
+  .rail-item .num { flex: 0 0 auto; display: grid; place-items: center; width: 21px; height: 21px; border: 1.5px solid var(--mv); border-radius: 50%; font-family: var(--mono); font-size: .56rem; color: var(--mv); }
+  .rail-item.passed .num { background: color-mix(in srgb, var(--mv) 24%, transparent); }
+  .rail-item b { overflow: hidden; font-size: .68rem; font-weight: 600; white-space: nowrap; text-overflow: ellipsis; }
+  .rail-setup { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--line); }
+
+  /* detail */
+  .detail { display: flex; flex-direction: column; min-width: 0; min-height: 0; padding: 20px 26px 14px; overflow-y: auto; }
+  .ch-meta { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .ch-meta .chip { font-family: var(--mono); font-size: .62rem; color: var(--mv); }
+  .ch-meta .mv-of { color: var(--faint); font-size: .62rem; }
+  .refusal { margin-left: auto; padding: 4px 10px; border: 1px solid color-mix(in srgb, var(--mv) 45%, transparent); border-radius: 8px; background: color-mix(in srgb, var(--mv) 8%, transparent); font-size: .62rem; white-space: nowrap; }
+  .refusal b { color: var(--mv); font-weight: 800; }
+  h1.lesson { margin: 8px 0 2px; font-family: var(--serif); font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 600; letter-spacing: -.01em; line-height: 1.12; }
+  .change { margin: 6px 0 0; padding-left: 12px; border-left: 3px solid var(--mv); font-family: var(--serif); font-style: italic; color: var(--ink); font-size: .95rem; line-height: 1.5; max-width: 62ch; }
+  .why { margin: 12px 0 0; color: var(--muted); font-size: .8rem; line-height: 1.65; max-width: 72ch; }
+  .why b { color: var(--ink); font-weight: 650; }
+  .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .badge { padding: 3px 9px; border: 1px dashed; border-radius: 7px; font-family: var(--mono); font-size: .6rem; }
+  .b-req { border-color: var(--c3); color: var(--c3); }
+  .b-opt { border-color: var(--faint); color: var(--muted); }
+
+  .ex-block { margin-top: 18px; }
+  .ex-label { display: flex; justify-content: space-between; gap: 12px; color: var(--faint); font-size: .56rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+  .ex-label span { font-weight: 500; letter-spacing: .04em; text-transform: none; }
+  .ex-row { display: flex; gap: 10px; align-items: stretch; margin-top: 7px; }
+  .ex-row code { flex: 1; overflow-x: auto; padding: 10px 13px; border: 1px solid var(--line); border-radius: 11px; background: #0a0f1b; font-family: var(--mono); font-size: .69rem; line-height: 1.75; color: var(--c2); white-space: pre; }
+  .ex-actions { display: flex; flex-direction: column; gap: 6px; }
+  .ex-actions button, .ex-actions a { display: block; padding: 7px 11px; border: 1px solid var(--line); border-radius: 9px; font-size: .62rem; font-weight: 700; text-align: center; text-decoration: none; white-space: nowrap; }
+  .ex-actions button:hover, .ex-actions a:hover { border-color: var(--mv); color: var(--mv); }
+
+  /* one persistent system spine; the active chapter lights up its attachment point */
+  .chapter-spine { margin-top: 18px; padding: 14px 0 13px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .spine-head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; margin-bottom: 10px; }
+  .spine-head span { color: var(--faint); font-size: .56rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+  .spine-head strong { color: var(--mv); font-family: var(--mono); font-size: .62rem; }
+  .spine-flow { display: grid; grid-template-columns: repeat(8, minmax(76px, 1fr)); gap: 12px; min-width: 760px; padding: 3px 1px; }
+  .spine-scroll { overflow-x: auto; padding-bottom: 3px; }
+  .spine-node { position: relative; min-width: 0; padding: 9px 8px 8px; border: 1px solid var(--line); border-radius: 9px; background: rgba(255,255,255,.015); }
+  .spine-node:not(:last-child)::after { content: "→"; position: absolute; top: 18px; right: -11px; z-index: 2; color: var(--faint); font-size: .62rem; }
+  .spine-node.active { border-color: var(--mv); background: color-mix(in srgb, var(--mv) 12%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--mv) 30%, transparent); }
+  .spine-node b, .spine-node small { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .spine-node b { color: var(--ink); font-size: .62rem; }
+  .spine-node small { margin-top: 3px; color: var(--faint); font-size: .51rem; }
+  .spine-node.active b, .spine-node.active small { color: var(--mv); }
+  .spine-loop { margin-top: 7px; color: var(--faint); font-family: var(--mono); font-size: .54rem; text-align: right; }
+
+  /* setup screen (position 0) */
+  .setup h1 { margin: 4px 0 2px; }
+  .setup .why { max-width: 66ch; }
+  .loop { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 14px; }
+  .loop .st { padding: 4px 10px; border: 1px solid; border-radius: 999px; font-family: var(--mono); font-size: .64rem; }
+  .loop .ar { color: var(--faint); font-size: .66rem; }
+
+  /* ================= footer ================= */
+  footer { display: grid; grid-template-columns: minmax(300px, 1fr) auto; gap: 20px; align-items: center; padding: 10px 20px; border-top: 1px solid var(--line); background: rgba(10,14,24,.98); }
+  .prog { min-width: 0; }
+  .prog-top { display: flex; gap: 10px; align-items: baseline; }
+  .prog-top strong { font-family: var(--mono); font-size: .72rem; color: var(--mv); }
+  .prog-top span { overflow: hidden; color: var(--muted); font-size: .64rem; white-space: nowrap; text-overflow: ellipsis; }
+  .prog-bar { display: flex; gap: 2px; height: 8px; margin-top: 7px; border-radius: 5px; overflow: hidden; }
+  .prog-bar i { flex: 1; background: rgba(255,255,255,.07); cursor: pointer; }
+  .prog-bar i.passed { background: var(--seg); }
+  .prog-bar i.at { outline: 1.5px solid #fff; outline-offset: -1.5px; }
+  .keys { display: flex; gap: 14px; color: var(--faint); font-size: .6rem; white-space: nowrap; }
+  .keys kbd { padding: 1px 6px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel); font-family: var(--mono); font-size: .58rem; color: var(--muted); }
+
+  @media (max-width: 1000px) { .tabs .t-copy span { display: none; } }
+  @media (max-width: 820px) { .app { min-width: 820px; overflow-x: auto; } }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand">
+      <strong>Field Guide · <em>Engineering Agentic AI</em></strong>
+      <small>From useful answers to dependable work — 37 chapters</small>
+    </div>
+    <nav class="tabs" id="tabs" aria-label="Jump to a movement"></nav>
+    <div class="stepper" role="group" aria-label="Chapter navigation">
+      <button id="prev" type="button" aria-label="Previous chapter" title="Previous (←)">←</button>
+      <span id="pos" aria-live="polite">setup</span>
+      <button id="next" type="button" aria-label="Next chapter" title="Next (→)">→</button>
+    </div>
+  </header>
+
+  <main>
+    <aside class="rail">
+      <div class="mv-roman" id="rail-roman">—</div>
+      <div class="mv-name" id="rail-name">Before you begin</div>
+      <p class="mv-question" id="rail-question">One clone, then every chapter is a branch away.</p>
+      <div class="rail-list" id="rail-list" role="listbox" aria-label="Chapters in this movement"></div>
+      <button class="rail-item rail-setup" id="go-setup" type="button"><span class="num" style="border-color:var(--faint);color:var(--faint)">0</span><b>Setup &amp; how to use</b></button>
+    </aside>
+    <section class="detail" id="detail" aria-live="polite"></section>
+  </main>
+
+  <footer>
+    <div class="prog">
+      <div class="prog-top"><strong id="progress-count">Setup</strong><span id="upnext">Use → to begin with Chapter 1.</span></div>
+      <div class="prog-bar" id="prog-bar" aria-hidden="true"></div>
+    </div>
+    <div class="keys">
+      <span><kbd>←</kbd><kbd>→</kbd> chapter</span>
+      <span><kbd>↑</kbd><kbd>↓</kbd> movement</span>
+      <span><kbd>1</kbd>–<kbd>5</kbd> jump</span>
+      <span><kbd>C</kbd> copy commands</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+const repo = "https://github.com/topcoder-04/engineering-agentic-ai-companion";
+
+const movements = [
+  { roman:"I", start:1, end:7, hex:"#55d9ff", short:"Controlled work",
+    name:"From answer to controlled work",
+    question:"What must be true before a model's suggestion is allowed to become an action?" },
+  { roman:"II", start:8, end:14, hex:"#63e59a", short:"Reliable work",
+    name:"From controlled work to reliable work",
+    question:"What happens when the same work runs twice, half-finishes, or reads something hostile?" },
+  { roman:"III", start:15, end:21, hex:"#ffd166", short:"Governed effects",
+    name:"From reliable work to governed effects",
+    question:"Who approved this, with what authority, under which policy — checked where it matters?" },
+  { roman:"IV", start:22, end:28, hex:"#ff82aa", short:"Judged operations",
+    name:"From governed effects to judged operations",
+    question:"How do you know the agent behaved — and how does a bad day become a permanent test?" },
+  { roman:"V", start:29, end:37, hex:"#b99aff", short:"Operable platform",
+    name:"From one agent to an operable platform",
+    question:"What must a platform demand of every agent before letting it launch at all?" },
+];
+
+const chapters = [
+{n:1, lesson:"An answer is not work", refusal:"False completion",
+ change:"A useful answer is separated from completed work.",
+ why:"Run the opening Orders incident. The model produces a plausible explanation — and the exercise shows why the system refuses to treat that explanation as a finished investigation."},
+{n:2, lesson:"Draw the boundary", refusal:"Out-of-scope work",
+ change:"The investigation receives an explicit boundary around what it may touch.",
+ why:"The investigation now declares what it may observe and change. Watch a request outside that scope get rejected before anything runs."},
+{n:3, lesson:"Propose, don't execute", refusal:"Unknown actions",
+ change:"The model may propose; deterministic code decides what may execute.",
+ why:"The book's central split, made runnable: a model choice goes behind a provider-neutral seam, and only permitted actions execute. Runs offline with a fixed-choice model.", live:true},
+{n:4, lesson:"Grow from evidence", refusal:"Invented tasks",
+ change:"Recorded evidence can create the next bounded task.",
+ why:"The task graph expands only from what was actually observed — the exercise shows a new task being born from recorded evidence, never from imagination."},
+{n:5, lesson:"The admission contract", refusal:"Malformed proposals",
+ change:"Model proposals must cross a typed admission contract.",
+ why:"Build the decision surface the model sees, make a proposal, and watch it pass schema-validated admission before it may touch the graph.", live:true},
+{n:6, lesson:"Budget the judgment", refusal:"Endless exploration",
+ change:"Variable judgment receives an explicit budget.",
+ why:"Exploration gets a deterministic work limit. The exercise exhausts a budget and shows the investigation stopping deliberately instead of wandering."},
+{n:7, lesson:"Pause and resume", refusal:"Restarted work",
+ change:"The controlled workflow can persist, stop, and resume.",
+ why:"Kill the workflow mid-investigation and bring it back: it resumes from recorded state rather than starting over. Closes Movement I."},
+{n:8, lesson:"Retry without repeating", refusal:"Duplicate writes",
+ change:"Retrying cannot duplicate an effect.",
+ why:"The Orders report gets a stable effect identity. Retry the write and see one report, not two."},
+{n:9, lesson:"Reconcile the unknown", refusal:"Blind retries",
+ change:"An unknown effect outcome is reconciled before another attempt.",
+ why:"A response is lost mid-effect. Instead of retrying blind, the system checks authoritative state first — the difference between at-least-once chaos and reconciliation."},
+{n:10, lesson:"Bound the memory", refusal:"Context sprawl",
+ change:"Memory retrieval is relevant, ranked, and bounded.",
+ why:"Only reviewed, scoped, ranked prior knowledge reaches the model. The exercise shows retrieval declining to stuff everything into context."},
+{n:11, lesson:"Hold the task spine", refusal:"Mission drift",
+ change:"An explicit task spine prevents interesting evidence from replacing the mission.",
+ why:"A long investigation meets a fascinating distraction. The spine keeps the active causal question in charge — compared against retained evidence of what happens without it."},
+{n:12, lesson:"Delegate, keep ownership", refusal:"Orphaned work",
+ change:"Delegated work remains attached to an owner and purpose.",
+ why:"Subtasks keep their parent, purpose, and completion obligation. No work is spawned that nobody has to answer for."},
+{n:13, lesson:"Quarantine instructions", refusal:"Injected commands",
+ change:"Dependency evidence is typed; instruction-bearing content is quarantined.",
+ why:"External content arrives as evidence, never as instruction — the prompt-injection chapter. Watch instruction-bearing dependency content get quarantined instead of obeyed."},
+{n:14, lesson:"Sandbox generated work", refusal:"Boundary escape",
+ change:"Generated work executes inside an explicit sandbox.",
+ why:"Generated diagnostics run inside declared limits. The retained Docker probe demonstrates the isolation boundary holding. Closes Movement II.", docker:true},
+{n:15, lesson:"Weigh the consequence", refusal:"Weak approval",
+ change:"Higher-consequence decisions require stronger judgment.",
+ why:"Decisions are routed by what they can break: low-consequence choices flow, high-consequence ones demand stronger evidence and judgment."},
+{n:16, lesson:"Replan on evidence", refusal:"Stale plans",
+ change:"New evidence may change the next useful action.",
+ why:"Fresh observations invalidate the old plan. The exercise shows replanning as a governed step — not the agent quietly changing its mind."},
+{n:17, lesson:"Merge without finishing", refusal:"Partial completion",
+ change:"Parallel contributions merge without becoming false completion.",
+ why:"Specialist findings join under an explicit completion rule, so a merged partial result can never masquerade as a finished investigation."},
+{n:18, lesson:"Wait for approval, safely", refusal:"Stale approval",
+ change:"Consequential approval can wait safely and resume deliberately.",
+ why:"A consequential step becomes a durable pause. The exercise shows an approval that expired being refused — waiting is a first-class workflow state."},
+{n:19, lesson:"Name the authority", refusal:"Ambient authority",
+ change:"Authority is bound to explicit capabilities.",
+ why:"The worker receives exactly the capabilities it needs and nothing ambient. Watch an action fail because its authority was never explicitly granted."},
+{n:20, lesson:"Policy beyond wording", refusal:"Policy by persuasion",
+ change:"Policy is expressed independently of model wording.",
+ why:"Policy moves into Rego, evaluated by OPA — deterministic rules that persuasive model phrasing cannot talk its way around.", opa:true},
+{n:21, lesson:"Enforce at the effect", refusal:"Stale report writes",
+ change:"The effect boundary enforces policy before writing the report.",
+ why:"The movement's summit: evidence, approval, authority, and policy are all re-checked at the exact write. Also introduces journey.py — the single path every later control joins. Closes Movement III."},
+{n:22, lesson:"Trace the path", refusal:"Invisible refusal",
+ change:"Traces record the path and its refusals, not only the answer.",
+ why:"Accepted and refused journeys both emit semantic events. A refusal you can't see is a refusal you can't trust."},
+{n:23, lesson:"Judge the trajectory", refusal:"Plausible bad paths",
+ change:"Evaluation judges the complete trajectory.",
+ why:"Path, evidence, refusals, and outcome are scored together — catching runs that produced a fine answer by an unacceptable route."},
+{n:24, lesson:"Evaluation gates release", refusal:"Failed candidates",
+ change:"Failed evaluation blocks release.",
+ why:"Evaluation stops being advisory. A candidate that fails simply cannot be released — the shortest chapter with the sharpest teeth."},
+{n:25, lesson:"Observe without exposure", refusal:"Sensitive traces",
+ change:"Production can be observed without exposing sensitive content.",
+ why:"Operators get signals; raw tenant evidence stays redacted. Observability and confidentiality stop being a trade-off."},
+{n:26, lesson:"Vary the scenario", refusal:"Stale variations",
+ change:"Variation tests explore cases authored examples miss.",
+ why:"The real journey runs across systematic scenario changes, probing blind spots your hand-written cases never covered."},
+{n:27, lesson:"Incidents become tests", refusal:"Repeated incidents",
+ change:"An incident becomes an executable regression boundary.",
+ why:"A production failure is converted into a permanent, runnable boundary — the organization literally cannot repeat this mistake silently."},
+{n:28, lesson:"Route only the released", refusal:"Unreleased routing",
+ change:"Fleet routing admits only released candidates within shared limits.",
+ why:"Shared routing accepts only candidates that passed the release gate, inside shared limits. Closes Movement IV."},
+{n:29, lesson:"Prove your identity", refusal:"Unknown agents",
+ change:"Only a registered workload identity may run.",
+ why:"The platform arc opens: the Orders workload must present a verifiable identity before it may even start."},
+{n:30, lesson:"Declare capabilities", refusal:"Unsupported powers",
+ change:"The platform admits declared capabilities instead of copied settings.",
+ why:"Capabilities are requested and checked at launch — not copy-pasted config the platform never inspects."},
+{n:31, lesson:"Carry the caller", refusal:"Confused deputy",
+ change:"Delegation carries the caller's authority without creating a confused deputy.",
+ why:"The classic confused-deputy attack, made concrete: the workload acts with the caller's delegated scope, never its own elevated one. Every delegation mismatch is proven refused."},
+{n:32, lesson:"Place data safely", refusal:"Unsafe placement",
+ change:"Data placement keeps tenant evidence inside its allowed boundary.",
+ why:"Tenant evidence gets a validated location. The exercise proves retention refusal — data cannot land outside its boundary."},
+{n:33, lesson:"Pave the safe path", refusal:"Unsafe overrides",
+ change:"The paved scaffold makes the admitted path the easiest path.",
+ why:"Approved controls become the default scaffold, so doing the safe thing is less work than overriding it."},
+{n:34, lesson:"Bind the receipt", refusal:"Receipt swapping",
+ change:"A conformance receipt is bound to the exact released artifact.",
+ why:"Test evidence names the precise candidate it tested. You cannot pass conformance with one build and ship another."},
+{n:35, lesson:"Own it after launch", refusal:"Ownerless launch",
+ change:"Operator, runbook, and rollback ownership remain present after launch.",
+ why:"Launch requires a named operator, a runbook, and a rollback path — and keeps requiring them afterward."},
+{n:36, lesson:"Evolve compatibly", refusal:"Incompatible agents",
+ change:"Compatibility windows let platform contracts evolve deliberately.",
+ why:"Platform contracts change through explicit version windows, so evolution never silently strands a running agent."},
+{n:37, lesson:"Risk becomes executable", refusal:"Unproven launch",
+ change:"Launch risk is derived from real evidence and becomes the final executable veto.",
+ why:"The finale: LaunchEvidence is derived from executed variations, lifecycle validation, the bound conformance receipt, caller authorization, and safe placement. No hand-built boolean can approve a launch — run it and watch a stale-evidence candidate get vetoed."},
+];
+
+const $ = id => document.getElementById(id);
+const pad = n => String(n).padStart(2, "0");
+const mvIndexFor = n => movements.findIndex(m => n >= m.start && n <= m.end);
+let current = 0;                  /* 0 = setup screen, 1..37 = chapters */
+
+const spineStages = [
+  {key:"launch", label:"Launch", role:"may this run?"},
+  {key:"observe", label:"Observe", role:"scoped evidence"},
+  {key:"propose", label:"Propose", role:"model choice"},
+  {key:"admit", label:"Admit", role:"deterministic gate"},
+  {key:"effect", label:"Effect", role:"real-world write"},
+  {key:"trace", label:"Trace", role:"semantic record"},
+  {key:"evaluate", label:"Evaluate", role:"judge trajectory"},
+  {key:"release", label:"Release", role:"fleet admission"},
+];
+
+const chapterStage = [
+  "effect","observe","propose","admit","admit","propose","admit",
+  "effect","effect","propose","propose","admit","observe","effect",
+  "admit","propose","admit","admit","admit","effect","effect",
+  "trace","evaluate","release","trace","evaluate","evaluate","release",
+  "launch","launch","launch","launch","launch","release","launch","launch","launch",
+];
+
+/* ---------- header tabs ---------- */
+movements.forEach((m, i) => {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.style.setProperty("--tab", m.hex);
+  b.title = `${m.name} (${i + 1})`;
+  b.innerHTML = `<span class="key">${i + 1}</span><span class="t-copy"><b>${m.roman}. ${m.short}</b><span>Ch. ${m.start}–${m.end}</span></span>`;
+  b.addEventListener("click", () => go(m.start));
+  $("tabs").append(b);
+});
+
+/* ---------- footer progress segments ---------- */
+chapters.forEach(c => {
+  const seg = document.createElement("i");
+  seg.style.setProperty("--seg", movements[mvIndexFor(c.n)].hex);
+  seg.title = `Ch. ${c.n} — ${c.lesson}`;
+  seg.addEventListener("click", () => go(c.n));
+  $("prog-bar").append(seg);
+});
+
+/* ---------- renderers ---------- */
+function commandsFor(n) {
+  return `git switch chapter-${pad(n)}\nuv sync --extra test\nuv run --no-sync pytest\nuv run --no-sync python scripts/run_current_chapter.py`;
+}
+
+function renderRail() {
+  const mi = current === 0 ? -1 : mvIndexFor(current);
+  const m = mi >= 0 ? movements[mi] : null;
+  $("rail-roman").textContent = m ? m.roman : "—";
+  $("rail-name").textContent = m ? m.name : "Before you begin";
+  $("rail-question").textContent = m ? m.question : "One clone, then every chapter is a branch away.";
+  const list = $("rail-list");
+  list.innerHTML = "";
+  if (!m) return;
+  chapters.filter(c => c.n >= m.start && c.n <= m.end).forEach(c => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "rail-item" + (c.n === current ? " current" : "") + (c.n < current ? " passed" : "");
+    b.setAttribute("role", "option");
+    b.setAttribute("aria-selected", c.n === current);
+    b.innerHTML = `<span class="num">${c.n}</span><b>${c.lesson}</b>`;
+    b.addEventListener("click", () => go(c.n));
+    list.append(b);
+  });
+}
+
+function renderDetail() {
+  const d = $("detail");
+  if (current === 0) {
+    document.documentElement.style.setProperty("--mv", "#55d9ff");
+    d.className = "detail setup";
+    d.innerHTML = `
+      <div class="ch-meta"><span class="chip">SETUP</span><span class="mv-of">read once, then navigate by keyboard</span></div>
+      <h1 class="lesson">The book, in one screen</h1>
+      <p class="change">Mira is handed an incident in the Orders service and a model that can produce a useful answer. Across 37 chapters she turns that answer into work her organization can admit, observe, evaluate, operate — and refuse.</p>
+      <p class="why">Each chapter of the book ends in a runnable checkpoint: <b>every branch is the complete system as it exists at that point</b>, and tests are cumulative (Chapter 13 runs Chapters 1–13). Use <b>→</b> to walk the chapters in reading order and <b>1–5</b> to jump between the five movements. You need <b>Python 3.11+</b>, <b>Git</b>, and <b>uv</b>; everything runs offline. Two chapters have extra prerequisites — Docker (Ch. 14) and OPA (Ch. 20) — flagged when you get there.</p>
+      <div class="loop">
+        <span class="st" style="border-color:var(--c1);color:var(--c1)">observe</span><span class="ar">→</span>
+        <span class="st" style="border-color:var(--c1);color:var(--c1)">propose</span><span class="ar">→</span>
+        <span class="st" style="border-color:var(--c3);color:var(--c3)">admit</span><span class="ar">→</span>
+        <span class="st" style="border-color:var(--c2);color:var(--c2)">effect</span><span class="ar">→</span>
+        <span class="st" style="border-color:var(--c4);color:var(--c4)">trace</span><span class="ar">→</span>
+        <span class="st" style="border-color:var(--c4);color:var(--c4)">evaluate</span>
+        <span class="ar" style="margin-left:6px">— the loop every chapter hardens; the model only ever holds “propose”</span>
+      </div>
+      <div class="ex-block">
+        <div class="ex-label">Set up once <span>This guide only copies commands; it never runs them.</span></div>
+        <div class="ex-row">
+          <code id="cmd">git clone ${repo.replace("https://github.com/", "https://github.com/")}
+cd engineering-agentic-ai-companion</code>
+          <div class="ex-actions">
+            <button id="copy" type="button">Copy (C)</button>
+            <a href="${repo}" target="_blank" rel="noreferrer">Repository ↗</a>
+          </div>
+        </div>
+      </div>`;
+  } else {
+    const c = chapters[current - 1];
+    const mi = mvIndexFor(current), m = movements[mi];
+    document.documentElement.style.setProperty("--mv", m.hex);
+    const badges = [];
+    if (c.docker) badges.push(`<span class="badge b-req">requires Docker</span>`);
+    if (c.opa) badges.push(`<span class="badge b-req">requires OPA</span>`);
+    if (c.live) badges.push(`<span class="badge b-opt">optional: live model comparison (--extra live)</span>`);
+    d.className = "detail";
+    d.innerHTML = `
+      <div class="ch-meta">
+        <span class="chip">CH ${pad(c.n)} / 37</span>
+        <span class="mv-of">${m.roman}. ${m.name}</span>
+        <span class="refusal">now impossible: <b>${c.refusal}</b></span>
+      </div>
+      <h1 class="lesson">${c.lesson}</h1>
+      <p class="change">${c.change}</p>
+      <p class="why">${c.why}</p>
+      ${badges.length ? `<div class="badges">${badges.join("")}</div>` : ""}
+      ${renderSpine(c)}
+      <div class="ex-block">
+        <div class="ex-label">Exercise — run this chapter's checkpoint <span>This guide never executes it.</span></div>
+        <div class="ex-row">
+          <code id="cmd">${commandsFor(c.n)}</code>
+          <div class="ex-actions">
+            <button id="copy" type="button">Copy (C)</button>
+            <a href="${repo}/tree/chapter-${pad(c.n)}" target="_blank" rel="noreferrer">Branch ↗</a>
+            <a href="${repo}/blob/chapter-${pad(c.n)}/examples/chapter_${pad(c.n)}.py" target="_blank" rel="noreferrer">Example ↗</a>
+          </div>
+        </div>
+      </div>`;
+  }
+  d.querySelector("#copy").addEventListener("click", copyCommands);
+  d.scrollTop = 0;
+}
+
+function renderFooter() {
+  $("progress-count").textContent = current === 0 ? "Setup" : `Chapter ${current} / 37`;
+  [...$("prog-bar").children].forEach((seg, i) => {
+    seg.classList.toggle("passed", current > i + 1);
+    seg.classList.toggle("at", i + 1 === current);
+  });
+  const next = current < 37 ? chapters[current] : null;
+  $("upnext").textContent = current === 37
+    ? "Journey complete — switch to main and run both sides of the boundary."
+    : next ? `Up next: Ch. ${next.n} — ${next.lesson}` : "Use → to begin with Chapter 1.";
+  $("pos").textContent = current === 0 ? "setup" : `${pad(current)} / 37`;
+  $("prev").disabled = current === 0;
+  $("next").disabled = current === 37;
+  const tabs = [...$("tabs").children];
+  const mi = current === 0 ? -1 : mvIndexFor(current);
+  tabs.forEach((t, i) => {
+    t.classList.toggle("current", i === mi);
+    t.classList.toggle("progressed", current > movements[i].end);
+  });
+}
+
+function syncHash() {
+  history.replaceState(null, "", current > 0 ? "#chapter-" + pad(current) : location.pathname + location.search);
+}
+
+function go(n) { current = Math.max(0, Math.min(37, n)); renderRail(); renderDetail(); renderFooter(); syncHash(); }
+
+function renderSpine(c) {
+  const active = chapterStage[c.n - 1];
+  const nodes = spineStages.map(stage => `<div class="spine-node${stage.key === active ? " active" : ""}"><b>${stage.label}</b><small>${stage.role}</small></div>`).join("");
+  return `<section class="chapter-spine" aria-label="Chapter ${c.n} attachment to the executable system path">
+    <div class="spine-head"><span>One executable path</span><strong>CH ${pad(c.n)} hardens ${active.toUpperCase()}</strong></div>
+    <div class="spine-scroll"><div class="spine-flow">${nodes}</div></div>
+    <div class="spine-loop">↺ evaluation and release evidence inform the next launch</div>
+  </section>`;
+}
+
+async function copyCommands() {
+  const text = $("cmd").textContent;
+  const btn = $("copy");
+  try { await navigator.clipboard.writeText(text); }
+  catch {
+    const ta = document.createElement("textarea"); ta.value = text; document.body.append(ta);
+    ta.select(); try { document.execCommand("copy"); } catch {} ta.remove();
+  }
+  btn.textContent = "Copied"; setTimeout(() => btn.textContent = "Copy (C)", 1200);
+}
+
+$("prev").addEventListener("click", () => go(current - 1));
+$("next").addEventListener("click", () => go(current + 1));
+$("go-setup").addEventListener("click", () => go(0));
+
+window.addEventListener("keydown", e => {
+  if ((e.target instanceof Element && e.target.closest("input, textarea")) || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.key === "ArrowRight") { e.preventDefault(); go(current + 1); }
+  else if (e.key === "ArrowLeft") { e.preventDefault(); go(current - 1); }
+  else if (e.key === "ArrowDown") { e.preventDefault(); const mi = current === 0 ? -1 : mvIndexFor(current); go(movements[Math.min(4, mi + 1)].start); }
+  else if (e.key === "ArrowUp") { e.preventDefault(); const mi = current === 0 ? 0 : mvIndexFor(current); go(mi <= 0 ? 0 : movements[mi - 1].start); }
+  else if (/^[1-5]$/.test(e.key)) { go(movements[Number(e.key) - 1].start); }
+  else if (e.key === "0") { go(0); }
+  else if (e.key.toLowerCase() === "c") { copyCommands(); }
+});
+
+/* ---------- restore from hash ---------- */
+const cm = location.hash.match(/chapter-(\d{1,2})/);
+go(cm ? Math.max(1, Math.min(37, Number(cm[1]))) : 0);
+</script>
+</body>
+</html>
+
+
