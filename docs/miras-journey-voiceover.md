@@ -4,6 +4,12 @@ Video runtime: **9 minutes 18.833 seconds**
 Spoken narration: approximately **6 minutes 45 seconds**  
 Delivery: warm, direct, and unhurried at **118–125 words per minute**
 
+Render the video from `miras-journey.html?video=1` at **1920 × 1080,
+30 frames per second**. Capture mode holds the opening frame for 1.267 seconds,
+then follows the same chapter, waypoint, epilogue, and examples timing used
+below. Stop the export at exactly **00:09:18.833**; the examples frame remains
+visible during the closing silence.
+
 The screen already names every chapter. Do not read those labels aloud. The
 voice-over has a different job: follow Mira through one Orders incident, explain
 why each layer becomes necessary, and leave the listener wanting to examine the
