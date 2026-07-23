@@ -4,28 +4,6 @@ This repository is the working system behind *Engineering Agentic AI: From Usefu
 
 The model may be flexible because the boundary is not. Every checkpoint keeps the model-facing choice separate from deterministic admission, evidence provenance, effect identity, evaluation, and platform governance.
 
-## Explore the agent's evolution
-
-See the system grow from a useful answer in Chapter 1 to an operable platform in
-Chapter 37:
-
-- [Open the animated single-screen guide](https://htmlpreview.github.io/?https://github.com/topcoder-04/engineering-agentic-ai-companion/blob/main/docs/miras-journey.html)
-  — it starts at Chapter 1 and builds the system automatically, one boundary at
-  a time. Pause at any point or use the arrows to move at your own pace.
-- [Download the self-contained guide](docs/miras-journey.html?raw=1) — open it
-  locally when you want the same experience offline.
-- [Read the chapter reference](docs/MIRAS_JOURNEY.md) — the non-animated index
-  with links to every executable checkpoint.
-- [Record the narrative voice-over](docs/miras-journey-voiceover.md) — a timed,
-  human-paced script that follows the same Orders incident across the complete
-  9:18 journey.
-
-The simulation is a read-only map of the manuscript responsibilities and
-executable checkpoint boundaries; it runs no repository code or tests. Each
-chapter reveals a connected component only when the journey earns it. After
-playback, any built chapter can be selected to inspect the addition and the new
-refusal it made executable.
-
 ## Start here
 
 Prerequisites:
@@ -36,7 +14,14 @@ Prerequisites:
 - Docker only for the Chapter 14 isolation probe
 - OPA only for the Chapter 20 Rego example
 
-Choose the chapter you are reading and use the portable reader path:
+Clone the repository:
+
+```bash
+git clone https://github.com/topcoder-04/engineering-agentic-ai-companion.git
+cd engineering-agentic-ai-companion
+```
+
+Then choose the chapter you are reading and use the portable reader path:
 
 ```bash
 git switch chapter-05
@@ -48,10 +33,30 @@ python -m pytest
 python scripts/run_current_chapter.py
 ```
 
-On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. The first
-command changes the implementation, README, and architecture map to the state
-earned by that chapter. Tests are cumulative: Chapter 13 runs Chapters 1–13,
-never a disconnected sample.
+On Windows PowerShell, create and activate the environment with:
+
+```powershell
+py -3.11 -m venv .venv
+.venv\Scripts\Activate.ps1
+```
+
+`git switch` changes the implementation, README, and architecture map to the
+state earned by that chapter. Tests are cumulative: Chapter 13 runs Chapters
+1–13, never a disconnected sample.
+
+If macOS reports `Error: [Errno 1] Operation not permitted` while creating the
+environment, a partial `.venv` or a filesystem that blocks symbolic links is
+usually the cause. Rename any partial environment and retry with file copies:
+
+```bash
+mv .venv .venv.partial
+python3 -m venv --copies .venv
+```
+
+If `.venv` does not exist, skip the `mv` command. If `--copies` is also blocked,
+clone the repository into a writable local folder such as `~/Developer`;
+managed, network-mounted, and cloud-synced folders may restrict environment
+creation. Do not use `sudo` to create the environment.
 
 For the complete system on `main`:
 
@@ -76,7 +81,40 @@ Expected outcome: complete launch evidence passes, the integrated Orders path
 executes once, then six separate candidates each remove one required proof.
 Insufficient evaluation, a safety failure, missing ownership, unproven rollback,
 unproven caller authority, and an unproven data boundary each produce exactly
-one launch veto and print `executed False`.
+one launch veto and show `NOT EXECUTED`.
+
+The accepted candidate is identified, capability-admitted, scaffolded,
+conformance-bound, owned, compatibility-checked, caller-authorized, placed,
+evaluated across variations, and risk-approved before the Orders investigation
+writes its report. Every refused candidate stops before execution.
+
+### Read the demo
+
+Every checkpoint begins by naming the building block introduced in that chapter:
+the problem it solves, what was previously earned, what changes now, and what
+becomes possible. It then presents the real scenario, boundary decision,
+execution result, and one precise “what to notice.” Chapter 37 adds the complete
+five-movement map and follows one candidate through the assembled system.
+
+Interactive terminals use the book's five movement colors automatically:
+
+- Chapters 1–7: cyan
+- Chapters 8–14: green
+- Chapters 15–21: gold
+- Chapters 22–28: pink
+- Chapters 29–37: purple
+
+Green and red identify accepted and refused outcomes; yellow marks evidence and
+purple shows connected execution paths. Color never carries meaning alone:
+`APPROVED`, `REFUSED`, and `NOT EXECUTED` remain explicit.
+
+Use plain text for logs or accessibility, or force color while capturing output:
+
+```bash
+python scripts/run_current_chapter.py --plain
+NO_COLOR=1 python scripts/run_current_chapter.py
+python scripts/run_current_chapter.py --color
+```
 
 `uv` is optional. If it is installed, the equivalent reader path is:
 
@@ -88,16 +126,31 @@ uv run --no-sync python scripts/run_current_chapter.py
 uv run --no-sync python scripts/validate_evidence.py
 ```
 
-The main demo executes both sides of the final boundary. Its accepted candidate is
-identified, capability-admitted, scaffolded, conformance-bound, owned,
-compatibility-checked, caller-authorized, placed, evaluated across variations, and
-risk-approved before the Orders investigation writes its report. Its refused
-candidates each remove one required proof, receive exactly one launch veto, and
-never execute.
-
 The `test` extra is the portable reader contract. CI installs the all-extras
 superset, so optional LangGraph and HTTPX integration coverage may add checks
 without changing the offline acceptance result.
+
+## Explore the agent's evolution
+
+See the system grow from a useful answer in Chapter 1 to an operable platform in
+Chapter 37:
+
+- [Open the animated single-screen guide](https://htmlpreview.github.io/?https://github.com/topcoder-04/engineering-agentic-ai-companion/blob/main/docs/miras-journey.html)
+  — it starts at Chapter 1 and builds the system automatically, one boundary at
+  a time. Pause at any point or use the arrows to move at your own pace.
+- [Download the self-contained guide](docs/miras-journey.html?raw=1) — open it
+  locally when you want the same experience offline.
+- [Read the chapter reference](docs/MIRAS_JOURNEY.md) — the non-animated index
+  with links to every executable checkpoint.
+- [Record the narrative voice-over](docs/miras-journey-voiceover.md) — a timed,
+  human-paced script that follows the same Orders incident across the complete
+  9:18 journey.
+
+The simulation is a read-only map of the manuscript responsibilities and
+executable checkpoint boundaries; it runs no repository code or tests. Each
+chapter reveals a connected component only when the journey earns it. After
+playback, any built chapter can be selected to inspect the addition and the new
+refusal it made executable.
 
 ## One executable journey
 
@@ -123,7 +176,9 @@ The offline project does not require an OpenAI SDK, LangGraph, or its SQLite che
 | `live` | Optional OpenAI live comparison |
 | `langgraph` | Optional LangGraph execution and SQLite checkpoint integration |
 | `integrations` | Optional HTTP dependency adapter |
-| `--all-extras` | CI and full maintainer verification |
+
+CI and full maintainer verification use `uv sync --all-extras`, which installs
+all four extras above.
 
 ## The checkpoint journey
 
@@ -172,6 +227,9 @@ The offline project does not require an OpenAI SDK, LangGraph, or its SQLite che
 ```text
 src/orders_investigation/domain/
 src/orders_investigation/environment/
+src/orders_investigation/presentation/__init__.py
+src/orders_investigation/presentation/chapters.py
+src/orders_investigation/presentation/terminal.py
 src/orders_investigation/runtime/
 src/orders_investigation/runtime/journey.py
 src/orders_investigation/decisions/
@@ -189,6 +247,7 @@ docs/MIRAS_JOURNEY.md
 docs/miras-journey.html
 examples/chapter_37.py
 tests/test_chapter_37.py
+tests/test_demo_presentation.py
 ```
 
 `ARCHITECTURE.md` records when each responsibility folder is allowed to appear. `tests/test_folder_birth.py` enforces that schedule on every branch.
