@@ -310,4 +310,13 @@ CHAPTER_STORIES = {
         "Tenant, data class, residency, retention, and target attributes are matched.",
         "Work is placed only where every data boundary is simultaneously true.",
     ),
+    33: ChapterStory(
+        "Making the Safe Path the Easy Path",
+        "Can teams start from enforceable defaults while keeping exceptions visible?",
+        "Paved-path scaffolding",
+        "Safety controls are bypassed when every team must assemble them by hand.",
+        "Identity · capability · authority · placement",
+        "A generated project shape carries required controls and declares owned overrides.",
+        "The easiest implementation path is also the platform-admitted path.",
+    ),
 }
