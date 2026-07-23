@@ -1,12 +1,12 @@
-# Chapter 30 companion — Admitting Capabilities, Not Copied Settings
+# Chapter 31 companion — Carrying the Caller's Authority
 
-This checkpoint adds capability-profile admission with an explicit reason for every mismatch.
+This checkpoint adds delegation bound to caller, tenant, agent, action, and expiry.
 
 ## What this chapter adds
 
-- Capability-profile admission lives in `platform/capabilities/`; `platform/controls.py` is compatibility-only.
-- The registered Orders contract must match model, tool, policy, and data-class capabilities before execution.
-- A composition test proves an incompatible tool contract cannot start the investigation.
+- Caller-bound delegation lives in `platform/authority/`; `platform/controls.py` is compatibility-only.
+- The shared Orders journey carries the caller, tenant, agent, action, and expiry proof into execution.
+- A composition test proves an undelegated action cannot reach the investigation or report write.
 
 ## Code map
 
@@ -54,6 +54,7 @@ src/orders_investigation/operations/learning.py
 src/orders_investigation/operations/observability.py
 src/orders_investigation/operations/probes.py
 src/orders_investigation/platform/__init__.py
+src/orders_investigation/platform/authority/__init__.py
 src/orders_investigation/platform/capabilities/__init__.py
 src/orders_investigation/platform/controls.py
 src/orders_investigation/platform/identity/__init__.py
@@ -65,8 +66,8 @@ src/orders_investigation/runtime/journey.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_30.py
-tests/test_chapter_30.py
+examples/chapter_31.py
+tests/test_chapter_31.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -88,11 +89,11 @@ Prerequisites are Python 3.11 or newer and Git. Docker is optional and used only
 Use the portable reader path from a fresh checkout:
 
 ```bash
-git switch chapter-30
+git switch chapter-31
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -e '.[test]'
-python -m pytest tests/test_chapter_30.py
+python -m pytest tests/test_chapter_31.py
 python -m pytest
 python scripts/run_current_chapter.py
 ```
@@ -100,10 +101,10 @@ python scripts/run_current_chapter.py
 On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. The manuscript-compatible command executes the same chapter file:
 
 ```bash
-python -m orders_investigation.demo chapter-30
+python -m orders_investigation.demo chapter-31
 ```
 
-Expected outcome: The matching capability profile is admitted; an incompatible profile is refused before work.
+Expected outcome: The delegated report action runs; refund.issue is refused for the same caller and agent.
 
 The demo opens with the building block introduced in this chapter, then shows
 the real scenario, boundary decision, execution result, and what to notice.
@@ -123,7 +124,7 @@ Color reinforces the labels but never carries meaning alone: `APPROVED`,
 
 ```bash
 uv sync --extra test
-uv run --no-sync pytest tests/test_chapter_30.py
+uv run --no-sync pytest tests/test_chapter_31.py
 uv run --no-sync pytest
 uv run --no-sync python scripts/run_current_chapter.py
 ```
@@ -132,17 +133,17 @@ The `test` extra is the portable reader contract. CI installs the all-extras sup
 
 ## Behavioral spine
 
-Capability admission now follows exact identity resolution and precedes all Orders
-work. The approved profile allows the registered contract into the investigation.
-Replacing only its admitted tool contract with `catalog.read/v1` refuses execution
-before the agent can observe the database or write the report.
+Caller authority now gates the same identity- and capability-admitted Orders path.
+The `report.write` delegation completes the investigation. Asking that unchanged
+delegation to carry `refund.issue` is refused before observation, which prevents the
+platform service identity from becoming a confused deputy.
 ## Deliberately incomplete
 
-This branch contains no platform capability introduced after Chapter 30. Chapter 31 addresses the next manuscript pressure.
+This branch contains no platform capability introduced after Chapter 31. Chapter 32 addresses the next manuscript pressure.
 
 ## Architecture evolution at this checkpoint
 
-The tracked responsibility map now contains only the packages earned through Chapter 30. Later packages are absent from this branch.
+The tracked responsibility map now contains only the packages earned through Chapter 31. Later packages are absent from this branch.
 
 ```text
 src/orders_investigation/
@@ -162,9 +163,10 @@ src/orders_investigation/
 ├── operations/
 ├── platform/
 │   ├── identity/
-│   └── capabilities/
+│   ├── capabilities/
+│   └── authority/
 ├── demo.py
 └── live_demo.py
 ```
 
-`ARCHITECTURE.md` records only Chapters 1-30 as present evolution; `main` carries the complete roadmap.
+`ARCHITECTURE.md` records only Chapters 1-31 as present evolution; `main` carries the complete roadmap.

@@ -292,4 +292,13 @@ CHAPTER_STORIES = {
         "Required and supplied capability profiles are compared before execution.",
         "Only compatible workload capabilities enter the runtime.",
     ),
+    31: ChapterStory(
+        "Carrying the Caller's Authority",
+        "Can the agent act only with the authority delegated by this caller?",
+        "Caller-bound delegated authority",
+        "A service identity can become a confused deputy for an undelegated user action.",
+        "Identity · capability admission",
+        "Caller, tenant, agent, action, audience, and expiry remain bound in one proof.",
+        "Platform execution preserves the caller's authority instead of widening it.",
+    ),
 }

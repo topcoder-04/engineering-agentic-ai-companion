@@ -46,6 +46,11 @@ from orders_investigation.governance.policy import PolicyFacts, orders_report_po
 from orders_investigation.operations.probes import Variation, variation_matrix
 from orders_investigation.platform.identity import AgentContract, AgentRegistry
 from orders_investigation.platform.capabilities import CapabilityProfile, admit_contract
+from orders_investigation.platform.authority import (
+    CallerIdentity,
+    Delegation,
+    authorize as authorize_caller,
+)
 from orders_investigation.runtime.boundary import ORDERS_BOUNDARY
 from orders_investigation.runtime.contracts.admission import admit
 from orders_investigation.runtime.workflow import replay_pipeline_observation
@@ -116,6 +121,21 @@ def orders_capability_profile() -> CapabilityProfile:
     )
 
 
+def orders_caller() -> CallerIdentity:
+    return CallerIdentity("user-7", "tenant-orders", frozenset({"operator"}))
+
+
+def orders_delegation(*, action: str = "report.write") -> Delegation:
+    return Delegation(
+        "delegation-orders-report",
+        "user-7",
+        "tenant-orders",
+        "orders-investigator",
+        frozenset({action}),
+        NOW + timedelta(minutes=5),
+    )
+
+
 def run_registered_orders_investigation(
     registry: AgentRegistry,
     *,
@@ -137,6 +157,29 @@ def run_capability_admitted_orders_investigation(
     if reasons:
         raise ValueError("capability_refused:" + ",".join(reasons))
     return run_registered_orders_investigation(registry)
+
+
+def run_delegated_orders_investigation(
+    identity: CallerIdentity,
+    delegation: Delegation,
+    *,
+    action: str = "report.write",
+) -> RegisteredRun:
+    """Carry the caller's exact delegated authority into the Orders work."""
+    allowed, reasons = authorize_caller(
+        identity,
+        delegation,
+        "orders-investigator",
+        action,
+        NOW,
+    )
+    if not allowed:
+        raise ValueError("caller_authority_refused:" + ",".join(reasons))
+    registry = AgentRegistry()
+    registry.register(orders_agent_contract())
+    return run_capability_admitted_orders_investigation(
+        registry, orders_capability_profile()
+    )
 
 
 def trace_orders_investigation(
