@@ -346,4 +346,13 @@ CHAPTER_STORIES = {
         "Readers advance before writers and supported versions overlap explicitly.",
         "The platform can evolve without silently breaking deployed workloads.",
     ),
+    37: ChapterStory(
+        "Making Risk Posture an Engineering Contract",
+        "Can a candidate execute only when every launch obligation is proven?",
+        "Executable launch-risk contract",
+        "A uniform checklist can hide missing proof or treat unlike consequences as equivalent.",
+        "The complete 36-chapter investigation and platform",
+        "Consequence-selected risk tier and independent hard vetoes.",
+        "Bounded consequential automation launches only with a connected proof chain.",
+    ),
 }
