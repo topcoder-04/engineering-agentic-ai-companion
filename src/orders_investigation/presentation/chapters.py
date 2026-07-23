@@ -328,4 +328,13 @@ CHAPTER_STORIES = {
         "Candidate, contract, suite, checks, and evidence are bound in one receipt.",
         "Launch proof travels with the exact artifact it evaluated.",
     ),
+    35: ChapterStory(
+        "Owning the Agent After Launch",
+        "Can a candidate prove who operates, repairs, and rolls it back?",
+        "Lifecycle ownership and bounded exceptions",
+        "A technically conformant agent can still become operationally ownerless.",
+        "Artifact-bound conformance",
+        "Operator, runbook, rollback owner, and expiring exception rules are required.",
+        "Every launched workload has accountable recovery and change ownership.",
+    ),
 }

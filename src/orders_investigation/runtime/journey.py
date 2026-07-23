@@ -54,6 +54,7 @@ from orders_investigation.platform.authority import (
 from orders_investigation.platform.placement import DataBoundary, ExecutionTarget, place
 from orders_investigation.platform.defaults import ScaffoldRequest, admit_scaffold, scaffold
 from orders_investigation.platform.releases import ConformanceReceipt, release_conforms
+from orders_investigation.platform.lifecycle import LifecycleOwnership, validate_ownership
 from orders_investigation.runtime.boundary import ORDERS_BOUNDARY
 from orders_investigation.runtime.contracts.admission import admit
 from orders_investigation.runtime.workflow import replay_pipeline_observation
@@ -267,6 +268,25 @@ def run_conformant_orders_investigation(
     if not allowed:
         raise ValueError("conformance_refused:" + ",".join(reasons))
     return run_scaffolded_orders_investigation()
+
+
+def orders_lifecycle_ownership(*, owner: str = "orders-oncall") -> LifecycleOwnership:
+    return LifecycleOwnership(
+        "orders-investigator",
+        "1",
+        owner,
+        "runbooks/orders-investigator.md",
+        "orders-release-oncall",
+    )
+
+
+def run_owned_orders_investigation(ownership: LifecycleOwnership) -> PlacedRun:
+    """Require durable operating and rollback ownership before execution."""
+    allowed, reasons = validate_ownership(ownership)
+    if not allowed:
+        raise ValueError("lifecycle_refused:" + ",".join(reasons))
+    receipt = orders_conformance_receipt()
+    return run_conformant_orders_investigation("candidate-orders-v1", receipt)
 
 
 def trace_orders_investigation(
