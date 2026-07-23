@@ -6,9 +6,10 @@ Mira begins with an incident in the Orders service and a model that can produce 
 useful answer. Across 37 executable checkpoints, she turns that answer into work
 the organization can admit, observe, evaluate, operate, and refuse.
 
-> **Interactive version:** [download the agent evolution](miras-journey.html?raw=1),
-> then open the single HTML file in a browser. It works offline and contains no
-> external dependencies.
+> **Animated guide:** [open the single-screen journey](https://htmlpreview.github.io/?https://github.com/topcoder-04/engineering-agentic-ai-companion/blob/main/docs/miras-journey.html).
+> It begins automatically at Chapter 1. You can also
+> [download the self-contained HTML](miras-journey.html?raw=1) and open it
+> locally for the same experience offline.
 
 ```mermaid
 flowchart LR
