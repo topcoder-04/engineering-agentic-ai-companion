@@ -1,12 +1,12 @@
-# Chapter 29 companion — Making an Agent Identifiable
+# Chapter 30 companion — Admitting Capabilities, Not Copied Settings
 
-This checkpoint adds immutable, owned, versioned agent contracts in a registry.
+This checkpoint adds capability-profile admission with an explicit reason for every mismatch.
 
 ## What this chapter adds
 
-- Immutable workload contracts live in `platform/identity/`; `platform/controls.py` is compatibility-only.
-- The shared Orders journey now resolves the exact registered agent version before doing work.
-- A composition test proves an unknown version cannot start the investigation.
+- Capability-profile admission lives in `platform/capabilities/`; `platform/controls.py` is compatibility-only.
+- The registered Orders contract must match model, tool, policy, and data-class capabilities before execution.
+- A composition test proves an incompatible tool contract cannot start the investigation.
 
 ## Code map
 
@@ -54,6 +54,7 @@ src/orders_investigation/operations/learning.py
 src/orders_investigation/operations/observability.py
 src/orders_investigation/operations/probes.py
 src/orders_investigation/platform/__init__.py
+src/orders_investigation/platform/capabilities/__init__.py
 src/orders_investigation/platform/controls.py
 src/orders_investigation/platform/identity/__init__.py
 src/orders_investigation/runtime/__init__.py
@@ -64,8 +65,8 @@ src/orders_investigation/runtime/journey.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_29.py
-tests/test_chapter_29.py
+examples/chapter_30.py
+tests/test_chapter_30.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -87,11 +88,11 @@ Prerequisites are Python 3.11 or newer and Git. Docker is optional and used only
 Use the portable reader path from a fresh checkout:
 
 ```bash
-git switch chapter-29
+git switch chapter-30
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -e '.[test]'
-python -m pytest tests/test_chapter_29.py
+python -m pytest tests/test_chapter_30.py
 python -m pytest
 python scripts/run_current_chapter.py
 ```
@@ -99,10 +100,10 @@ python scripts/run_current_chapter.py
 On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. The manuscript-compatible command executes the same chapter file:
 
 ```bash
-python -m orders_investigation.demo chapter-29
+python -m orders_investigation.demo chapter-30
 ```
 
-Expected outcome: The exact registered version resolves to its owner and stable manifest digest; an unknown version is refused.
+Expected outcome: The matching capability profile is admitted; an incompatible profile is refused before work.
 
 The demo opens with the building block introduced in this chapter, then shows
 the real scenario, boundary decision, execution result, and what to notice.
@@ -122,7 +123,7 @@ Color reinforces the labels but never carries meaning alone: `APPROVED`,
 
 ```bash
 uv sync --extra test
-uv run --no-sync pytest tests/test_chapter_29.py
+uv run --no-sync pytest tests/test_chapter_30.py
 uv run --no-sync pytest
 uv run --no-sync python scripts/run_current_chapter.py
 ```
@@ -131,17 +132,17 @@ The `test` extra is the portable reader contract. CI installs the all-extras sup
 
 ## Behavioral spine
 
-Identity no longer floats beside the agent. The Orders composition root resolves an
-immutable `orders-investigator` contract before entering the investigation path. The
-registered version completes the report effect; an unknown version is refused before
-the first observation, proposal, or write.
+Capability admission now follows exact identity resolution and precedes all Orders
+work. The approved profile allows the registered contract into the investigation.
+Replacing only its admitted tool contract with `catalog.read/v1` refuses execution
+before the agent can observe the database or write the report.
 ## Deliberately incomplete
 
-This branch contains no platform capability introduced after Chapter 29. Chapter 30 addresses the next manuscript pressure.
+This branch contains no platform capability introduced after Chapter 30. Chapter 31 addresses the next manuscript pressure.
 
 ## Architecture evolution at this checkpoint
 
-The tracked responsibility map now contains only the packages earned through Chapter 29. Later packages are absent from this branch.
+The tracked responsibility map now contains only the packages earned through Chapter 30. Later packages are absent from this branch.
 
 ```text
 src/orders_investigation/
@@ -160,9 +161,10 @@ src/orders_investigation/
 ├── evaluation/
 ├── operations/
 ├── platform/
-│   └── identity/
+│   ├── identity/
+│   └── capabilities/
 ├── demo.py
 └── live_demo.py
 ```
 
-`ARCHITECTURE.md` records only Chapters 1-29 as present evolution; `main` carries the complete roadmap.
+`ARCHITECTURE.md` records only Chapters 1-30 as present evolution; `main` carries the complete roadmap.

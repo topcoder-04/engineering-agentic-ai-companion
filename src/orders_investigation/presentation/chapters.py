@@ -283,4 +283,13 @@ CHAPTER_STORIES = {
         "Versioned workload contracts are registered under a content digest.",
         "Every run starts from an exact identifiable agent definition.",
     ),
+    30: ChapterStory(
+        "Admitting Capabilities, Not Copied Settings",
+        "Can the platform prove that a workload's declared capabilities are compatible?",
+        "Capability-profile admission",
+        "Copied configuration can look valid while model, tool, policy, or data needs disagree.",
+        "Immutable agent identity",
+        "Required and supplied capability profiles are compared before execution.",
+        "Only compatible workload capabilities enter the runtime.",
+    ),
 }
