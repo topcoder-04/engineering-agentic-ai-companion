@@ -337,4 +337,13 @@ CHAPTER_STORIES = {
         "Operator, runbook, rollback owner, and expiring exception rules are required.",
         "Every launched workload has accountable recovery and change ownership.",
     ),
+    36: ChapterStory(
+        "Evolving the Platform Without Breaking Every Team",
+        "Can contracts evolve while old and new readers remain intentionally compatible?",
+        "Reader-first compatibility window",
+        "A writer-first schema change can strand readers across the platform.",
+        "Conformance · lifecycle ownership",
+        "Readers advance before writers and supported versions overlap explicitly.",
+        "The platform can evolve without silently breaking deployed workloads.",
+    ),
 }

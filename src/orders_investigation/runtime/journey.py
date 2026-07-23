@@ -55,6 +55,7 @@ from orders_investigation.platform.placement import DataBoundary, ExecutionTarge
 from orders_investigation.platform.defaults import ScaffoldRequest, admit_scaffold, scaffold
 from orders_investigation.platform.releases import ConformanceReceipt, release_conforms
 from orders_investigation.platform.lifecycle import LifecycleOwnership, validate_ownership
+from orders_investigation.platform.compatibility import CompatibilityWindow, migration_step
 from orders_investigation.runtime.boundary import ORDERS_BOUNDARY
 from orders_investigation.runtime.contracts.admission import admit
 from orders_investigation.runtime.workflow import replay_pipeline_observation
@@ -287,6 +288,26 @@ def run_owned_orders_investigation(ownership: LifecycleOwnership) -> PlacedRun:
         raise ValueError("lifecycle_refused:" + ",".join(reasons))
     receipt = orders_conformance_receipt()
     return run_conformant_orders_investigation("candidate-orders-v1", receipt)
+
+
+def orders_compatibility_window() -> CompatibilityWindow:
+    return CompatibilityWindow(
+        "trace/v1",
+        "trace/v2",
+        frozenset({"trace/v1", "trace/v2"}),
+        "trace/v1",
+    )
+
+
+def run_compatible_orders_investigation(
+    window: CompatibilityWindow,
+    observed_readers: frozenset[str],
+) -> PlacedRun:
+    """Hold execution while any observed reader falls outside the window."""
+    step = migration_step(window, observed_readers)
+    if step == "hold_incompatible_reader":
+        raise ValueError("compatibility_refused:hold_incompatible_reader")
+    return run_owned_orders_investigation(orders_lifecycle_ownership())
 
 
 def trace_orders_investigation(

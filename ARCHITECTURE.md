@@ -1,6 +1,6 @@
 # Architecture evolution contract
 
-**Current checkpoint: Chapter 35.** This document describes what is present now. It does not advertise packages from later checkpoints.
+**Current checkpoint: Chapter 36.** This document describes what is present now. It does not advertise packages from later checkpoints.
 
 ## Present responsibility map
 
@@ -27,7 +27,8 @@ src/orders_investigation/
 │   ├── placement/
 │   ├── defaults/
 │   ├── releases/
-│   └── lifecycle/
+│   ├── lifecycle/
+│   └── compatibility/
 ├── demo.py
 └── live_demo.py
 ```
@@ -71,8 +72,9 @@ src/orders_investigation/
 | 33 | `platform/defaults/` | Make the safe platform path the easiest path. |
 | 34 | `platform/releases/` | Bind conformance evidence to the exact candidate artifact. |
 | 35 | `platform/lifecycle/` | Keep ownership and exceptions operable after launch. |
+| 36 | `platform/compatibility/` | Advance readers before writers depend on a new contract. |
 
-Responsibilities introduced after Chapter 35 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
+Responsibilities introduced after Chapter 36 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
 
 ## Enforced rules
 

@@ -70,6 +70,13 @@ def test_each_movement_uses_its_own_banner_color():
         assert movement_colors[movement - 1] in output
 
 
+def test_chapter_36_demo_begins_with_the_reader_first_migration_step():
+    output = run_demo("examples/chapter_36.py", "--plain")
+
+    assert "Next migration step" in output
+    assert "advance_readers_first" in output
+
+
 def test_no_color_disables_automatic_color_on_an_interactive_stream():
     class InteractiveStream(io.StringIO):
         def isatty(self) -> bool:
