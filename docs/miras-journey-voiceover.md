@@ -25,10 +25,10 @@ frame.
 
 At 2:05 p.m., Orders begins timing out. Mira has enough evidence to sound
 convincing: application CPU looks normal, while database writes are suddenly
-slow. A model can turn that into a polished explanation in seconds. But
-customers do not need a polished explanation. They need the investigation to
-finish. What is known? What is still missing? What actually ran? Did the report
-update happen? This book begins in that gap.
+slow. A model can turn that into a polished explanation in seconds. But a
+polished explanation does not finish the investigation. Mira still needs to
+know what is missing, what actually ran, and whether the report was updated.
+This book begins in that gap.
 
 ## 02 — From an answer to controlled work (00:40.267–01:04.300)
 
