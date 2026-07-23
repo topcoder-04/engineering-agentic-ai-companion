@@ -122,3 +122,4 @@ class ClaimStore:
         if row is None:
             raise KeyError(task_id)
         return row
+

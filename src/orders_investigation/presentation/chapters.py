@@ -130,4 +130,13 @@ CHAPTER_STORIES = {
         "Expiring claims and monotonically increasing fencing tokens.",
         "Work can be reassigned while stale completions remain unable to commit.",
     ),
+    13: ChapterStory(
+        "Depending on Systems That May Be Wrong",
+        "Can dependency output be useful data without becoming trusted instruction?",
+        "Dependency evidence admission",
+        "External results may be stale, incomplete, malformed, or instruction-bearing.",
+        "Fenced ownership · bounded context",
+        "Freshness, completeness, exact-field, and typed-value validation.",
+        "Only admitted dependency facts can reach the decision surface.",
+    ),
 }

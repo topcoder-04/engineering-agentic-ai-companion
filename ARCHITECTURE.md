@@ -1,6 +1,6 @@
 # Architecture evolution contract
 
-**Current checkpoint: Chapter 12.** This document describes what is present now. It does not advertise packages from later checkpoints.
+**Current checkpoint: Chapter 13.** This document describes what is present now. It does not advertise packages from later checkpoints.
 
 ## Present responsibility map
 
@@ -15,6 +15,7 @@ src/orders_investigation/
 ├── context/
 ├── effects/
 ├── memory/
+├── integrations/
 ├── demo.py
 └── live_demo.py
 ```
@@ -35,8 +36,9 @@ src/orders_investigation/
 | 10 | `memory/` | Admit only reviewed, scoped, bounded prior knowledge. |
 | 11 | `graph/spine.py` | Constrain ready work to the active causal question. |
 | 12 | `runtime/ownership.py` | Lease work while fencing stale completion. |
+| 13 | `integrations/` | Admit typed dependency results at the source boundary. |
 
-Responsibilities introduced after Chapter 12 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
+Responsibilities introduced after Chapter 13 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
 
 ## Enforced rules
 
