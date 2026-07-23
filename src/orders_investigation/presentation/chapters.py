@@ -148,4 +148,13 @@ CHAPTER_STORIES = {
         "Immutable request, restricted execution, and validated output artifact.",
         "Flexible analysis can run while authority and admission stay in application code.",
     ),
+    15: ChapterStory(
+        "Choosing How Much Judgment a Decision Needs",
+        "Can each decision use the smallest judgment source that satisfies its requirements?",
+        "Requirement-based judgment routing",
+        "One model profile cannot optimize every latency, cost, capability, and data constraint.",
+        "Bounded generated analysis",
+        "Decision requirements are matched against declared judgment-source profiles.",
+        "Routing becomes a deterministic fit decision rather than a model preference.",
+    ),
 }

@@ -39,4 +39,3 @@ def test_in_flight_limit_defers_new_intake():
     store.claim("inspect_pipeline_run", "worker-a", now=100, lease_seconds=10)
     with pytest.raises(IntakeDeferred, match="in_flight_limit_reached"):
         store.claim("inspect_replication_delay", "worker-b", now=101, lease_seconds=10)
-
