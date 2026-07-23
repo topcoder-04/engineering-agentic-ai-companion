@@ -85,4 +85,13 @@ CHAPTER_STORIES = {
         "The incident, graph, hypothesis history, and attempt ledger persist together.",
         "Recovery resumes from recorded state instead of replaying uncertain work.",
     ),
+    8: ChapterStory(
+        "Trying Again Without Doing It Twice",
+        "Can a lost response be retried without applying the report update twice?",
+        "Idempotent effect application",
+        "The caller may not know whether an effect committed before its response was lost.",
+        "Durable workflow state",
+        "Immutable intent, stable idempotency key, and atomic effect deduplication.",
+        "The same logical effect can be retried safely after transport uncertainty.",
+    ),
 }
