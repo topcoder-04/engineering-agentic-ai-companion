@@ -175,7 +175,7 @@
       <strong>Mira's Journey · <em>Engineering Agentic AI</em></strong>
       <small>From useful answers to dependable work</small>
     </div>
-    <nav class="tabs" id="tabs" aria-label="Jump to a part"></nav>
+    <nav class="tabs" id="tabs" aria-label="Jump to a layer"></nav>
     <div class="stepper" role="group" aria-label="Navigation">
       <button class="play" id="play" type="button" aria-label="Play the journey slowly" title="Narration-aware timing · play or pause with Space">▶ Play slowly</button>
       <button id="prev" type="button" aria-label="Previous stop" title="Previous (←)">←</button>
@@ -186,10 +186,9 @@
 
   <main>
     <aside class="rail">
-      <div class="mv-roman" id="rail-roman">—</div>
       <div class="mv-name" id="rail-name">Before you begin</div>
       <p class="mv-question" id="rail-question">One clone, then every chapter is a branch away.</p>
-      <div class="rail-list" id="rail-list" role="listbox" aria-label="Stops in this part"></div>
+      <div class="rail-list" id="rail-list" role="listbox" aria-label="Stops in this layer"></div>
       <button class="rail-item rail-setup" id="go-setup" type="button"><span class="num" style="border-color:var(--faint);color:var(--faint)">0</span><b>Setup &amp; how to read</b></button>
     </aside>
     <section class="detail" id="detail" aria-live="polite"></section>
@@ -202,7 +201,7 @@
     </div>
     <div class="keys">
       <span><kbd>←</kbd><kbd>→</kbd> stop</span>
-      <span><kbd>↑</kbd><kbd>↓</kbd> part</span>
+      <span><kbd>↑</kbd><kbd>↓</kbd> layer</span>
       <span><kbd>1</kbd>–<kbd>5</kbd> jump</span>
       <span><kbd>Space</kbd> play / pause</span>
       <span><kbd>C</kbd> copy</span>
@@ -214,20 +213,20 @@
 const repo = "https://github.com/topcoder-04/engineering-agentic-ai-companion";
 const movements = [
   { roman:"I", start:1, end:7, hex:"#55d9ff", short:"Controlled work",
-    name:"Part 1 · From answer to controlled work",
-    question:"What must be true before the model's suggestion becomes an action?" },
+    name:"Controlled work",
+    question:"How does a plausible answer become bounded, executable work?" },
   { roman:"II", start:8, end:14, hex:"#63e59a", short:"Reliable work",
-    name:"Part 2 · From controlled work to reliable work",
-    question:"What happens when work runs twice, half-finishes, or reads something hostile?" },
+    name:"Reliable work",
+    question:"Can the investigation survive retries, uncertainty, and untrusted inputs?" },
   { roman:"III", start:15, end:21, hex:"#ffd166", short:"Governed effects",
-    name:"Part 3 · From reliable work to governed effects",
-    question:"Who approved this, with what authority, under which policy — checked at the write?" },
+    name:"Governed effects",
+    question:"Who approved the effect, whose authority does it carry, and what must hold at the write?" },
   { roman:"IV", start:22, end:28, hex:"#ff82aa", short:"Judged operations",
-    name:"Part 4 · From governed effects to judged operations",
-    question:"How do you know the agent behaved — and how does a bad day become a boundary?" },
+    name:"Judged operations",
+    question:"Can the whole journey be judged, released, observed, and improved?" },
   { roman:"V", start:29, end:37, hex:"#b99aff", short:"Operable platform",
-    name:"Part 5 · From one agent to an operable platform",
-    question:"What must a platform demand of every agent before letting it launch at all?" },
+    name:"Operable platform",
+    question:"What proof must every agent carry before the platform lets it launch?" },
 ];
 
 /* Chapter data. Titles are the manuscript's own chapter titles.
@@ -277,7 +276,7 @@ const chapters = [
  change:"Unknown is recorded as a real outcome. The system checks authoritative state before deciding whether to retry.",
  cmd:[DEMO(9)]},
 {n:10, t:"Carrying Forward Only What Helps", refusal:"Context sprawl",
- story:"A later incident looks familiar. Notes from run-1042 may help, but dumping the old run into the new one would create more noise than signal.",
+ story:"A later incident looks familiar. Notes from the earlier Orders investigation may help, but dumping the old run into the new one would create more noise than signal.",
  change:"Memory is filtered by scope and limited before it reaches the model. It stays clearly separate from current evidence.",
  cmd:[DEMO(10)]},
 {n:11, t:"Keeping a Long Investigation on Course", refusal:"Mission drift",
@@ -394,28 +393,28 @@ const chapters = [
 const waypoints = {
   int1: { after:7, roman:"I ▸ II", label:"Return to the Surface",
     title:"Return to the Surface: One Investigation, End to End",
-    story:"Before adding anything new, Mira runs the incident through the first seven chapters as one system.",
-    body:"The replay starts with the facts known at 2:05 p.m. It keeps the boundary fixed, lets evidence add work, limits model judgment, carries cost and state forward, and stops where the evidence stops. The investigation should still be visible inside the architecture.",
-    cta:"Stay on chapter-07 and run the demo again. It replays the complete foundation." },
+    story:"Mira can now run one bounded Orders investigation from the opening evidence to a checkpointed workflow.",
+    body:"The system keeps evidence separate from claims, admits only permitted work, lets facts grow the graph, limits judgment, and survives a restart. The model may be flexible because the boundary is not. Next, that controlled work must survive the messiness of production.",
+    cta:"Stay on chapter-07 and run the demo again. It replays the complete controlled-work layer." },
   int2: { after:14, roman:"II ▸ III", label:"Return to the Surface",
     title:"Return to the Surface: One Complete Investigation",
-    story:"Each boundary works on its own. The next question is whether they still work when the whole investigation runs together.",
-    body:"The replay brings in reviewed memory without treating it as current evidence. Task ownership holds until commit, generated work stays in its sandbox, and the investigation completes through a real outside effect. Then it restarts and proves the state survived.",
+    story:"The same investigation can now retry, reconcile uncertainty, share work, and distrust what it reads.",
+    body:"Reviewed memory never becomes current evidence. Ownership holds until commit. Generated analysis stays inside its sandbox. The workflow is reliable—but reliability alone cannot decide whether a consequential effect is allowed.",
     cta:"Stay on chapter-14 and run the demo again to see the composed system." },
   int3: { after:21, roman:"III ▸ IV", label:"One Safe Agent Is Not a Platform",
     title:"One Safe Agent Is Not a Platform",
-    story:"At 9:12 on Tuesday, Payments, Billing, and Storage arrive at launch review with copies of the Orders system. The copies are already different.",
-    body:"Each team inherited useful safety boundaries, but copy-and-edit does not scale. The problem is no longer one safe agent. It is how the organization evaluates, releases, observes, and improves many of them.",
+    story:"Orders can now produce an effect whose approval, authority, policy, and receipt are part of the executable path.",
+    body:"That protects one run. It does not prove the route was good, stop a bad candidate from shipping, or teach the next release from production failures. The next layer judges and operates the behavior over time.",
     cta:"There is no new branch here. This is the turn from building one agent to judging many." },
   int4: { after:28, roman:"IV ▸ V", label:"Mira's scope has changed",
     title:"Mira's Scope Has Changed",
-    story:"Mira no longer reviews individual Orders code paths. She now defines the contracts every team must satisfy.",
-    body:"The system has one operating loop: observe, propose, admit, effect, trace, evaluate, release, and operate. Domain teams still own their evidence and outcomes. The platform makes those boundaries consistent across the fleet. One problem remains: onboarding a new team still takes weeks.",
-    cta:"The five platform contracts of Part 5 all gate the same Orders journey." },
+    story:"Mira is no longer protecting one Orders run. She is defining what every agent must prove.",
+    body:"The organization can trace, evaluate, release, observe, test, learn, and route the same investigation. Domain teams still own goals and outcomes. The platform must make the earned boundaries consistent without turning them into copied settings.",
+    cta:"The final layer turns the Orders lessons into shared launch contracts." },
   epilogue: { after:37, roman:"∎", label:"Epilogue",
     title:"Epilogue — The Work Can Now Outlive the Builder",
-    story:"Six months later, a new on-call engineer opens run-1042. They never met Mira and never heard her explain how the system was supposed to work.",
-    body:"The run identifier leads them to the evidence, task graph, decisions, model calls, report intent, and effect receipt. Nothing depends on Mira being available. Domain teams own goals, evidence meaning, and outcomes. Platform teams own the shared way the work is built and operated.",
+    story:"Six months later, a new on-call engineer opens the old Orders investigation. They never met Mira.",
+    body:"They can still follow the evidence, task graph, decisions, approvals, report intent, effect receipt, and ownership. Nothing depends on Mira being available. The reasoning survived because it was built into the work.",
     cta:"git switch main\npython -m pip install -e '.[test]'\npython scripts/run_current_chapter.py" },
 };
 
@@ -462,7 +461,7 @@ movements.forEach((m,i) => {
   const b = document.createElement("button");
   b.type = "button"; b.style.setProperty("--tab", m.hex);
   b.title = `${m.name} (${i+1})`;
-  b.innerHTML = `<span class="key">${i+1}</span><span class="t-copy"><b>${m.roman}. ${m.short}</b><span>Ch. ${m.start}–${m.end}</span></span>`;
+  b.innerHTML = `<span class="key">${i+1}</span><span class="t-copy"><b>${m.short}</b></span>`;
   b.addEventListener("click", () => go(chIndex[m.start]));
   $("tabs").append(b);
 });
@@ -477,8 +476,8 @@ chapters.forEach(c => {
 });
 
 /* ---------- the building ---------- */
-/* The manuscript's own image: Part 1 is the foundation, run as one connected
-   system. Each chapter places one block; each part completes one level.
+/* The manuscript's own image: controlled work is the base of one connected
+   system. Each chapter places one block; each layer completes one level.
    A lit window means the boundary exists at this checkpoint. */
 const FLOORS = [
   { part:0, cap:"CONTROLLED WORK", y:198, h:32, xs:[254,322,390,458,526,594,662], w:64,
@@ -549,7 +548,6 @@ function renderRail() {
   if (s.type === "wp") mi = mvIndexFor(waypoints[s.id].after);
   if (s.type === "examples") mi = 4;
   const m = mi >= 0 ? movements[mi] : null;
-  $("rail-roman").textContent = s.type === "examples" ? "▶" : s.type === "wp" ? waypoints[s.id].roman : (m ? m.roman : "—");
   $("rail-name").textContent  = s.type === "examples" ? "Run the examples" : s.type === "wp" ? waypoints[s.id].label : (m ? m.name : "Before you begin");
   $("rail-question").textContent = s.type === "examples" ? "Start with the complete success and refusal on main." : s.type === "wp" ? "Pause and replay the system built so far." : (m ? m.question : "One clone, then every chapter is a branch away.");
   const list = $("rail-list"); list.innerHTML = "";
@@ -588,8 +586,8 @@ function renderDetail() {
     d.innerHTML = `
       <div class="ch-meta"><span class="chip">SETUP</span><span class="mv-of">read once, then navigate by keyboard</span></div>
       <h1 class="lesson">The book, as one journey</h1>
-      <div class="story"><span class="cap">THE STORY</span><p>At 2:05 p.m., orders-api starts timing out. Mira has a useful incident update, but not a dependable investigation. Each chapter fixes the next failure exposed by that same case.</p></div>
-      <p class="change">Use the arrows to move in manuscript order. Every chapter adds one boundary to the system, and every branch contains the complete checkpoint built so far. The examples run offline. Docker is optional in Chapter 14; OPA is optional in Chapter 20.</p>
+      <div class="story"><span class="cap">START WITH THE PRESSURE</span><p>At 2:05 p.m., Orders starts timing out. Mira has partial evidence, a plausible explanation, and pressure to act. A good answer is available. Dependable work is not.</p></div>
+      <p class="change">This is one investigation, not a catalog of patterns. Move forward in manuscript order and watch each failure force the next boundary into the system. Every branch is the complete checkpoint built so far, and every example runs offline.</p>
       ${domeSvg(0, null, "START \u00b7 THE 2:05 P.M. INCIDENT", "0 of 37 boundaries placed")}
       <details class="try">
         <summary>Try yourself<span class="hint">set up once · clone the companion</span></summary>
@@ -606,9 +604,9 @@ cd engineering-agentic-ai-companion</code>
     document.documentElement.style.setProperty("--mv", "#63e59a");
     d.innerHTML = `
       <div class="ch-meta"><span class="chip">EXAMPLES</span><span class="mv-of">the practical last stop</span></div>
-      <h1 class="lesson">Run the system</h1>
-      <div class="story"><span class="cap">START HERE</span><p>Run the finished journey on main first. It shows both sides of the boundary: one candidate is admitted and executes; the stale-evidence candidate is refused before launch.</p></div>
-      <p class="change">Use a chapter example when you want to inspect one boundary. Use the main demo when you want to see the boundaries compose.</p>
+      <h1 class="lesson">Do not stop at the picture</h1>
+      <div class="story"><span class="cap">RUN BOTH SIDES</span><p>Start with the finished journey on main. One candidate earns its way through the system. Another reaches the same launch gate with stale evidence and is refused.</p></div>
+      <p class="change">That is the invitation of the book: predict what should happen, run the real path, then break one condition and watch the boundary hold. Use a chapter example to inspect one responsibility; use main to see them compose.</p>
       <section class="example-grid" aria-label="Three ways to run the companion">
         <article class="example-card"><small>Main</small><b>Complete journey</b><span>Success and refusal through the final launch gate.</span><a href="${repo}/blob/main/scripts/run_current_chapter.py" target="_blank" rel="noreferrer">Open the main demo ↗</a></article>
         <article class="example-card"><small>Chapters 1–37</small><b>One boundary</b><span>Each file demonstrates the responsibility added in that chapter.</span><a href="${repo}/tree/main/examples" target="_blank" rel="noreferrer">Browse the examples ↗</a></article>
@@ -631,10 +629,10 @@ python -m pytest</code>
     d.innerHTML = `
       <div class="ch-meta"><span class="chip">WAYPOINT · AFTER CH ${pad(w.after)}</span><span class="mv-of">${w.label}</span></div>
       <h1 class="lesson">${w.title}</h1>
-      <div class="story"><span class="cap">WHERE MIRA STANDS</span><p>${w.story}</p></div>
+      <div class="story"><span class="cap">WHAT MIRA HAS EARNED</span><p>${w.story}</p></div>
       <p class="change">${w.body}</p>
       ${domeSvg(w.after, null,
-        s.id==="epilogue" ? "THE BUILDING STANDS — EVERY BOUNDARY ACTIVE" : `${w.after===7?"THE FOUNDATION IS COMPLETE":w.after===14?"FLOOR 2 TOPPED OUT":w.after===21?"FLOOR 3 TOPPED OUT":"FLOOR 4 TOPPED OUT"} — THE SYSTEM RUNS END TO END`,
+        s.id==="epilogue" ? "THE SYSTEM STANDS — EVERY BOUNDARY ACTIVE" : `${w.after===7?"CONTROLLED WORK":w.after===14?"RELIABLE WORK":w.after===21?"GOVERNED EFFECTS":"JUDGED OPERATIONS"} — THE SYSTEM RUNS END TO END`,
         s.id==="epilogue" ? "the work has outlived the builder" : `${w.after} of 37 blocks placed`)}
       <details class="try">
         <summary>Try yourself<span class="hint">${s.id==="epilogue" ? "run the finished system" : "at this waypoint"}</span></summary>
@@ -660,8 +658,8 @@ python -m pytest</code>
         <span class="refusal">now impossible: <b>${c.refusal}</b></span>
       </div>
       <h1 class="lesson">${c.t}</h1>
-      <div class="story"><span class="cap">WHAT HAPPENED</span><p>${c.story}</p></div>
-      <p class="change"><b>What changes:</b> ${c.change}</p>
+      <div class="story"><span class="cap">THE PRESSURE</span><p>${c.story}</p></div>
+      <p class="change"><b>Mira adds:</b> ${c.change}</p>
       ${badges.length ? `<div class="badges">${badges.join("")}</div>` : ""}
       ${domeSvg(s.n, s.n, `NEW · CH ${pad(s.n)} — ${gate[s.n][0].toUpperCase()}`, `${s.n} of 37 blocks placed`)}
       <details class="try">
