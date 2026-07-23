@@ -33,7 +33,7 @@ button{font:inherit}
   background:rgba(255,255,255,.03);color:var(--ink);cursor:pointer}
 .stage{position:absolute;inset:78px 0 58px}
 .scene{position:absolute;inset:0;padding:62px 100px 48px;opacity:0;visibility:hidden;
-  transform:translateY(12px) scale(.995);transition:opacity .8s ease,transform .8s ease,visibility 0s .8s}
+  transform:translateY(10px) scale(.997);transition:opacity .45s ease,transform .45s ease,visibility 0s .45s}
 .scene.active{opacity:1;visibility:visible;transform:none;transition-delay:0s}
 .copy{position:relative;z-index:3;max-width:760px}.eyebrow{color:var(--accent);font-size:13px;font-weight:800;
   letter-spacing:.18em;text-transform:uppercase;margin-bottom:15px}.scene h1{margin:0;font-family:Georgia,serif;
@@ -41,13 +41,13 @@ button{font:inherit}
 .scene .lead{margin:20px 0 0;color:#b7c1d6;font-size:clamp(18px,1.45vw,26px);line-height:1.48;max-width:780px}
 .visual{position:absolute;z-index:2;left:88px;right:88px;top:250px;bottom:54px;display:grid;place-items:center}
 .visual svg{width:100%;height:100%;overflow:visible}
-.scene.active .enter{animation:enter .8s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--d,0s)}
-.scene.active .draw{stroke-dasharray:1000;stroke-dashoffset:1000;animation:draw 1.6s ease forwards;animation-delay:var(--d,.3s)}
+.scene.active .enter{animation:enter .42s cubic-bezier(.2,.8,.2,1) both;animation-delay:min(var(--d,0s),.55s)}
+.scene.active .draw{animation:link-in .55s cubic-bezier(.2,.8,.2,1) both;animation-delay:min(var(--d,.2s),.45s);transform-box:fill-box;transform-origin:center}
 .scene.active .pulse{animation:pulse 2.6s ease-in-out infinite;animation-delay:var(--d,0s)}
 .scene.active .float{animation:float 4s ease-in-out infinite;animation-delay:var(--d,0s)}
 .scene.active .blink{animation:blink 2s ease-in-out infinite;animation-delay:var(--d,0s)}
-@keyframes enter{from{opacity:0;transform:translateY(22px) scale(.96)}to{opacity:1;transform:none}}
-@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes enter{from{opacity:0;transform:translateY(14px) scale(.975)}to{opacity:1;transform:none}}
+@keyframes link-in{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
 @keyframes pulse{0%,100%{opacity:.55;filter:none}50%{opacity:1;filter:drop-shadow(0 0 12px currentColor)}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 @keyframes blink{0%,70%,100%{opacity:1}80%{opacity:.25}}
@@ -55,8 +55,8 @@ button{font:inherit}
 .soft{fill:rgba(255,255,255,.025);stroke:#2a3449;stroke-width:2}.label{fill:#f5f7ff;font:700 17px Inter,system-ui,sans-serif}
 .small{fill:#99a5bd;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.04em}.tiny{fill:#7f8ba3;font:600 10px Inter,system-ui,sans-serif;letter-spacing:.08em}
 .mono{fill:#d7deef;font:600 13px ui-monospace,SFMono-Regular,Menlo,monospace}.accent{fill:var(--accent)}.good{fill:var(--green)}.bad{fill:var(--danger)}
-.wire{fill:none;stroke:#3b465e;stroke-width:3}.wire-accent{fill:none;stroke:var(--accent);stroke-width:4}.wire-good{fill:none;stroke:var(--green);stroke-width:4}
-.wire-bad{fill:none;stroke:var(--danger);stroke-width:4;stroke-dasharray:10 10}.screen{fill:#0b1020;stroke:#34415a;stroke-width:2}
+.wire{fill:none;stroke:#3b465e;stroke-width:3;marker-end:url(#arrow-neutral)}.wire-accent{fill:none;stroke:var(--accent);stroke-width:4;marker-end:url(#arrow-accent)}.wire-good{fill:none;stroke:var(--green);stroke-width:4;marker-end:url(#arrow-good)}
+.wire-bad{fill:none;stroke:var(--danger);stroke-width:4;stroke-dasharray:10 10;marker-end:url(#arrow-bad)}.screen{fill:#0b1020;stroke:#34415a;stroke-width:2}
 .tag{fill:rgba(255,255,255,.04);stroke:#34415a;stroke-width:1.5}.window{fill:#263149;stroke:#465572;stroke-width:1.5}
 .window.lit{fill:var(--gold);stroke:#ffe7a2;filter:drop-shadow(0 0 8px rgba(255,209,102,.65))}
 .big-word{fill:#f5f7ff;font:800 28px Inter,system-ui,sans-serif;letter-spacing:.01em}.question{fill:var(--accent);font:800 22px Inter,system-ui,sans-serif}
@@ -75,6 +75,14 @@ button{font:inherit}
 </head>
 <body>
 <main id="film" aria-label="Mira's Journey narrative film">
+  <svg width="0" height="0" aria-hidden="true" style="position:absolute">
+    <defs>
+      <marker id="arrow-neutral" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="#3b465e"/></marker>
+      <marker id="arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="var(--accent)"/></marker>
+      <marker id="arrow-good" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="#63e6a3"/></marker>
+      <marker id="arrow-bad" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="#ff6f91"/></marker>
+    </defs>
+  </svg>
   <header class="topbar">
     <div class="brand"><span class="mark">M</span><div><strong>Mira's Journey</strong><small>From useful answers to dependable work</small></div></div>
     <div class="top-right"><span id="movement" class="movement">The incident</span><span id="clock" class="clock">00:00</span><button id="pause" class="pause" type="button" aria-label="Pause">Ⅱ</button></div>
@@ -83,26 +91,26 @@ button{font:inherit}
   <footer class="footer"><span id="count" class="count">OPENING</span><div class="progress"><i id="progress"></i></div></footer>
 </main>
 <script>
-const TOTAL = 558833;
+const TOTAL = 436500;
 const scenes = [
-  {id:"opening",start:0,end:1267,m:0,movement:"The incident",eyebrow:"",title:"",lead:""},
-  {id:"incident",start:1267,end:40267,m:0,movement:"The incident",eyebrow:"2:05 p.m. · Orders",title:"A good answer is not the work",lead:"The explanation sounds plausible. The investigation is still unfinished."},
-  {id:"controlled",start:40267,end:64300,m:1,movement:"Controlled Work",eyebrow:"Draw the boundary",title:"The model proposes. Code decides.",lead:"Ready options enter the decision surface. Only admitted work can run."},
-  {id:"checkpoint",start:64300,end:88333,m:1,movement:"Controlled Work",eyebrow:"Keep judgment bounded",title:"The workflow can stop—and continue",lead:"Budget, fallback, and a checkpoint turn a fragile answer into controlled work."},
-  {id:"messy",start:88333,end:106333,m:2,movement:"Reliable Work",eyebrow:"Production arrives",title:"Controlled work is not yet reliable",lead:"Requests repeat. Replies disappear. Workers overlap. Dependencies fail."},
-  {id:"reliability",start:106333,end:142367,m:2,movement:"Reliable Work",eyebrow:"Refuse to guess",title:"Uncertainty becomes explicit",lead:"Stable effect identity makes retry safe. Reconciliation discovers what actually happened."},
-  {id:"integrity",start:142367,end:190367,m:2,movement:"Reliable Work",eyebrow:"Keep the question in charge",title:"The investigation survives failure",lead:"Bounded memory, ownership, evidence envelopes, and a sandbox preserve its shape."},
-  {id:"governance-gap",start:190367,end:208400,m:3,movement:"Governed Effects",eyebrow:"The next boundary",title:"Reliable does not mean allowed",lead:"Who may approve? Whose authority is carried? Which policy must hold at the write?"},
-  {id:"judgment",start:208400,end:244400,m:3,movement:"Governed Effects",eyebrow:"Use judgment deliberately",title:"Evidence changes the plan",lead:"Models fit decisions. New facts replace only future work. Specialists must support one claim."},
-  {id:"effect-gate",start:244400,end:292433,m:3,movement:"Governed Effects",eyebrow:"Move governance into the path",title:"The effect earns permission",lead:"Approval, authority, and policy are checked again where the report is written."},
-  {id:"trace-gap",start:292433,end:310433,m:4,movement:"Judged Operations",eyebrow:"The result can still mislead",title:"A good report may hide a bad journey",lead:"The next question is not just what the system produced, but how it got there."},
-  {id:"evaluation",start:310433,end:346467,m:4,movement:"Judged Operations",eyebrow:"Judge the route",title:"The trajectory becomes evidence",lead:"Trace connects evidence, decisions, joins, and effects. Release requires the whole path to hold."},
-  {id:"feedback",start:346467,end:394500,m:4,movement:"Judged Operations",eyebrow:"Let production teach",title:"Failures become new boundaries",lead:"Variation finds missed cases. Incidents become invariants, regressions, and owned fixes."},
-  {id:"platform-gap",start:394500,end:412500,m:5,movement:"Operable Platform",eyebrow:"The problem changes",title:"One safe agent is not a platform",lead:"The same boundaries must hold across teams, agents, versions, and releases."},
-  {id:"platform",start:412500,end:460533,m:5,movement:"Operable Platform",eyebrow:"Know what is running",title:"Identity meets authority and placement",lead:"Exact artifacts declare capabilities, carry the caller, and keep evidence in bounds."},
-  {id:"launch",start:460533,end:520600,m:5,movement:"Operable Platform",eyebrow:"Convenience is not proof",title:"Launch must be earned",lead:"Evaluation, ownership, rollback, authority, placement, and risk converge on one decision."},
-  {id:"outlive",start:520600,end:540600,m:5,movement:"Operable Platform",eyebrow:"Six months later",title:"The work outlives Mira",lead:"A new engineer can reconstruct the investigation because its reasoning lives in the system."},
-  {id:"invitation",start:540600,end:558833,m:5,movement:"Run the examples",eyebrow:"One executable boundary at a time",title:"Do not stop at the picture",lead:"Read the journey. Run both sides of every boundary. Break one condition and watch the system refuse."}
+  {id:"opening",start:0,end:1000,m:0,movement:"The incident",eyebrow:"",title:"",lead:""},
+  {id:"incident",start:1000,end:37500,m:0,movement:"The incident",eyebrow:"2:05 p.m. · Orders",title:"A good answer is not the work",lead:"The explanation sounds plausible. The investigation is still unfinished."},
+  {id:"controlled",start:37500,end:60000,m:1,movement:"Controlled Work",eyebrow:"Draw the boundary",title:"The model proposes. Code decides.",lead:"Ready options enter the decision surface. Only admitted work can run."},
+  {id:"checkpoint",start:60000,end:83000,m:1,movement:"Controlled Work",eyebrow:"Keep judgment bounded",title:"The workflow can stop—and continue",lead:"Budget, fallback, and a checkpoint turn a fragile answer into controlled work."},
+  {id:"messy",start:83000,end:101500,m:2,movement:"Reliable Work",eyebrow:"Production arrives",title:"Controlled work is not yet reliable",lead:"Requests repeat. Replies disappear. Workers overlap. Dependencies fail."},
+  {id:"reliability",start:101500,end:132000,m:2,movement:"Reliable Work",eyebrow:"Refuse to guess",title:"Uncertainty becomes explicit",lead:"Stable effect identity makes retry safe. Reconciliation discovers what actually happened."},
+  {id:"integrity",start:132000,end:163500,m:2,movement:"Reliable Work",eyebrow:"Keep the question in charge",title:"The investigation survives failure",lead:"Bounded memory, ownership, evidence envelopes, and a sandbox preserve its shape."},
+  {id:"governance-gap",start:163500,end:182500,m:3,movement:"Governed Effects",eyebrow:"The next boundary",title:"Reliable does not mean allowed",lead:"Who may approve? Whose authority is carried? Which policy must hold at the write?"},
+  {id:"judgment",start:182500,end:210500,m:3,movement:"Governed Effects",eyebrow:"Use judgment deliberately",title:"Evidence changes the plan",lead:"Models fit decisions. New facts replace only future work. Specialists must support one claim."},
+  {id:"effect-gate",start:210500,end:245500,m:3,movement:"Governed Effects",eyebrow:"Move governance into the path",title:"The effect earns permission",lead:"Approval, authority, and policy are checked again where the report is written."},
+  {id:"trace-gap",start:245500,end:262000,m:4,movement:"Judged Operations",eyebrow:"The result can still mislead",title:"A good report may hide a bad journey",lead:"The next question is not just what the system produced, but how it got there."},
+  {id:"evaluation",start:262000,end:288000,m:4,movement:"Judged Operations",eyebrow:"Judge the route",title:"The trajectory becomes evidence",lead:"Trace connects evidence, decisions, joins, and effects. Release requires the whole path to hold."},
+  {id:"feedback",start:288000,end:315500,m:4,movement:"Judged Operations",eyebrow:"Let production teach",title:"Failures become new boundaries",lead:"Variation finds missed cases. Incidents become invariants, regressions, and owned fixes."},
+  {id:"platform-gap",start:315500,end:333500,m:5,movement:"Operable Platform",eyebrow:"The problem changes",title:"One safe agent is not a platform",lead:"The same boundaries must hold across teams, agents, versions, and releases."},
+  {id:"platform",start:333500,end:360000,m:5,movement:"Operable Platform",eyebrow:"Know what is running",title:"Identity meets authority and placement",lead:"Exact artifacts declare capabilities, carry the caller, and keep evidence in bounds."},
+  {id:"launch",start:360000,end:397000,m:5,movement:"Operable Platform",eyebrow:"Convenience is not proof",title:"Launch must be earned",lead:"Evaluation, ownership, rollback, authority, placement, and risk converge on one decision."},
+  {id:"outlive",start:397000,end:418000,m:5,movement:"Operable Platform",eyebrow:"Six months later",title:"The work outlives Mira",lead:"A new engineer can reconstruct the investigation because its reasoning lives in the system."},
+  {id:"invitation",start:418000,end:436500,m:5,movement:"Run the examples",eyebrow:"One executable boundary at a time",title:"Do not stop at the picture",lead:"Read the journey. Run both sides of every boundary. Break one condition and watch the system refuse."}
 ];
 const colors=["#4bdcff","#4bdcff","#63e6a3","#ffd166","#ff7bac","#b792ff"];
 
@@ -286,9 +294,15 @@ function tick(now){if(!running)return;elapsed=Math.min(TOTAL,now-startedAt);rend
 function start(){if(running)return;if(elapsed>=TOTAL)elapsed=0;startedAt=performance.now()-elapsed;running=true;pause.textContent="Ⅱ";pause.setAttribute("aria-label","Pause");raf=requestAnimationFrame(tick)}
 function stop(done=false){running=false;cancelAnimationFrame(raf);pause.textContent=done?"↻":"▶";pause.setAttribute("aria-label",done?"Replay":"Play")}
 function toggle(){running?stop():start()}
+function seek(ms){elapsed=Math.max(0,Math.min(TOTAL-1,ms));if(running)startedAt=performance.now()-elapsed;render(elapsed)}
 pause.addEventListener("click",toggle);
-window.addEventListener("keydown",e=>{if(e.code==="Space"){e.preventDefault();toggle()}});
-window.MIRA_FILM=Object.freeze({durationMs:TOTAL,width:1920,height:1080,fps:30,start});
+window.addEventListener("keydown",e=>{
+  if(e.code==="Space"){e.preventDefault();toggle()}
+  else if(e.key==="ArrowRight"){e.preventDefault();seek(scenes[Math.min(scenes.length-1,current+1)].start)}
+  else if(e.key==="ArrowLeft"){e.preventDefault();seek(scenes[Math.max(0,current-1)].start)}
+  else if(e.key.toLowerCase()==="r"){e.preventDefault();seek(0);start()}
+});
+window.MIRA_FILM=Object.freeze({durationMs:TOTAL,width:1920,height:1080,fps:30,start,seek});
 render(0);
 if(new URLSearchParams(location.search).get("autoplay")!=="0")requestAnimationFrame(start);
 </script>
