@@ -166,4 +166,13 @@ CHAPTER_STORIES = {
         "Versioned plans preserve succeeded commitments and replace only future work.",
         "The investigation can replan honestly without erasing its history.",
     ),
+    17: ChapterStory(
+        "When Useful Contributions Do Not Add Up",
+        "Can specialist results be joined without mistaking partial work for completion?",
+        "Delegation and checked joins",
+        "Individually useful specialist returns may be stale, incomplete, or mutually insufficient.",
+        "Versioned plans",
+        "Exact assignments, evidence-backed returns, and an explicit join contract.",
+        "Parallel contributions become one proposal only after every obligation is met.",
+    ),
 }
