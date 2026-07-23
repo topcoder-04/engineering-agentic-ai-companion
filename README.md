@@ -1,12 +1,12 @@
-# Chapter 33 companion — Making the Safe Path the Easy Path
+# Chapter 34 companion — Binding Proof to the Release
 
-This checkpoint adds platform scaffolding with visible, declared escape hatches.
+This checkpoint adds conformance receipts bound to the exact candidate, contract, suite, and checks.
 
 ## What this chapter adds
 
-- Safe project scaffolding and scaffold admission live in `platform/defaults/`.
-- The paved Orders project shape feeds the placement-, authority-, capability-, and identity-gated journey.
-- A composition test proves an unapproved override cannot launch work.
+- Artifact-bound conformance receipts live in `platform/releases/`.
+- The exact candidate and contract must carry trace, policy, rollback, authority, and placement checks before execution.
+- A composition test proves a different artifact cannot reuse the passing receipt to run the Orders journey.
 
 ## Code map
 
@@ -60,6 +60,7 @@ src/orders_investigation/platform/controls.py
 src/orders_investigation/platform/defaults/__init__.py
 src/orders_investigation/platform/identity/__init__.py
 src/orders_investigation/platform/placement/__init__.py
+src/orders_investigation/platform/releases/__init__.py
 src/orders_investigation/runtime/__init__.py
 src/orders_investigation/runtime/boundary.py
 src/orders_investigation/runtime/contracts/__init__.py
@@ -68,8 +69,8 @@ src/orders_investigation/runtime/journey.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_33.py
-tests/test_chapter_33.py
+examples/chapter_34.py
+tests/test_chapter_34.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -91,11 +92,11 @@ Prerequisites are Python 3.11 or newer and Git. Docker is optional and used only
 Use the portable reader path from a fresh checkout:
 
 ```bash
-git switch chapter-33
+git switch chapter-34
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -e '.[test]'
-python -m pytest tests/test_chapter_33.py
+python -m pytest tests/test_chapter_34.py
 python -m pytest
 python scripts/run_current_chapter.py
 ```
@@ -103,10 +104,10 @@ python scripts/run_current_chapter.py
 On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. The manuscript-compatible command executes the same chapter file:
 
 ```bash
-python -m orders_investigation.demo chapter-33
+python -m orders_investigation.demo chapter-34
 ```
 
-Expected outcome: The paved path generates agent.yaml, its conformance test, and runbook.md with no exceptions.
+Expected outcome: Evidence bound to candidate A passes; the same receipt presented for candidate B is refused.
 
 The demo opens with the building block introduced in this chapter, then shows
 the real scenario, boundary decision, execution result, and what to notice.
@@ -126,7 +127,7 @@ Color reinforces the labels but never carries meaning alone: `APPROVED`,
 
 ```bash
 uv sync --extra test
-uv run --no-sync pytest tests/test_chapter_33.py
+uv run --no-sync pytest tests/test_chapter_34.py
 uv run --no-sync pytest
 uv run --no-sync python scripts/run_current_chapter.py
 ```
@@ -135,17 +136,17 @@ The `test` extra is the portable reader contract. CI installs the all-extras sup
 
 ## Behavioral spine
 
-The paved path is now the build-time entrance to the same runtime spine. Its contract,
-conformance test, and runbook allow the Orders project to proceed through placement
-and execute. Adding `custom/router.py` records an exception; without explicit
-approval, scaffold admission refuses the project before launch.
+Conformance is now the release-time entrance to the paved and runtime paths. The
+receipt for `candidate-orders-v1` proves the checks required by the registered Orders
+contract and the investigation completes. Reusing that receipt for
+`candidate-orders-v2` is refused before scaffold or runtime admission.
 ## Deliberately incomplete
 
-This branch contains no platform capability introduced after Chapter 33. Chapter 34 addresses the next manuscript pressure.
+This branch contains no platform capability introduced after Chapter 34. Chapter 35 addresses the next manuscript pressure.
 
 ## Architecture evolution at this checkpoint
 
-The tracked responsibility map now contains only the packages earned through Chapter 33. Later packages are absent from this branch.
+The tracked responsibility map now contains only the packages earned through Chapter 34. Later packages are absent from this branch.
 
 ```text
 src/orders_investigation/
@@ -168,9 +169,10 @@ src/orders_investigation/
 │   ├── capabilities/
 │   ├── authority/
 │   ├── placement/
-│   └── defaults/
+│   ├── defaults/
+│   └── releases/
 ├── demo.py
 └── live_demo.py
 ```
 
-`ARCHITECTURE.md` records only Chapters 1-33 as present evolution; `main` carries the complete roadmap.
+`ARCHITECTURE.md` records only Chapters 1-34 as present evolution; `main` carries the complete roadmap.

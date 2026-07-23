@@ -53,6 +53,7 @@ from orders_investigation.platform.authority import (
 )
 from orders_investigation.platform.placement import DataBoundary, ExecutionTarget, place
 from orders_investigation.platform.defaults import ScaffoldRequest, admit_scaffold, scaffold
+from orders_investigation.platform.releases import ConformanceReceipt, release_conforms
 from orders_investigation.runtime.boundary import ORDERS_BOUNDARY
 from orders_investigation.runtime.contracts.admission import admit
 from orders_investigation.runtime.workflow import replay_pipeline_observation
@@ -236,6 +237,36 @@ def run_scaffolded_orders_investigation(
     return run_placed_orders_investigation(
         orders_data_boundary(), orders_execution_targets()
     )
+
+
+def orders_conformance_receipt(
+    *,
+    candidate_digest: str = "candidate-orders-v1",
+) -> ConformanceReceipt:
+    return ConformanceReceipt(
+        candidate_digest,
+        orders_agent_contract().manifest_digest,
+        "suite-5",
+        frozenset({"trace", "policy", "rollback", "authority", "placement"}),
+        frozenset(),
+    )
+
+
+def run_conformant_orders_investigation(
+    candidate_digest: str,
+    receipt: ConformanceReceipt,
+) -> PlacedRun:
+    """Bind conformance evidence to the candidate before executing it."""
+    allowed, reasons = release_conforms(
+        candidate_digest,
+        orders_agent_contract(),
+        receipt,
+        {"trace", "policy", "rollback", "authority", "placement"},
+        required_suite_version="suite-5",
+    )
+    if not allowed:
+        raise ValueError("conformance_refused:" + ",".join(reasons))
+    return run_scaffolded_orders_investigation()
 
 
 def trace_orders_investigation(

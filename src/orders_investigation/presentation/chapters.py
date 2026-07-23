@@ -319,4 +319,13 @@ CHAPTER_STORIES = {
         "A generated project shape carries required controls and declares owned overrides.",
         "The easiest implementation path is also the platform-admitted path.",
     ),
+    34: ChapterStory(
+        "Binding Proof to the Release",
+        "Can passing evidence be reused only by the exact candidate that produced it?",
+        "Artifact-bound conformance receipt",
+        "Detached test results can be replayed against a different artifact or contract.",
+        "Paved-path admission",
+        "Candidate, contract, suite, checks, and evidence are bound in one receipt.",
+        "Launch proof travels with the exact artifact it evaluated.",
+    ),
 }
