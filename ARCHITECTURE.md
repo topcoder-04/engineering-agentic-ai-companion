@@ -1,35 +1,31 @@
 # Architecture evolution contract
 
-The repository tree is part of the teaching. A responsibility becomes a package only when the manuscript creates enough pressure to justify it. Earlier branches do not contain empty future packages.
+**Current checkpoint: Chapter 1.** This document describes what is present now. It does not advertise packages from later checkpoints.
+
+## Present responsibility map
+
+```text
+src/orders_investigation/
+├── domain/
+├── environment/
+├── presentation/
+└── demo.py
+```
+
+## Evolution earned so far
 
 | Chapter | Boundary introduced | Why it appears here |
 |---:|---|---|
-| 1 | `domain/`, `environment/` | Separate the goal and evidence from outside observations and effects. |
-| 2 | `runtime/boundary.py` | Declare what the investigation may observe or change. |
-| 3 | `decisions/model.py` | Keep probabilistic choice behind a provider-neutral seam. |
-| 4 | `graph/tasks.py` | Make dependencies, readiness, and evidence-driven expansion visible. |
-| 5 | `runtime/contracts/`, `context/` | Separate model-visible context, proposals, admission, and execution. |
-| 6 | `decisions/budget.py` | Bound judgment as an explicit dependency. |
-| 7 | `runtime/workflow.py` | Persist changed work and resume it safely. |
-| 8–9 | `effects/` | Make effects idempotent, then reconcile unknown outcomes. |
-| 10 | `memory/` | Admit only reviewed, scoped, bounded prior knowledge. |
-| 11 | `graph/spine.py` | Keep a long investigation on its active causal question. |
-| 12–14 | `runtime/`, `integrations/` | Add owned work, dependency admission, and isolated analysis. |
-| 15–17 | `decisions/`, `graph/`, `coordination/` | Route judgment, replace plans, and join specialist evidence. |
-| 18–20 | `governance/` | Separate approval, authority, and policy. |
-| 21 | `effects/enforcement.py` | Recheck policy at the exact effect boundary. |
-| 22–24 | `evaluation/` | Trace trajectories, evaluate outcomes, and gate releases. |
-| 25–28 | `operations/` | Observe safely, probe blind spots, learn boundaries, and enforce fleet limits. |
-| 29–37 | `platform/` subdomains | Grow identity through executable launch risk one platform contract at a time. |
+| 1 | `domain/`, `environment/`, `presentation/` | Separate completion facts from outside observations and effects, then render their proof consistently. |
+
+Responsibilities introduced after Chapter 1 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
 
 ## Enforced rules
 
-1. A package appears no earlier than its chapter.
-2. Each README explains the pressure that caused its structural change.
-3. README code maps name the real packages and execution path.
+1. A package appears no earlier than the chapter that earns it.
+2. The README names the pressure, executable path, focused test, and expected outcome.
+3. Code maps name real tracked paths; empty future packages are forbidden.
 4. Generic buckets such as `helpers`, `utils`, and `misc` are forbidden.
-5. Imports use responsibility packages rather than obsolete flat modules.
-6. Demos and tests remain offline; retained live evidence keeps provenance.
-7. Moving a module does not change its behavior in the same checkpoint.
-8. Every adjacent chapter remains a clean cumulative diff.
-9. `main` moves only after all behavioral and structural gates pass.
+5. Demos and tests are deterministic and offline; retained live evidence keeps provenance.
+6. Adjacent chapter branches remain clean cumulative prefixes.
+7. `main` moves only after all branch-local behavioral and structural gates pass.
