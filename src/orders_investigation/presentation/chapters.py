@@ -265,4 +265,13 @@ CHAPTER_STORIES = {
         "Failure signatures, owners, cases, and replay verification are stored together.",
         "A corrected path must satisfy the boundary that the original incident violated.",
     ),
+    28: ChapterStory(
+        "Operating a Fleet Within Limits",
+        "Can a released candidate run only in an exact healthy cell with capacity?",
+        "Capacity-aware fleet routing",
+        "Passing evaluation does not prove that every region, version, or cell may run the work.",
+        "Release gates · owned regressions",
+        "Routing matches release, region, versions, rollout ring, health, and capacity.",
+        "Fleet execution stays inside both behavioral and operational limits.",
+    ),
 }

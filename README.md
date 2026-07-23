@@ -1,12 +1,12 @@
-# Chapter 27 companion — Turning Incidents Into Boundaries
+# Chapter 28 companion — Operating a Fleet Within Limits
 
-This checkpoint adds owned regression boundaries derived from real failed trajectories.
+This checkpoint adds version-aware fleet routing, capacity refusal, and rollout stop gates.
 
 ## What this chapter adds
 
-- Incident promotion and regression verification live in `operations/learning.py`.
-- The stale-evidence failure from the shared Orders journey becomes the owned regression boundary.
-- A composition test proves the original path still fails while the corrected path satisfies the promoted case.
+- Fleet routing and rollout limits live in `operations/fleet.py`; evaluation remains separate.
+- The fleet entry point now consumes the release decision produced by executed Orders journeys.
+- A composition test proves a failed regression campaign cannot be routed to an otherwise healthy cell.
 
 ## Code map
 
@@ -49,6 +49,7 @@ src/orders_investigation/live_demo.py
 src/orders_investigation/memory/__init__.py
 src/orders_investigation/memory/store.py
 src/orders_investigation/operations/__init__.py
+src/orders_investigation/operations/fleet.py
 src/orders_investigation/operations/learning.py
 src/orders_investigation/operations/observability.py
 src/orders_investigation/operations/probes.py
@@ -60,8 +61,8 @@ src/orders_investigation/runtime/journey.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_27.py
-tests/test_chapter_27.py
+examples/chapter_28.py
+tests/test_chapter_28.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -83,11 +84,11 @@ Prerequisites are Python 3.11 or newer and Git. Docker is optional and used only
 Use the portable reader path from a fresh checkout:
 
 ```bash
-git switch chapter-27
+git switch chapter-28
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -e '.[test]'
-python -m pytest tests/test_chapter_27.py
+python -m pytest tests/test_chapter_28.py
 python -m pytest
 python scripts/run_current_chapter.py
 ```
@@ -95,10 +96,10 @@ python scripts/run_current_chapter.py
 On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. The manuscript-compatible command executes the same chapter file:
 
 ```bash
-python -m orders_investigation.demo chapter-27
+python -m orders_investigation.demo chapter-28
 ```
 
-Expected outcome: The promoted regression has a named owner and deterministic failure signature; only the corrected path passes.
+Expected outcome: Eligibility selects the healthy ready cell before optimization; a failed release cannot be routed.
 
 The demo opens with the building block introduced in this chapter, then shows
 the real scenario, boundary decision, execution result, and what to notice.
@@ -118,7 +119,7 @@ Color reinforces the labels but never carries meaning alone: `APPROVED`,
 
 ```bash
 uv sync --extra test
-uv run --no-sync pytest tests/test_chapter_27.py
+uv run --no-sync pytest tests/test_chapter_28.py
 uv run --no-sync pytest
 uv run --no-sync python scripts/run_current_chapter.py
 ```
@@ -127,17 +128,17 @@ The `test` extra is the portable reader contract. CI installs the all-extras sup
 
 ## Behavioral spine
 
-Incident learning now begins with an executed failure, not an empty trace. The
-stale-evidence refusal is signed into an owned regression boundary. Replaying that
-boundary rejects the original `effect_refused` path and accepts the corrected
-effect, making the lesson executable before the next release.
+Fleet routing now begins with the Chapter 24 release decision. A healthy, compatible
+cell receives a candidate whose Orders campaign passed. The identical cell is never
+considered when the campaign contains the stale-evidence regression: release refusal
+is preserved as the fleet admission reason.
 ## Deliberately incomplete
 
-No platform capability from Chapters 29–37 exists yet. Chapter 28 introduces the next manuscript pressure.
+No platform capability from Chapters 29–37 exists yet. Chapter 29 introduces the next manuscript pressure.
 
 ## Architecture evolution at this checkpoint
 
-The tracked responsibility map now contains only the packages earned through Chapter 27. Later packages are absent from this branch.
+The tracked responsibility map now contains only the packages earned through Chapter 28. Later packages are absent from this branch.
 
 ```text
 src/orders_investigation/
@@ -159,4 +160,4 @@ src/orders_investigation/
 └── live_demo.py
 ```
 
-`ARCHITECTURE.md` records only Chapters 1-27 as present evolution; `main` carries the complete roadmap.
+`ARCHITECTURE.md` records only Chapters 1-28 as present evolution; `main` carries the complete roadmap.
