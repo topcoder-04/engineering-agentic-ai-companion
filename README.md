@@ -18,7 +18,7 @@ Chapter 37:
   with links to every executable checkpoint.
 - [Record the narrative voice-over](docs/miras-journey-voiceover.md) — a timed,
   human-paced script that follows the same Orders incident across the complete
-  9:18 journey.
+  7:16 journey.
 - [Preview the narrative film](docs/miras-journey-film.html) — a separate,
   voice-over-led visual with one idea on screen at a time.
 
