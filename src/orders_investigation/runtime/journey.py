@@ -43,6 +43,7 @@ from orders_investigation.governance.authority import (
     verify_session,
 )
 from orders_investigation.governance.policy import PolicyFacts, orders_report_policy
+from orders_investigation.operations.probes import Variation, variation_matrix
 from orders_investigation.runtime.boundary import ORDERS_BOUNDARY
 from orders_investigation.runtime.contracts.admission import admit
 from orders_investigation.runtime.workflow import replay_pipeline_observation
@@ -73,6 +74,13 @@ class JourneyResult:
     report_content: str
     steps: tuple[JourneyStep, ...]
     recorded_evidence: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class VariationRun:
+    variation: Variation
+    journey: JourneyResult
+    evaluation: EvaluationResult
 
 
 def trace_orders_investigation(
@@ -126,6 +134,24 @@ def gate_orders_release(results: tuple[JourneyResult, ...]) -> ReleaseDecision:
         tuple(trace_orders_investigation(result) for result in results),
         ReleaseThresholds(minimum_pass_rate=1.0),
     )
+
+
+def run_orders_variations() -> tuple[VariationRun, ...]:
+    """Execute the Orders path across stable model, fault, and timing variations."""
+    variations = variation_matrix(
+        ("reasoning-small", "reasoning-large"),
+        ("none", "stale_evidence"),
+        (0, 500),
+    )
+    runs = []
+    for variation in variations:
+        journey = run_orders_investigation(
+            evidence_current=variation.dependency_fault != "stale_evidence"
+        )
+        runs.append(
+            VariationRun(variation, journey, evaluate_orders_investigation(journey))
+        )
+    return tuple(runs)
 
 
 def _approve(intent: ApprovalIntent, connection: sqlite3.Connection) -> str:

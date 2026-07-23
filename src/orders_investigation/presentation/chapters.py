@@ -247,4 +247,13 @@ CHAPTER_STORIES = {
         "Operational projections expose counts, digests, timing, units, and outcomes only.",
         "Teams can diagnose behavior while data minimization remains intact.",
     ),
+    26: ChapterStory(
+        "Testing What Authored Cases Missed",
+        "Can deliberate variations expose failures hidden by the happy path?",
+        "Variation campaign",
+        "A small authored suite cannot cover model, dependency, timing, and evidence variation.",
+        "Redacted operations · trajectory evaluation",
+        "Stable variation plans execute the real Orders journey across controlled changes.",
+        "Robustness claims are supported by behavior across meaningful variation.",
+    ),
 }
