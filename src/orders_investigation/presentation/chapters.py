@@ -256,4 +256,13 @@ CHAPTER_STORIES = {
         "Stable variation plans execute the real Orders journey across controlled changes.",
         "Robustness claims are supported by behavior across meaningful variation.",
     ),
+    27: ChapterStory(
+        "Turning Incidents Into Boundaries",
+        "Can one production failure become a durable, owned regression contract?",
+        "Incident-to-regression promotion",
+        "A retrospective lesson is easy to forget if it never changes executable acceptance.",
+        "Variation campaigns",
+        "Failure signatures, owners, cases, and replay verification are stored together.",
+        "A corrected path must satisfy the boundary that the original incident violated.",
+    ),
 }

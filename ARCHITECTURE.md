@@ -1,6 +1,6 @@
 # Architecture evolution contract
 
-**Current checkpoint: Chapter 26.** This document describes what is present now. It does not advertise packages from later checkpoints.
+**Current checkpoint: Chapter 27.** This document describes what is present now. It does not advertise packages from later checkpoints.
 
 ## Present responsibility map
 
@@ -54,8 +54,9 @@ src/orders_investigation/
 | 24 | `evaluation/production.py` release gate | Turn evaluation evidence into a fail-closed release decision. |
 | 25 | `operations/observability.py` | Expose useful production fields without raw content. |
 | 26 | `operations/probes.py` | Exercise deliberate model, dependency, and timing variations. |
+| 27 | `operations/learning.py` | Promote incident failures into owned regression boundaries. |
 
-Responsibilities introduced after Chapter 26 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
+Responsibilities introduced after Chapter 27 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
 
 ## Enforced rules
 

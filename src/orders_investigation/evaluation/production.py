@@ -232,3 +232,24 @@ def variation_matrix(
                 key = f"{model}|{fault}|{offset}"
                 rows.append(Variation(digest(key)[:12], model, fault, offset))
     return tuple(rows)
+
+
+@dataclass(frozen=True)
+class RegressionBoundary:
+    incident_id: str
+    case: EvaluationCase
+    failure_signature: str
+    owner: str
+
+
+def promote_incident(
+    incident_id: str,
+    failed_trace: SemanticTrace,
+    corrected_case: EvaluationCase,
+    owner: str,
+) -> RegressionBoundary:
+    signature = digest("|".join(
+        [failed_trace.agent_version, failed_trace.policy_version]
+        + [event.kind + ":" + event.decision_reason for event in failed_trace.events]
+    ))
+    return RegressionBoundary(incident_id, corrected_case, signature, owner)
