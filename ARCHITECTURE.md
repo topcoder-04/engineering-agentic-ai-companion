@@ -1,6 +1,6 @@
 # Architecture evolution contract
 
-**Current checkpoint: Chapter 9.** This document describes what is present now. It does not advertise packages from later checkpoints.
+**Current checkpoint: Chapter 10.** This document describes what is present now. It does not advertise packages from later checkpoints.
 
 ## Present responsibility map
 
@@ -14,6 +14,7 @@ src/orders_investigation/
 ├── graph/
 ├── context/
 ├── effects/
+├── memory/
 ├── demo.py
 └── live_demo.py
 ```
@@ -31,8 +32,9 @@ src/orders_investigation/
 | 7 | `runtime/workflow.py` | Persist changed work and charged attempts across restart. |
 | 8 | `effects/idempotency.py` | Give a consequential effect stable identity. |
 | 9 | `effects/reconciliation.py` | Preserve unknown outcomes until effect truth is recovered. |
+| 10 | `memory/` | Admit only reviewed, scoped, bounded prior knowledge. |
 
-Responsibilities introduced after Chapter 9 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
+Responsibilities introduced after Chapter 10 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
 
 ## Enforced rules
 

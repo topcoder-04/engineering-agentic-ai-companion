@@ -103,4 +103,13 @@ CHAPTER_STORIES = {
         "Attempt outcome, effect outcome, and later reconciliation remain distinct.",
         "Unknown effects can be resolved before the workflow decides whether to retry.",
     ),
+    10: ChapterStory(
+        "Carrying Forward Only What Helps",
+        "Can prior knowledge help without becoming evidence for the current incident?",
+        "Scoped reviewed-memory retrieval",
+        "Unbounded or unrelated history can crowd out current evidence and distort causality.",
+        "Durable state · reconciled effects",
+        "Safety filtering, ranking, and explicit record and byte budgets.",
+        "Reviewed lessons can guide judgment while current evidence remains authoritative.",
+    ),
 }
