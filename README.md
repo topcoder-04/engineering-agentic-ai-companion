@@ -1,14 +1,14 @@
-# Chapter 3 companion — When Permitted Work Still Wastes Time
+# Chapter 4 companion — When Evidence Changes the Shape of the Work
 
-The investigation boundary from Chapter 2 prevents forbidden work, but several permitted observations are ready at once. This chapter introduces a bounded model decision: the model may recommend one declared observation; it cannot execute the observation or declare the investigation complete.
+Chapter 3 could choose among the observations already visible. That is not enough once topology evidence reveals resources that were previously unknown. This chapter makes the work graph expand only from recorded evidence.
 
 ## What this chapter adds
 
-- A typed incident state with recorded and missing evidence.
-- A bounded set of declared observation requests, without introducing Chapter 4's task graph.
-- A provider-neutral model boundary and a deterministic fixed-choice adapter.
-- A live-call receipt shape that preserves either the observed choice or the provider failure.
-- A runtime boundary result kept separate from model judgment.
+- Explicit `waiting`, `ready`, `succeeded`, and `failed` task states.
+- Dependencies that keep newly discovered work blocked until its prerequisite succeeds.
+- Evidence-driven expansion from topology, to writer activity, to migration, to deployment.
+- A recorded hypothesis revision that must name evidence the incident actually holds.
+- Failure behavior: an unsuccessful topology observation creates no endpoint work.
 
 ## Code map
 
@@ -24,11 +24,13 @@ src/orders_investigation/domain/investigation.py
 src/orders_investigation/environment/__init__.py
 src/orders_investigation/environment/opening_case.py
 src/orders_investigation/environment/requests.py
+src/orders_investigation/graph/__init__.py
+src/orders_investigation/graph/tasks.py
 src/orders_investigation/live_demo.py
 src/orders_investigation/runtime/__init__.py
 src/orders_investigation/runtime/boundary.py
-examples/chapter_03.py
-tests/test_chapter_03.py
+examples/chapter_04.py
+tests/test_chapter_04.py
 evidence/chapter-03/live-call.json
 scripts/run_current_chapter.py
 src/orders_investigation/presentation/__init__.py
@@ -45,11 +47,11 @@ Prerequisites are Python 3.11 or newer and Git. Docker is optional and used only
 Use the portable reader path from a fresh checkout:
 
 ```bash
-git switch chapter-03
+git switch chapter-04
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -e '.[test]'
-python -m pytest tests/test_chapter_03.py
+python -m pytest tests/test_chapter_04.py
 python -m pytest
 python scripts/run_current_chapter.py
 ```
@@ -57,10 +59,10 @@ python scripts/run_current_chapter.py
 On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. The manuscript-compatible command executes the same chapter file:
 
 ```bash
-python -m orders_investigation.demo chapter-03
+python -m orders_investigation.demo chapter-04
 ```
 
-Expected outcome: The permitted connection-pool check closes no evidence gap; topology becomes the next useful choice.
+Expected outcome: Topology creates writer and replica work; writer and migration evidence create the pipeline task.
 
 The demo opens with the building block introduced in this chapter, then shows
 the real scenario, boundary decision, execution result, and what to notice.
@@ -80,24 +82,24 @@ Color reinforces the labels but never carries meaning alone: `APPROVED`,
 
 ```bash
 uv sync --extra test
-uv run --no-sync pytest tests/test_chapter_03.py
+uv run --no-sync pytest tests/test_chapter_04.py
 uv run --no-sync pytest
 uv run --no-sync python scripts/run_current_chapter.py
 ```
 
 The `test` extra is the portable reader contract. CI installs the all-extras superset, so optional LangGraph and HTTPX integration coverage may add checks without changing the chapter's offline acceptance result.
 
-## Live evidence
+## Evidence
 
-The deterministic adapter keeps normal use offline. A reviewed Chapter 3 receipt may be retained under `evidence/chapter-03/` with the exact scenario, instructions, raw output, parsed choice, provider/model identifiers, timing, usage, and deterministic boundary result. One receipt is evidence of one call, not a quality benchmark.
+This chapter needs no live model call. Its important evidence is deterministic: the exact observation result that introduces each resource identifier is retained in the trace. A failed observation cannot manufacture those identifiers.
 
 ## Deliberately incomplete
 
-The model can still return malformed, unknown, stale, or unsupported proposals. Chapter 4 lets evidence change the work graph; Chapter 5 adds the deterministic admission contract between judgment and execution.
+The graph can now change, but the next model turn is not yet protected against stale, malformed, or invented proposals. Chapter 5 introduces the contract between model judgment and runtime execution.
 
 ## Architecture evolution at this checkpoint
 
-The tracked responsibility map now contains only the packages earned through Chapter 3. Later packages are absent from this branch.
+The tracked responsibility map now contains only the packages earned through Chapter 4. Later packages are absent from this branch.
 
 ```text
 src/orders_investigation/
@@ -106,8 +108,9 @@ src/orders_investigation/
 ├── presentation/
 ├── runtime/
 ├── decisions/
+├── graph/
 ├── demo.py
 └── live_demo.py
 ```
 
-`ARCHITECTURE.md` records only Chapters 1-3 as present evolution; `main` carries the complete roadmap.
+`ARCHITECTURE.md` records only Chapters 1-4 as present evolution; `main` carries the complete roadmap.

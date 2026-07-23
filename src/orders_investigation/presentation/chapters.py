@@ -49,4 +49,13 @@ CHAPTER_STORIES = {
         "A model selects one declared observation; application code performs it.",
         "Flexible judgment can guide work without becoming the execution boundary.",
     ),
+    4: ChapterStory(
+        "When Evidence Changes the Shape of the Work",
+        "Can newly observed evidence reveal work that was not knowable earlier?",
+        "Evidence-driven task graph",
+        "A static checklist cannot represent resources discovered during investigation.",
+        "Completion · scope · bounded model choice",
+        "Recorded results move tasks and create only evidence-justified work.",
+        "The investigation can expand without allowing the model to invent topology.",
+    ),
 }

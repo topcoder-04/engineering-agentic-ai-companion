@@ -11,6 +11,7 @@ class EvidenceKey(StrEnum):
     CONNECTION_POOL = "connection_pool"
     DATABASE_TOPOLOGY = "database_topology"
     WRITER_ACTIVITY = "writer_activity"
+    REPLICATION_DELAY = "replication_delay"
     MIGRATION_JOB = "migration_job"
     PIPELINE_TRIGGER = "pipeline_trigger"
 
@@ -30,12 +31,20 @@ class Evidence:
     source: str
 
 
+@dataclass(frozen=True)
+class HypothesisRevision:
+    previous: str
+    current: str
+    based_on: tuple[EvidenceKey, ...]
+
+
 @dataclass
 class Incident:
     service: str = "orders-api"
     environment: str = "orders-production"
     hypothesis: str = "Pressure in the database path is delaying order completion."
     recorded_evidence: dict[EvidenceKey, Evidence] = field(default_factory=dict)
+    hypothesis_revisions: list[HypothesisRevision] = field(default_factory=list)
     report_saved: bool = False
 
     @property
@@ -49,9 +58,34 @@ class Incident:
     def record_evidence(self, evidence: Evidence) -> None:
         self.recorded_evidence[evidence.key] = evidence
 
+    def revise_hypothesis(
+        self,
+        current: str,
+        *,
+        based_on: tuple[EvidenceKey, ...],
+    ) -> None:
+        if not current.strip():
+            raise ValueError("hypothesis_required")
+        if not based_on:
+            raise ValueError("supporting_evidence_required")
+        missing = tuple(key for key in based_on if key not in self.recorded_evidence)
+        if missing:
+            raise ValueError(
+                "supporting_evidence_not_recorded:"
+                + ",".join(key.value for key in missing)
+            )
+        self.hypothesis_revisions.append(HypothesisRevision(
+            previous=self.hypothesis,
+            current=current,
+            based_on=based_on,
+        ))
+        self.hypothesis = current
+
+
 def opening_incident() -> Incident:
     incident = Incident()
     incident.record_evidence(Evidence(EvidenceKey.SERVICE_TIMEOUTS, "18%", "service_metrics"))
     incident.record_evidence(Evidence(EvidenceKey.DATABASE_WRITE_LATENCY, "4.8s", "database_monitoring"))
     incident.record_evidence(Evidence(EvidenceKey.APPLICATION_CPU, "within normal range", "service_metrics"))
     return incident
+
