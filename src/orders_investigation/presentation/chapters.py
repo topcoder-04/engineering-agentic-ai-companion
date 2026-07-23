@@ -220,4 +220,13 @@ CHAPTER_STORIES = {
         "Ordered digest-bound events preserve path, provenance, timing, and outcome.",
         "Operators can reconstruct behavior without exposing raw request or evidence content.",
     ),
+    23: ChapterStory(
+        "Judging the Whole Trajectory",
+        "Can a useful-looking answer fail because the path that produced it was unsafe?",
+        "Trajectory evaluation",
+        "Answer-only scoring ignores missing evidence, forbidden actions, and failed outcomes.",
+        "Semantic execution trace",
+        "Evidence, path, action, and outcome dimensions judge the same executed trace.",
+        "Quality becomes a property of the whole run rather than its final prose.",
+    ),
 }
