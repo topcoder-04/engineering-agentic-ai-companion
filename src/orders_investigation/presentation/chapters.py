@@ -274,4 +274,13 @@ CHAPTER_STORIES = {
         "Routing matches release, region, versions, rollout ring, health, and capacity.",
         "Fleet execution stays inside both behavioral and operational limits.",
     ),
+    29: ChapterStory(
+        "Making an Agent Identifiable",
+        "Can the platform resolve the exact immutable workload before it starts?",
+        "Immutable agent identity",
+        "A mutable name cannot prove which owner, contract, tools, and policy are executing.",
+        "Operable fleet boundary",
+        "Versioned workload contracts are registered under a content digest.",
+        "Every run starts from an exact identifiable agent definition.",
+    ),
 }

@@ -1,6 +1,6 @@
 # Architecture evolution contract
 
-**Current checkpoint: Chapter 28.** This document describes what is present now. It does not advertise packages from later checkpoints.
+**Current checkpoint: Chapter 29.** This document describes what is present now. It does not advertise packages from later checkpoints.
 
 ## Present responsibility map
 
@@ -20,6 +20,8 @@ src/orders_investigation/
 ├── governance/
 ├── evaluation/
 ├── operations/
+├── platform/
+│   └── identity/
 ├── demo.py
 └── live_demo.py
 ```
@@ -56,8 +58,9 @@ src/orders_investigation/
 | 26 | `operations/probes.py` | Exercise deliberate model, dependency, and timing variations. |
 | 27 | `operations/learning.py` | Promote incident failures into owned regression boundaries. |
 | 28 | `operations/fleet.py` | Route released candidates within shared cell limits. |
+| 29 | `platform/identity/` | Resolve every agent version to an immutable contract. |
 
-Responsibilities introduced after Chapter 28 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
+Responsibilities introduced after Chapter 29 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
 
 ## Enforced rules
 
