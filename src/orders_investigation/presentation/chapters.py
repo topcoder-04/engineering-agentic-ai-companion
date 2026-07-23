@@ -58,4 +58,13 @@ CHAPTER_STORIES = {
         "Recorded results move tasks and create only evidence-justified work.",
         "The investigation can expand without allowing the model to invent topology.",
     ),
+    5: ChapterStory(
+        "What the Model Sees and What May Run",
+        "Can a model proposal become executable without treating its prose as evidence?",
+        "Decision surface and proposal admission",
+        "A model response can be stale, malformed, unsupported, or persuasive but false.",
+        "Evidence-driven tasks and bounded choice",
+        "Current context, typed proposals, readiness checks, and deterministic admission.",
+        "Only a current declared task crosses from judgment into runtime execution.",
+    ),
 }

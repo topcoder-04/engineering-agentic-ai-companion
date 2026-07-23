@@ -1,6 +1,6 @@
 # Architecture evolution contract
 
-**Current checkpoint: Chapter 4.** This document describes what is present now. It does not advertise packages from later checkpoints.
+**Current checkpoint: Chapter 5.** This document describes what is present now. It does not advertise packages from later checkpoints.
 
 ## Present responsibility map
 
@@ -12,6 +12,7 @@ src/orders_investigation/
 ├── runtime/
 ├── decisions/
 ├── graph/
+├── context/
 ├── demo.py
 └── live_demo.py
 ```
@@ -24,8 +25,9 @@ src/orders_investigation/
 | 2 | `runtime/boundary.py` | Declare what the investigation may observe or change. |
 | 3 | `decisions/model.py` | Keep probabilistic choice behind a provider-neutral seam. |
 | 4 | `graph/tasks.py` | Let recorded evidence create concrete dependent work. |
+| 5 | `context/`, `runtime/contracts/` | Separate the model-visible surface, proposal admission, and execution. |
 
-Responsibilities introduced after Chapter 4 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
+Responsibilities introduced after Chapter 5 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
 
 ## Enforced rules
 
