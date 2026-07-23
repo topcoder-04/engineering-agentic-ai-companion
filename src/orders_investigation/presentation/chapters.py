@@ -202,4 +202,13 @@ CHAPTER_STORIES = {
         "Versioned rules evaluate typed facts and return explicit reasons.",
         "Policy stays deterministic even when user wording changes.",
     ),
+    21: ChapterStory(
+        "Enforcing Rules Where Effects Happen",
+        "Can the report store refuse work even when an earlier layer made a mistake?",
+        "Effect-time enforcement",
+        "Approval and policy checks can become stale or be bypassed before the write.",
+        "Intent approval · authority · structured policy",
+        "The effect boundary rechecks current facts, intent, policy version, and resource version.",
+        "No upstream success can substitute for guardrails at the actual write.",
+    ),
 }
