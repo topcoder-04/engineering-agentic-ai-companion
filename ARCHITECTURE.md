@@ -1,6 +1,6 @@
 # Architecture evolution contract
 
-**Current checkpoint: Chapter 6.** This document describes what is present now. It does not advertise packages from later checkpoints.
+**Current checkpoint: Chapter 7.** This document describes what is present now. It does not advertise packages from later checkpoints.
 
 ## Present responsibility map
 
@@ -27,8 +27,9 @@ src/orders_investigation/
 | 4 | `graph/tasks.py` | Let recorded evidence create concrete dependent work. |
 | 5 | `context/`, `runtime/contracts/` | Separate the model-visible surface, proposal admission, and execution. |
 | 6 | `decisions/budget.py` | Make variable judgment a bounded dependency. |
+| 7 | `runtime/workflow.py` | Persist changed work and charged attempts across restart. |
 
-Responsibilities introduced after Chapter 6 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
+Responsibilities introduced after Chapter 7 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
 
 ## Enforced rules
 

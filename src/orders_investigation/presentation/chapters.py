@@ -76,4 +76,13 @@ CHAPTER_STORIES = {
         "Call, retry, elapsed-time, and usage limits with recorded stop reasons.",
         "The run can fail closed when judgment is unavailable or exhausted.",
     ),
+    7: ChapterStory(
+        "Keeping Changed Work Alive After a Restart",
+        "Can the investigation resume without reconstructing state from memory?",
+        "Durable workflow state",
+        "A process restart can erase evidence, ready work, and consumed decision budget.",
+        "Bounded decisions · evidence-driven graph",
+        "The incident, graph, hypothesis history, and attempt ledger persist together.",
+        "Recovery resumes from recorded state instead of replaying uncertain work.",
+    ),
 }
