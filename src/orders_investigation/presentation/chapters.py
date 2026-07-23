@@ -211,4 +211,13 @@ CHAPTER_STORIES = {
         "The effect boundary rechecks current facts, intent, policy version, and resource version.",
         "No upstream success can substitute for guardrails at the actual write.",
     ),
+    22: ChapterStory(
+        "Seeing the Path, Not Only the Answer",
+        "Can a production run be reconstructed without storing raw sensitive content?",
+        "Semantic execution trace",
+        "A final answer cannot reveal which evidence, decisions, and effects produced it.",
+        "Effect-time enforcement",
+        "Ordered digest-bound events preserve path, provenance, timing, and outcome.",
+        "Operators can reconstruct behavior without exposing raw request or evidence content.",
+    ),
 }

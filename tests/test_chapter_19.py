@@ -174,3 +174,4 @@ def test_authorization_receipt_still_performs_no_outside_effect():
     )
 
     assert not hasattr(receipt, "effect_result")
+

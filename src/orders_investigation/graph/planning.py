@@ -177,3 +177,4 @@ class PlanStore:
         except Exception:
             self.connection.rollback()
             raise
+

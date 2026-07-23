@@ -1,6 +1,6 @@
 # Architecture evolution contract
 
-**Current checkpoint: Chapter 21.** This document describes what is present now. It does not advertise packages from later checkpoints.
+**Current checkpoint: Chapter 22.** This document describes what is present now. It does not advertise packages from later checkpoints.
 
 ## Present responsibility map
 
@@ -18,6 +18,7 @@ src/orders_investigation/
 ├── integrations/
 ├── coordination/
 ├── governance/
+├── evaluation/
 ├── demo.py
 └── live_demo.py
 ```
@@ -47,8 +48,9 @@ src/orders_investigation/
 | 19 | `governance/authority.py` | Bind verified identity to one exact delegated grant. |
 | 20 | `governance/policy.py` | Decide from structured facts rather than wording. |
 | 21 | `effects/enforcement.py`, `runtime/journey.py` | Recheck policy at the effect and compose the cumulative Orders path. |
+| 22 | `evaluation/` | Preserve the semantic trajectory needed for judgment. |
 
-Responsibilities introduced after Chapter 21 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
+Responsibilities introduced after Chapter 22 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
 
 ## Enforced rules
 

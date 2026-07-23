@@ -16,6 +16,7 @@ from orders_investigation.effects.enforcement import (
     GuardrailRefused,
 )
 from orders_investigation.environment.scenario import current_case
+from orders_investigation.evaluation.production import SemanticTrace, TraceEvent, digest
 from orders_investigation.governance.approval import (
     ApprovalDecision,
     ApprovalIntent,
@@ -62,6 +63,38 @@ class JourneyResult:
     report_content: str
     steps: tuple[JourneyStep, ...]
     recorded_evidence: tuple[str, ...]
+
+
+def trace_orders_investigation(
+    result: JourneyResult,
+    *,
+    execution_id: str = "orders-run",
+) -> SemanticTrace:
+    """Turn the events emitted by the real journey into a semantic trace."""
+    events = tuple(
+        TraceEvent(
+            sequence=index,
+            kind=step.kind,
+            component=step.component,
+            input_digest=digest(step.input_value),
+            output_digest=digest(step.output_value),
+            evidence_ids=step.evidence_ids,
+            decision_reason=step.decision_reason,
+            duration_ms=10,
+            input_units=5,
+            output_units=5,
+            data_class="restricted",
+        )
+        for index, step in enumerate(result.steps, start=1)
+    )
+    return SemanticTrace(
+        execution_id,
+        "orders-agent-v1",
+        "reasoning-restricted",
+        "orders-report-v1",
+        events,
+        "completed" if result.completed else "refused",
+    )
 
 
 def _approve(intent: ApprovalIntent, connection: sqlite3.Connection) -> str:

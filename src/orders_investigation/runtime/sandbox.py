@@ -172,3 +172,4 @@ def admit_execution(
         )
         return ArtifactDecision(outcome, detail=str(exc))
     return ArtifactDecision(ExecutionOutcome.SUCCEEDED, artifact=artifact)
+

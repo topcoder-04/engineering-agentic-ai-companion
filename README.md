@@ -1,16 +1,12 @@
-# Chapter 21 companion — Enforcing Rules Where Effects Happen
+# Chapter 22 companion — Seeing the Path, Not Only the Answer
 
-Chapter 20 exposes the next engineering pressure. This checkpoint adds effect-time guardrails that recheck authority and policy at the commit boundary.
+This checkpoint adds semantic traces with ordered, versioned, digest-backed events.
 
 ## What this chapter adds
 
-- One manuscript-aligned responsibility boundary in `src/orders_investigation/effects/enforcement.py`.
-- A shared Orders journey in `src/orders_investigation/runtime/journey.py` that carries
-  the existing observation, proposal, admission, approval, and authority results into
-  the real report-write boundary.
-- A deterministic, offline demo showing both the successful write and the stale-evidence refusal.
-- Focused failure-path tests plus every earlier chapter test inherited from `chapter-20`.
-- No empty folders or placeholders for later capabilities.
+- A semantic trace boundary containing only the production evidence introduced through Chapter 22.
+- The shared Orders journey now emits its successful or refused path as digest-bound trace events.
+- A composition test proves the trace comes from the real admitted report effect, not a synthetic tuple.
 
 ## Code map
 
@@ -37,6 +33,8 @@ src/orders_investigation/environment/__init__.py
 src/orders_investigation/environment/opening_case.py
 src/orders_investigation/environment/requests.py
 src/orders_investigation/environment/scenario.py
+src/orders_investigation/evaluation/__init__.py
+src/orders_investigation/evaluation/production.py
 src/orders_investigation/governance/__init__.py
 src/orders_investigation/governance/approval.py
 src/orders_investigation/governance/authority.py
@@ -58,8 +56,8 @@ src/orders_investigation/runtime/journey.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_21.py
-tests/test_chapter_21.py
+examples/chapter_22.py
+tests/test_chapter_22.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -81,11 +79,11 @@ Prerequisites are Python 3.11 or newer and Git. Docker is optional and used only
 Use the portable reader path from a fresh checkout:
 
 ```bash
-git switch chapter-21
+git switch chapter-22
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -e '.[test]'
-python -m pytest tests/test_chapter_21.py
+python -m pytest tests/test_chapter_22.py
 python -m pytest
 python scripts/run_current_chapter.py
 ```
@@ -93,10 +91,10 @@ python scripts/run_current_chapter.py
 On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. The manuscript-compatible command executes the same chapter file:
 
 ```bash
-python -m orders_investigation.demo chapter-21
+python -m orders_investigation.demo chapter-22
 ```
 
-Expected outcome: The exact effect receipt advances report version 7 to 8; bypass, stale policy, and stale facts leave version 7 unchanged.
+Expected outcome: The two-event trace reports no integrity reasons and a 25 ms recorded duration without raw content.
 
 The demo opens with the building block introduced in this chapter, then shows
 the real scenario, boundary decision, execution result, and what to notice.
@@ -116,7 +114,7 @@ Color reinforces the labels but never carries meaning alone: `APPROVED`,
 
 ```bash
 uv sync --extra test
-uv run --no-sync pytest tests/test_chapter_21.py
+uv run --no-sync pytest tests/test_chapter_22.py
 uv run --no-sync pytest
 uv run --no-sync python scripts/run_current_chapter.py
 ```
@@ -125,22 +123,17 @@ The `test` extra is the portable reader contract. CI installs the all-extras sup
 
 ## Behavioral spine
 
-The demo now runs one cumulative path: observe the Orders incident, propose and admit
-the pipeline observation, record its evidence, carry the approved caller authority,
-and attempt the report effect. The success path writes version 8. The refusal path
-makes the same admitted work stale immediately before the effect, so enforcement
-leaves version 7 unchanged.
-## Evidence
-
-Routine execution is offline. Historical live evidence is retained only where the manuscript uses a live model comparison; deterministic policy and failure behavior remain the acceptance authority.
-
+The same Chapter 21 Orders path now produces its evaluation evidence. The accepted
+run records `observe → decide → observe → effect`; the stale-evidence run records
+the same admitted work ending in `effect_refused`. Trace integrity is therefore a
+property of executed behavior, not a separately constructed example.
 ## Deliberately incomplete
 
-This branch contains only capabilities introduced through Chapter 21. Read the manuscript's closing transition for the pressure that Chapter 22 addresses.
+No platform capability from Chapters 29–37 exists yet. Chapter 23 introduces the next manuscript pressure.
 
 ## Architecture evolution at this checkpoint
 
-The tracked responsibility map now contains only the packages earned through Chapter 21. Later packages are absent from this branch.
+The tracked responsibility map now contains only the packages earned through Chapter 22. Later packages are absent from this branch.
 
 ```text
 src/orders_investigation/
@@ -156,8 +149,9 @@ src/orders_investigation/
 ├── integrations/
 ├── coordination/
 ├── governance/
+├── evaluation/
 ├── demo.py
 └── live_demo.py
 ```
 
-`ARCHITECTURE.md` records only Chapters 1-21 as present evolution; `main` carries the complete roadmap.
+`ARCHITECTURE.md` records only Chapters 1-22 as present evolution; `main` carries the complete roadmap.
