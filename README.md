@@ -9,12 +9,15 @@ The model may be flexible because the boundary is not. Every checkpoint keeps th
 See the system grow from a useful answer in Chapter 1 to an operable platform in
 Chapter 37:
 
-- [Explore the 37-chapter journey](docs/MIRAS_JOURNEY.md) — five movements with
+- [Explore the 37-chapter journey](docs/MIRAS_JOURNEY.md) — five layers with
   links to every executable checkpoint.
-- [Open the interactive simulation](docs/miras-journey.html?raw=1) — use the
-  forward and back arrows to grow the investigation from an empty canvas, one
-  chapter at a time. The five movement tabs remain available as shortcuts.
-  Download the self-contained HTML file and open it in any browser.
+- [View the interactive system map](docs/miras-journey.html?raw=1) — it begins
+  at Chapter 1 and builds the system one boundary at a time. Pause at any point,
+  or use the forward and back arrows to move at your own pace. Download the
+  self-contained HTML file and open it in any browser.
+- [Record the narrative voice-over](docs/miras-journey-voiceover.md) — a timed,
+  human-paced script that follows the same Orders incident across the complete
+  9:18 journey.
 
 The simulation is a read-only map of the manuscript responsibilities and
 executable checkpoint boundaries; it runs no repository code or tests. Each
