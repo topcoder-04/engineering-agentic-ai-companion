@@ -14,3 +14,4 @@ def build_opening_case() -> Investigation:
     ):
         investigation.record(item)
     return investigation
+

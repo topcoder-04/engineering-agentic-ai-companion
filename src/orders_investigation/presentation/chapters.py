@@ -31,4 +31,13 @@ CHAPTER_STORIES = {
         "Answer, evidence, action, and result stay separate.",
         "Completion can depend on recorded evidence and an observed result.",
     ),
+    2: ChapterStory(
+        "What This Investigation May Touch",
+        "Can permitted work be defined before any outside system is contacted?",
+        "Observation and action perimeter",
+        "A useful request can still target the wrong operation, system, or environment.",
+        "Observable completion conditions",
+        "Declared operations, sources, environments, resources, and selectors.",
+        "Forbidden work is refused before an outside call can begin.",
+    ),
 }

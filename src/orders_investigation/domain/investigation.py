@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from enum import StrEnum
 
-from .evidence import Evidence, EvidenceKey
+from orders_investigation.domain.evidence import Evidence, EvidenceKey
 
 
 class ReportUpdateResult(StrEnum):
@@ -34,3 +34,4 @@ class Investigation:
     @property
     def investigation_complete(self) -> bool:
         return not self.missing_evidence and self.report_saved
+

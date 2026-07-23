@@ -1,6 +1,6 @@
 # Architecture evolution contract
 
-**Current checkpoint: Chapter 1.** This document describes what is present now. It does not advertise packages from later checkpoints.
+**Current checkpoint: Chapter 2.** This document describes what is present now. It does not advertise packages from later checkpoints.
 
 ## Present responsibility map
 
@@ -9,6 +9,7 @@ src/orders_investigation/
 ├── domain/
 ├── environment/
 ├── presentation/
+├── runtime/
 └── demo.py
 ```
 
@@ -17,8 +18,9 @@ src/orders_investigation/
 | Chapter | Boundary introduced | Why it appears here |
 |---:|---|---|
 | 1 | `domain/`, `environment/`, `presentation/` | Separate completion facts from outside observations and effects, then render their proof consistently. |
+| 2 | `runtime/boundary.py` | Declare what the investigation may observe or change. |
 
-Responsibilities introduced after Chapter 1 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
+Responsibilities introduced after Chapter 2 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
 
 ## Enforced rules
 
