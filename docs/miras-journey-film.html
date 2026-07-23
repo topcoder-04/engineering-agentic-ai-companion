@@ -32,6 +32,13 @@ button{font:inherit}
 .pause,.sound{width:42px;height:42px;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent,var(--cyan)) 65%,transparent);
   background:rgba(255,255,255,.03);color:var(--ink);cursor:pointer}
 .sound{font-size:17px}.sound.off{opacity:.45}
+.start-gate{position:absolute;z-index:40;inset:0;display:grid;place-items:center;background:
+  radial-gradient(circle at 50% 52%,rgba(75,220,255,.12),transparent 24%),rgba(7,9,20,.78);
+  backdrop-filter:blur(9px)}
+.start-gate[hidden]{display:none}.start-card{text-align:center}.start-card .mark{margin:0 auto 22px;width:64px;height:64px;
+  border-radius:18px;font-size:30px}.start-card h1{margin:0;font:700 clamp(38px,4vw,64px)/1.05 Georgia,serif}
+.start-card p{margin:15px 0 28px;color:var(--muted);font-size:18px}.start-card button{padding:14px 24px;border-radius:999px;
+  border:1px solid var(--cyan);background:rgba(75,220,255,.1);color:var(--ink);font-weight:800;cursor:pointer}
 .stage{position:absolute;inset:78px 0 58px}
 .scene{position:absolute;inset:0;padding:62px 100px 48px;opacity:0;visibility:hidden;
   transform:translateY(10px) scale(.997);transition:opacity .45s ease,transform .45s ease,visibility 0s .45s}
@@ -76,6 +83,14 @@ button{font:inherit}
 </head>
 <body>
 <main id="film" aria-label="Mira's Journey narrative film">
+  <div id="startGate" class="start-gate">
+    <div class="start-card">
+      <span class="mark">M</span>
+      <h1>Mira's Journey</h1>
+      <p>The voice and the visual will begin together.</p>
+      <button id="startWithVoice" type="button">Start with narration</button>
+    </div>
+  </div>
   <svg width="0" height="0" aria-hidden="true" style="position:absolute">
     <defs>
       <marker id="arrow-neutral" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="#3b465e"/></marker>
@@ -86,7 +101,7 @@ button{font:inherit}
   </svg>
   <header class="topbar">
     <div class="brand"><span class="mark">M</span><div><strong>Mira's Journey</strong><small>From useful answers to dependable work</small></div></div>
-    <div class="top-right"><span id="movement" class="movement">The incident</span><span id="clock" class="clock">00:00</span><button id="sound" class="sound" type="button" aria-label="Mute narration" title="Mute narration (M)">🔊</button><button id="pause" class="pause" type="button" aria-label="Pause">Ⅱ</button></div>
+    <div class="top-right"><span id="movement" class="movement">The incident</span><span id="clock" class="clock">00:00</span><button id="sound" class="sound" type="button" aria-label="Mute narration" title="Mute narration (M)">🔊</button><button id="pause" class="pause" type="button" aria-label="Play">▶</button></div>
   </header>
   <div id="stage" class="stage"></div>
   <footer class="footer"><span id="count" class="count">OPENING</span><div class="progress"><i id="progress"></i></div></footer>
@@ -301,7 +316,8 @@ for(const s of scenes){
 }
 const els=[...document.querySelectorAll(".scene")], clock=document.getElementById("clock"), progress=document.getElementById("progress"),
   movement=document.getElementById("movement"), count=document.getElementById("count"), pause=document.getElementById("pause"),
-  sound=document.getElementById("sound");
+  sound=document.getElementById("sound"), startGate=document.getElementById("startGate"),
+  startWithVoice=document.getElementById("startWithVoice");
 const params=new URLSearchParams(location.search);
 const speech=("speechSynthesis" in window)&&("SpeechSynthesisUtterance" in window);
 let voiceEnabled=speech&&params.get("voice")!=="0";
@@ -389,8 +405,14 @@ function toggleSound(){
   updateSound();
   if(voiceEnabled&&running)speakScene(current,true);
 }
-pause.addEventListener("click",toggle);
+function begin(){
+  startGate.hidden=true;
+  seek(0);
+  start();
+}
+pause.addEventListener("click",()=>startGate.hidden?toggle():begin());
 sound.addEventListener("click",toggleSound);
+startWithVoice.addEventListener("click",begin);
 window.addEventListener("keydown",e=>{
   if(e.code==="Space"){e.preventDefault();toggle()}
   else if(e.key==="ArrowRight"){e.preventDefault();seek(scenes[Math.min(scenes.length-1,current+1)].start)}
@@ -405,7 +427,10 @@ if(speech){
 updateSound();
 window.MIRA_FILM=Object.freeze({durationMs:TOTAL,width:1920,height:1080,fps:30,start,seek,toggleSound});
 render(0);
-if(params.get("autoplay")!=="0")requestAnimationFrame(start);
+if(params.get("autoplay")==="1"||(!voiceEnabled&&params.get("autoplay")!=="0")){
+  startGate.hidden=true;
+  requestAnimationFrame(start);
+}
 </script>
 </body>
 </html>
