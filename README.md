@@ -19,6 +19,8 @@ Chapter 37:
 - [Record the narrative voice-over](docs/miras-journey-voiceover.md) — a timed,
   human-paced script that follows the same Orders incident across the complete
   9:18 journey.
+- [Preview the narrative film](docs/miras-journey-film.html) — a separate,
+  voice-over-led visual with one idea on screen at a time.
 
 The simulation is a read-only map of the manuscript responsibilities and
 executable checkpoint boundaries; it runs no repository code or tests. Each
