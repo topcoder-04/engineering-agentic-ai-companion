@@ -175,4 +175,13 @@ CHAPTER_STORIES = {
         "Exact assignments, evidence-backed returns, and an explicit join contract.",
         "Parallel contributions become one proposal only after every obligation is met.",
     ),
+    18: ChapterStory(
+        "Waiting Safely for a Consequential Decision",
+        "Can a later approval be proven to authorize the exact stored intent?",
+        "Durable intent-bound approval",
+        "A bare approval can arrive late or refer to different content than the pending effect.",
+        "Checked specialist join",
+        "Persisted intent digest, expiry, correlation, and replay-safe approval signals.",
+        "Human approval survives waiting without becoming an ambiguous yes.",
+    ),
 }
