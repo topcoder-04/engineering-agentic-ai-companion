@@ -193,4 +193,13 @@ CHAPTER_STORIES = {
         "Verified session claims bind a scoped, expiring grant to the approved effect.",
         "Authority is explicit, narrow, and re-checkable at execution time.",
     ),
+    20: ChapterStory(
+        "Making Rules Independent of Wording",
+        "Can equivalent requests receive the same decision without parsing persuasive prose?",
+        "Structured policy decision",
+        "Natural-language wording is unstable and unsafe as the policy decision surface.",
+        "Verified delegated authority",
+        "Versioned rules evaluate typed facts and return explicit reasons.",
+        "Policy stays deterministic even when user wording changes.",
+    ),
 }
