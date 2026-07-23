@@ -19,10 +19,13 @@ from orders_investigation.environment.scenario import current_case
 from orders_investigation.evaluation.production import (
     EvaluationCase,
     EvaluationResult,
+    ReleaseDecision,
+    ReleaseThresholds,
     SemanticTrace,
     TraceEvent,
     digest,
     evaluate,
+    gate_release,
 )
 from orders_investigation.governance.approval import (
     ApprovalDecision,
@@ -114,6 +117,15 @@ def evaluate_orders_investigation(result: JourneyResult) -> EvaluationResult:
         maximum_actions=4,
     )
     return evaluate(trace, case)
+
+
+def gate_orders_release(results: tuple[JourneyResult, ...]) -> ReleaseDecision:
+    """Gate a candidate using evaluations and traces from executed journeys."""
+    return gate_release(
+        tuple(evaluate_orders_investigation(result) for result in results),
+        tuple(trace_orders_investigation(result) for result in results),
+        ReleaseThresholds(minimum_pass_rate=1.0),
+    )
 
 
 def _approve(intent: ApprovalIntent, connection: sqlite3.Connection) -> str:

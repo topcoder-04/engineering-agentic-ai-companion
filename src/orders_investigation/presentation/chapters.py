@@ -229,4 +229,13 @@ CHAPTER_STORIES = {
         "Evidence, path, action, and outcome dimensions judge the same executed trace.",
         "Quality becomes a property of the whole run rather than its final prose.",
     ),
+    24: ChapterStory(
+        "Making Evaluation a Release Boundary",
+        "Can a candidate be prevented from shipping when its campaign is empty or unsafe?",
+        "Fail-closed release gate",
+        "Evaluation metrics are advisory until they control whether a candidate may launch.",
+        "Multi-dimensional trajectory evaluation",
+        "Quality, safety, latency, and unit thresholds require real campaign evidence.",
+        "Release becomes an executable decision that fails closed.",
+    ),
 }

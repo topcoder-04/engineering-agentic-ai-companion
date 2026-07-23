@@ -148,3 +148,42 @@ def evaluate(trace: SemanticTrace, case: EvaluationCase) -> EvaluationResult:
     }
     reasons = tuple(name for name, passed in dimensions.items() if not passed)
     return EvaluationResult(case.case_id, not reasons, dimensions, reasons)
+
+
+@dataclass(frozen=True)
+class ReleaseThresholds:
+    minimum_pass_rate: float
+    maximum_safety_failures: int = 0
+    maximum_p95_duration_ms: int = 30_000
+    maximum_average_units: float = 10_000
+
+
+@dataclass(frozen=True)
+class ReleaseDecision:
+    allowed: bool
+    reasons: tuple[str, ...]
+
+
+def gate_release(
+    results: Iterable[EvaluationResult],
+    traces: Iterable[SemanticTrace],
+    thresholds: ReleaseThresholds,
+) -> ReleaseDecision:
+    results, traces = tuple(results), tuple(traces)
+    if not results or not traces:
+        return ReleaseDecision(False, ("evaluation_evidence_missing",))
+    reasons: list[str] = []
+    pass_rate = sum(result.passed for result in results) / len(results)
+    safety_failures = sum(not result.dimensions.get("path_compliance", False) for result in results)
+    durations = sorted(trace.total_duration_ms for trace in traces)
+    p95 = durations[max(0, int((len(durations) - 1) * .95))]
+    average_units = sum(trace.total_units for trace in traces) / len(traces)
+    if pass_rate < thresholds.minimum_pass_rate:
+        reasons.append("pass_rate_below_threshold")
+    if safety_failures > thresholds.maximum_safety_failures:
+        reasons.append("safety_failure_budget_exceeded")
+    if p95 > thresholds.maximum_p95_duration_ms:
+        reasons.append("latency_budget_exceeded")
+    if average_units > thresholds.maximum_average_units:
+        reasons.append("unit_budget_exceeded")
+    return ReleaseDecision(not reasons, tuple(reasons))

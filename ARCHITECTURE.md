@@ -1,6 +1,6 @@
 # Architecture evolution contract
 
-**Current checkpoint: Chapter 23.** This document describes what is present now. It does not advertise packages from later checkpoints.
+**Current checkpoint: Chapter 24.** This document describes what is present now. It does not advertise packages from later checkpoints.
 
 ## Present responsibility map
 
@@ -50,8 +50,9 @@ src/orders_investigation/
 | 21 | `effects/enforcement.py`, `runtime/journey.py` | Recheck policy at the effect and compose the cumulative Orders path. |
 | 22 | `evaluation/` | Preserve the semantic trajectory needed for judgment. |
 | 23 | `evaluation/production.py` | Evaluate outcomes and path dimensions together. |
+| 24 | `evaluation/production.py` release gate | Turn evaluation evidence into a fail-closed release decision. |
 
-Responsibilities introduced after Chapter 23 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
+Responsibilities introduced after Chapter 24 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
 
 ## Enforced rules
 
