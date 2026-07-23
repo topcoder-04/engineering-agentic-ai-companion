@@ -28,6 +28,8 @@ jobs:
 
       - name: Install video renderer
         run: |
+          sudo apt-get update
+          sudo apt-get install --yes ffmpeg
           npm install --prefix "$RUNNER_TEMP/mira-render" playwright@1.61.1
           PLAYWRIGHT_BROWSERS_PATH="$RUNNER_TEMP/playwright" \
             "$RUNNER_TEMP/mira-render/node_modules/.bin/playwright" install --with-deps chromium
