@@ -72,3 +72,4 @@ def test_failure_before_dispatch_is_known_not_to_have_reached_the_service():
     attempt = failure_before_dispatch("report-update:run-1042:1")
     assert not attempt.dispatched
     assert attempt.effect_outcome == EffectOutcome.NOT_DISPATCHED
+

@@ -35,3 +35,4 @@ def test_unknown_operations_fail_closed() -> None:
         "restart", "service_metrics", "orders-production", "orders-api", "latest"
     )
     assert not ORDERS_BOUNDARY.allows(restart)
+

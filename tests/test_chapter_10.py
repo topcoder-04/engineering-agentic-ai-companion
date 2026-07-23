@@ -150,3 +150,4 @@ def test_rank_four_lesson_is_visible_in_receipt_and_can_be_debugged():
         "pipeline_trigger",
     )
     connection.close()
+

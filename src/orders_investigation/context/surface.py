@@ -50,3 +50,4 @@ def build_decision_surface(
     if len(prompt) > max_chars:
         raise ValueError("context_budget_too_small_for_required_facts")
     return DecisionSurface(prompt, tuple(required) + tuple(key for key in optional if key not in omitted), omitted)
+

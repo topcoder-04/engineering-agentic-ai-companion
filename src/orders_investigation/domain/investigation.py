@@ -35,3 +35,4 @@ class Investigation:
     def investigation_complete(self) -> bool:
         return not self.missing_evidence and self.report_saved
 
+

@@ -119,3 +119,4 @@ def opening_graph() -> InvestigationGraph:
         graph.add(Task(task_id, request))
     return graph
 
+

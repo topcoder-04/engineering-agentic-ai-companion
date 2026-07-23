@@ -113,3 +113,4 @@ def obtain_choice(
         if retries >= ledger.budget.max_retries:
             return DecisionRun(None, f"model_{attempt.outcome.value}")
         retries += 1
+

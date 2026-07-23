@@ -353,3 +353,4 @@ def seed_missed_lesson_case(store: KnowledgeStore) -> dict[str, int]:
         reviewed=True,
     ))
     return record_ids
+

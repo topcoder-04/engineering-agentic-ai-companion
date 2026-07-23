@@ -221,3 +221,4 @@ def invoke_langgraph(
     graph = build_langgraph(connection, observe=observe)
     config = {"configurable": {"thread_id": execution_id}}
     return graph.invoke(state, config)
+

@@ -21,3 +21,4 @@ def test_every_retained_evidence_record_has_provenance():
         payload = json.loads(record.read_text())
         required = isolation if record.name == "docker-isolation.json" else live
         assert required <= payload.keys(), record
+

@@ -1,7 +1,7 @@
 {
   "choice": {
-    "expected_evidence": "The trigger and initiating actor or event for pipeline run deploy-882, including its association with orders-search-backfill.",
-    "reason": "The orders-search-backfill migration started from deploy-882 and consumed most writer capacity while database write latency reached 4.8s and service timeouts reached 18%; the remaining missing link is the pipeline trigger.",
+    "expected_evidence": "The trigger and initiating actor or event for deploy-882, including its linkage to the orders-search-backfill workload.",
+    "reason": "The orders-search-backfill started at 1:58 p.m. from deploy-882 and consumed most writer capacity while database write latency reached 4.8s; the remaining missing evidence is the pipeline trigger.",
     "task_id": "inspect_pipeline_run"
   },
   "decision_surface_included": [
@@ -26,17 +26,17 @@
     "reason": null,
     "status": "admitted"
   },
-  "elapsed_ms": 3468,
+  "elapsed_ms": 4851,
   "input_text": "{\"environment\": \"orders-production\", \"goal\": \"Connect order timeouts to the responsible workload and trigger, then save the incident report.\", \"missing_evidence\": [\"pipeline_trigger\"], \"ready_tasks\": [\"inspect_database_error_rate\", \"inspect_dependency_health\", \"inspect_pipeline_run\", \"inspect_replication_delay\"], \"recorded_evidence\": {\"application_cpu\": \"within normal range\", \"connection_pool\": \"42 of 100 connections in use\", \"database_topology\": \"writer orders-db-w1; read replica orders-db-r1\", \"database_write_latency\": \"4.8s\", \"migration_job\": \"orders-search-backfill started at 1:58 p.m.; source deploy-882\", \"service_timeouts\": \"18%\", \"writer_activity\": \"orders-search-backfill consumed most write capacity\"}, \"service\": \"orders-api\"}",
   "input_units": 340,
   "instructions": "You choose one next observation for an incident investigation.\n\nUse only a task_id listed in ready_tasks.\nIf active_direction is present, use only a task_id listed in its allowed_tasks.\nDo not claim that a task is permitted merely because it appears in the input.\nGive a concise reason grounded only in recorded_evidence, and name the evidence you\nexpect the observation to return.\nReturn exactly task_id, reason, and expected_evidence.\nDo not issue commands. Do not describe an action as completed.",
   "model": "gpt-5.6-sol",
-  "observed_at": "2026-07-21T01:12:35.544142+00:00",
-  "output_units": 115,
-  "raw_output": "{\"task_id\":\"inspect_pipeline_run\",\"reason\":\"The orders-search-backfill migration started from deploy-882 and consumed most writer capacity while database write latency reached 4.8s and service timeouts reached 18%; the remaining missing link is the pipeline trigger.\",\"expected_evidence\":\"The trigger and initiating actor or event for pipeline run deploy-882, including its association with orders-search-backfill.\"}",
+  "observed_at": "2026-07-21T00:45:02.571103+00:00",
+  "output_units": 128,
+  "raw_output": "{\"task_id\":\"inspect_pipeline_run\",\"reason\":\"The orders-search-backfill started at 1:58 p.m. from deploy-882 and consumed most writer capacity while database write latency reached 4.8s; the remaining missing evidence is the pipeline trigger.\",\"expected_evidence\":\"The trigger and initiating actor or event for deploy-882, including its linkage to the orders-search-backfill workload.\"}",
   "record_kind": "observed_live_model_call",
-  "response_id": "resp_034da902db83305d006a5ec784155c819b815e76ee0a46f2b7",
-  "scenario": "chapter-05",
+  "response_id": "resp_09a8901ef469a65f006a5ec11007348198886b320038263535",
+  "scenario": "chapter-11-current",
   "source": "openai"
 }
 

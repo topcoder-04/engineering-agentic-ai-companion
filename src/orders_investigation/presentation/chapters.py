@@ -112,4 +112,13 @@ CHAPTER_STORIES = {
         "Safety filtering, ranking, and explicit record and byte budgets.",
         "Reviewed lessons can guide judgment while current evidence remains authoritative.",
     ),
+    11: ChapterStory(
+        "Keeping a Long Investigation on Course",
+        "Can ready but irrelevant work be kept outside the current milestone?",
+        "Persistent task spine",
+        "A growing graph can drift into permitted work that no longer serves the objective.",
+        "Scoped memory · evidence-driven tasks",
+        "Purpose, milestone, current question, allowed tasks, and transition evidence.",
+        "The run preserves direction across many individually valid decisions.",
+    ),
 }

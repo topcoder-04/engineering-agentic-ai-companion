@@ -132,3 +132,4 @@ def test_langgraph_executes_the_controlled_turn_when_packages_are_available():
     assert result["recorded_evidence"]["pipeline_trigger"].startswith("deploy-882")
     assert not result["investigation_complete"]
     connection.close()
+

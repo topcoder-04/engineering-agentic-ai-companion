@@ -68,3 +68,4 @@ def test_failed_attempt_cannot_smuggle_in_a_choice():
         assert str(exc) == "failed_attempt_cannot_contain_choice"
     else:
         raise AssertionError("timeout accepted a fabricated choice")
+

@@ -89,3 +89,4 @@ def opening_incident() -> Incident:
     incident.record_evidence(Evidence(EvidenceKey.APPLICATION_CPU, "within normal range", "service_metrics"))
     return incident
 
+
