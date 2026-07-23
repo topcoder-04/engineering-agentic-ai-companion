@@ -94,4 +94,13 @@ CHAPTER_STORIES = {
         "Immutable intent, stable idempotency key, and atomic effect deduplication.",
         "The same logical effect can be retried safely after transport uncertainty.",
     ),
+    9: ChapterStory(
+        "When an Attempt Ends but Its Effect Is Unknown",
+        "Can a local timeout stay separate from the outside effect's real outcome?",
+        "Unknown-outcome reconciliation",
+        "Stopping the local wait does not prove that dispatched outside work stopped.",
+        "Idempotent effects",
+        "Attempt outcome, effect outcome, and later reconciliation remain distinct.",
+        "Unknown effects can be resolved before the workflow decides whether to retry.",
+    ),
 }

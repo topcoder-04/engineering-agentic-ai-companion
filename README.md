@@ -1,14 +1,14 @@
-# Chapter 8 companion — Trying Again Without Doing It Twice
+# Chapter 9 companion — When an Attempt Ends but Its Effect Is Unknown
 
-Chapter 7 can resume after a crash. That makes a lost response dangerous: replaying the request may repeat an already committed effect. This chapter gives the intended effect a stable identity.
+Chapter 8 prevents duplicate effects. It does not let a caller infer an outside result from a local timeout. This chapter models those two lifecycles separately.
 
 ## What this chapter adds
 
-- An immutable effect intent and canonical fingerprint.
-- A stable idempotency key derived from run, operation, and logical attempt.
-- Atomic service-side deduplication before applying the effect.
-- Replay receipts for exact retries.
-- A hard conflict when the same key is reused for changed intent.
+- Separate wait and effect outcomes on every attempt.
+- `not_dispatched`, `unknown`, `succeeded`, and `failed` effect states.
+- A local timeout that stops waiting without pretending to cancel the outside work.
+- Durable attempt records keyed by the same idempotency identity.
+- Reconciliation that queries the effect service and preserves `unknown` when proof is absent.
 
 ## Code map
 
@@ -26,6 +26,7 @@ src/orders_investigation/domain/incident.py
 src/orders_investigation/domain/investigation.py
 src/orders_investigation/effects/__init__.py
 src/orders_investigation/effects/idempotency.py
+src/orders_investigation/effects/reconciliation.py
 src/orders_investigation/environment/__init__.py
 src/orders_investigation/environment/opening_case.py
 src/orders_investigation/environment/requests.py
@@ -38,8 +39,8 @@ src/orders_investigation/runtime/boundary.py
 src/orders_investigation/runtime/contracts/__init__.py
 src/orders_investigation/runtime/contracts/admission.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_08.py
-tests/test_chapter_08.py
+examples/chapter_09.py
+tests/test_chapter_09.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 scripts/run_current_chapter.py
@@ -57,11 +58,11 @@ Prerequisites are Python 3.11 or newer and Git. Docker is optional and used only
 Use the portable reader path from a fresh checkout:
 
 ```bash
-git switch chapter-08
+git switch chapter-09
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -e '.[test]'
-python -m pytest tests/test_chapter_08.py
+python -m pytest tests/test_chapter_09.py
 python -m pytest
 python scripts/run_current_chapter.py
 ```
@@ -69,10 +70,10 @@ python scripts/run_current_chapter.py
 On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. The manuscript-compatible command executes the same chapter file:
 
 ```bash
-python -m orders_investigation.demo chapter-08
+python -m orders_investigation.demo chapter-09
 ```
 
-Expected outcome: The first response is lost after commit; the exact retry replays one stored effect.
+Expected outcome: A post-dispatch timeout remains unknown until reconciliation finds the succeeded effect.
 
 The demo opens with the building block introduced in this chapter, then shows
 the real scenario, boundary decision, execution result, and what to notice.
@@ -92,7 +93,7 @@ Color reinforces the labels but never carries meaning alone: `APPROVED`,
 
 ```bash
 uv sync --extra test
-uv run --no-sync pytest tests/test_chapter_08.py
+uv run --no-sync pytest tests/test_chapter_09.py
 uv run --no-sync pytest
 uv run --no-sync python scripts/run_current_chapter.py
 ```
@@ -101,15 +102,15 @@ The `test` extra is the portable reader contract. CI installs the all-extras sup
 
 ## Evidence
 
-The SQLite uniqueness constraint and transaction are executable evidence of the guarantee. No network or provider call is needed.
+The async test deliberately times out before the service finishes, proves the outside task continues, reopens the database, and reconciles to the service receipt.
 
 ## Deliberately incomplete
 
-Idempotency prevents duplication, but a timed-out caller still does not know whether the effect happened. Chapter 9 separates local wait outcome from outside effect outcome and reconciles the uncertainty.
+The investigation can now survive uncertainty, but long runs still need useful prior lessons without confusing them with present evidence. Chapter 10 adds scoped, reviewed, bounded retrieval.
 
 ## Architecture evolution at this checkpoint
 
-The tracked responsibility map now contains only the packages earned through Chapter 8. Later packages are absent from this branch.
+The tracked responsibility map now contains only the packages earned through Chapter 9. Later packages are absent from this branch.
 
 ```text
 src/orders_investigation/
@@ -125,4 +126,4 @@ src/orders_investigation/
 └── live_demo.py
 ```
 
-`ARCHITECTURE.md` records only Chapters 1-8 as present evolution; `main` carries the complete roadmap.
+`ARCHITECTURE.md` records only Chapters 1-9 as present evolution; `main` carries the complete roadmap.
