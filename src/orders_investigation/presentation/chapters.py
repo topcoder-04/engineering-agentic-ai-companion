@@ -301,4 +301,13 @@ CHAPTER_STORIES = {
         "Caller, tenant, agent, action, audience, and expiry remain bound in one proof.",
         "Platform execution preserves the caller's authority instead of widening it.",
     ),
+    32: ChapterStory(
+        "Keeping Tenants and Data Inside Their Boundaries",
+        "Can an exact execution target satisfy every tenant and data obligation?",
+        "Data-boundary placement",
+        "A capable authorized agent can still run in the wrong region or retention domain.",
+        "Caller-bound authority",
+        "Tenant, data class, residency, retention, and target attributes are matched.",
+        "Work is placed only where every data boundary is simultaneously true.",
+    ),
 }

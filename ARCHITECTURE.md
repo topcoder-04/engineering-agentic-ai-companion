@@ -1,6 +1,6 @@
 # Architecture evolution contract
 
-**Current checkpoint: Chapter 31.** This document describes what is present now. It does not advertise packages from later checkpoints.
+**Current checkpoint: Chapter 32.** This document describes what is present now. It does not advertise packages from later checkpoints.
 
 ## Present responsibility map
 
@@ -23,7 +23,8 @@ src/orders_investigation/
 ├── platform/
 │   ├── identity/
 │   ├── capabilities/
-│   └── authority/
+│   ├── authority/
+│   └── placement/
 ├── demo.py
 └── live_demo.py
 ```
@@ -63,8 +64,9 @@ src/orders_investigation/
 | 29 | `platform/identity/` | Resolve every agent version to an immutable contract. |
 | 30 | `platform/capabilities/` | Admit compatible capabilities instead of copying settings. |
 | 31 | `platform/authority/` | Carry caller authority without becoming a confused deputy. |
+| 32 | `platform/placement/` | Make tenant, residency, data class, and retention structural. |
 
-Responsibilities introduced after Chapter 31 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
+Responsibilities introduced after Chapter 32 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
 
 ## Enforced rules
 
