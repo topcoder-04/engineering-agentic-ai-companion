@@ -29,8 +29,9 @@ button{font:inherit}
 .top-right{display:flex;align-items:center;gap:22px}.movement{font-size:13px;font-weight:750;letter-spacing:.06em;
   color:var(--accent,var(--cyan));text-transform:uppercase}.clock{font:600 13px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);
   min-width:74px;text-align:right}
-.pause{width:42px;height:42px;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent,var(--cyan)) 65%,transparent);
+.pause,.sound{width:42px;height:42px;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent,var(--cyan)) 65%,transparent);
   background:rgba(255,255,255,.03);color:var(--ink);cursor:pointer}
+.sound{font-size:17px}.sound.off{opacity:.45}
 .stage{position:absolute;inset:78px 0 58px}
 .scene{position:absolute;inset:0;padding:62px 100px 48px;opacity:0;visibility:hidden;
   transform:translateY(10px) scale(.997);transition:opacity .45s ease,transform .45s ease,visibility 0s .45s}
@@ -85,7 +86,7 @@ button{font:inherit}
   </svg>
   <header class="topbar">
     <div class="brand"><span class="mark">M</span><div><strong>Mira's Journey</strong><small>From useful answers to dependable work</small></div></div>
-    <div class="top-right"><span id="movement" class="movement">The incident</span><span id="clock" class="clock">00:00</span><button id="pause" class="pause" type="button" aria-label="Pause">Ⅱ</button></div>
+    <div class="top-right"><span id="movement" class="movement">The incident</span><span id="clock" class="clock">00:00</span><button id="sound" class="sound" type="button" aria-label="Mute narration" title="Mute narration (M)">🔊</button><button id="pause" class="pause" type="button" aria-label="Pause">Ⅱ</button></div>
   </header>
   <div id="stage" class="stage"></div>
   <footer class="footer"><span id="count" class="count">OPENING</span><div class="progress"><i id="progress"></i></div></footer>
@@ -112,6 +113,25 @@ const scenes = [
   {id:"outlive",start:397000,end:418000,m:5,movement:"Operable Platform",eyebrow:"Six months later",title:"The work outlives Mira",lead:"A new engineer can reconstruct the investigation because its reasoning lives in the system."},
   {id:"invitation",start:418000,end:436500,m:5,movement:"Run the examples",eyebrow:"One executable boundary at a time",title:"Do not stop at the picture",lead:"Read the journey. Run both sides of every boundary. Break one condition and watch the system refuse."}
 ];
+const narration = {
+  incident: `At 2:05 p.m., Orders begins timing out. Mira has enough evidence to sound convincing: application CPU looks normal, while database writes are suddenly slow. A model can turn that into a polished explanation in seconds. But a polished explanation does not finish the investigation. Mira still needs to know what is missing, what actually ran, and whether the report was updated. This book begins in that gap.`,
+  controlled: `Mira draws a boundary around what the investigation may touch. The model chooses among ready options, but code decides what is admitted and executed. New evidence can change the task graph. The model cannot invent work simply because it sounds useful.`,
+  checkpoint: `Judgment also needs limits. Mira gives it a budget and a fallback, then checkpoints the graph, evidence, and remaining work. A crash no longer erases the investigation. By the end of this first layer, a useful answer has become a controlled workflow.`,
+  messy: `One idea now holds the system together: the model may be flexible because the boundary is not. But production is messy. Requests repeat, replies disappear, workers overlap, and dependencies cannot always be trusted.`,
+  reliability: `After a restart, Mira sees a report update that may already have succeeded. A stable effect identity makes retry safe. When a reply is lost, the outcome is recorded as unknown—not guessed to be a failure. The system reconciles with the authoritative source before deciding what to do next. Reliability starts by being honest about uncertainty.`,
+  integrity: `Old incidents can help, but only as bounded memory, never as fresh evidence. A task spine keeps the original question in charge. Claims prevent two workers from owning the same result. Dependency output is treated as untrusted evidence, and generated analysis runs inside a sandbox. The investigation can now survive the ordinary failures of production without losing its shape.`,
+  "governance-gap": `Mira has made the workflow reliable. That still does not answer the harder questions: who may approve an effect, whose authority is being used, and which policy must hold when the write actually happens?`,
+  judgment: `Not every choice needs the strongest model. Mira matches the model to the decision and the data it must handle. Plans name the evidence behind them, so new facts can replace only future work. Specialists may contribute pieces, but their results count only when they fit together and support the same claim.`,
+  "effect-gate": `Consequential work can wait for a person, but the exact intent is frozen before approval. Authority is checked for this caller, this action, and this resource. Policy reads facts instead of persuasive wording. Then, at the report write, current facts are checked again, obligations are applied, and a receipt is recorded. Governance is no longer advice around the workflow. It is part of the effect path.`,
+  "trace-gap": `Orders can now produce a governed effect. But a correct-looking report may still come from an unsafe path. The next layer judges the journey, not just the final sentence.`,
+  evaluation: `A semantic trace connects evidence, decisions, joins, and effects without exposing their contents. Evaluation can now judge the complete trajectory. Safety and performance gate separately, so a better average cannot hide a serious regression. A candidate reaches release only after it proves the boundaries it claims to preserve.`,
+  feedback: `In production, redacted events show where investigations abandon or refuse. Variation tests explore combinations the authored cases missed. When an incident still occurs, it becomes a missing invariant, a regression case, and an owned fix. Fleet routing then places work only where location, authority, version, capacity, and rollout rules all agree.`,
+  "platform-gap": `Mira's problem has changed. She is no longer protecting one Orders investigation. She needs the same hard-won boundaries to hold across teams, agents, and releases—without every team rebuilding them differently.`,
+  platform: `The platform starts with identity: one exact combination of prompt, tools, policy, and evaluations. Capabilities are declared and centrally admitted. Every run carries the caller's authority instead of borrowing a powerful platform account. Tenant, region, data class, and retention rules decide where the evidence may run and live.`,
+  launch: `The safe path becomes the easy path, but convenience is not proof. A conformance receipt binds evaluation to the artifact being released. A named operator, runbook, rollback path, and budget owner remain attached after launch. Compatibility rules let the platform evolve without breaking every team. Finally, risk becomes executable evidence. A consequential agent launches only when its evaluation, ownership, rollback, caller authority, and placement match the harm it could cause.`,
+  outlive: `Six months later, a new on-call engineer opens the Orders investigation. They never met Mira, but its evidence, decisions, approvals, receipts, and ownership are still connected. The work outlives its builder because the reasoning lives in the system.`,
+  invitation: `This is not an architecture poster. Every boundary runs both ways: success and refusal. The book shows how an agent earns trust, one boundary at a time.`
+};
 const colors=["#4bdcff","#4bdcff","#63e6a3","#ffd166","#ff7bac","#b792ff"];
 
 function box(x,y,w,h,title,sub,cls="",delay=0){
@@ -280,31 +300,112 @@ for(const s of scenes){
   stage.append(section);
 }
 const els=[...document.querySelectorAll(".scene")], clock=document.getElementById("clock"), progress=document.getElementById("progress"),
-  movement=document.getElementById("movement"), count=document.getElementById("count"), pause=document.getElementById("pause");
+  movement=document.getElementById("movement"), count=document.getElementById("count"), pause=document.getElementById("pause"),
+  sound=document.getElementById("sound");
+const params=new URLSearchParams(location.search);
+const speech=("speechSynthesis" in window)&&("SpeechSynthesisUtterance" in window);
+let voiceEnabled=speech&&params.get("voice")!=="0";
+let preferredVoice=null,lastSpoken=-1,activeUtterance=null;
 let startedAt=0,elapsed=0,running=false,raf=0,current=-1;
+
+function chooseVoice(){
+  if(!speech)return null;
+  const voices=window.speechSynthesis.getVoices();
+  const requested=params.get("voice");
+  const priorities=requested?[requested]:["Ava","Samantha","Microsoft Aria","Google US English","Daniel","Karen"];
+  preferredVoice=priorities.map(name=>voices.find(v=>v.name.toLowerCase().includes(name.toLowerCase())))
+    .find(Boolean)||voices.find(v=>/^en[-_]/i.test(v.lang))||voices[0]||null;
+  return preferredVoice;
+}
+function updateSound(){
+  sound.textContent=voiceEnabled?"🔊":"🔇";
+  sound.classList.toggle("off",!voiceEnabled);
+  sound.setAttribute("aria-label",voiceEnabled?"Mute narration":"Enable narration");
+}
+function cancelNarration(){
+  if(!speech)return;
+  window.speechSynthesis.cancel();
+  activeUtterance=null;
+}
+function speakScene(idx,force=false){
+  if(!voiceEnabled||!speech||idx===0||!narration[scenes[idx].id]||(!force&&lastSpoken===idx))return;
+  cancelNarration();
+  lastSpoken=idx;
+  const utterance=new SpeechSynthesisUtterance(narration[scenes[idx].id]);
+  utterance.lang="en-US";
+  utterance.rate=Math.max(.55,Math.min(1.1,Number(params.get("rate"))||.78));
+  utterance.pitch=1;
+  utterance.volume=1;
+  utterance.voice=preferredVoice||chooseVoice();
+  utterance.onend=()=>{if(activeUtterance===utterance)activeUtterance=null};
+  utterance.onerror=()=>{if(activeUtterance===utterance)activeUtterance=null};
+  activeUtterance=utterance;
+  window.speechSynthesis.speak(utterance);
+}
 function fmt(ms){const sec=Math.floor(ms/1000);return `${String(Math.floor(sec/60)).padStart(2,"0")}:${String(sec%60).padStart(2,"0")}`}
 function render(ms){
   const sceneTime=Math.min(ms,TOTAL-1);
   const idx=Math.max(0,scenes.findIndex(s=>sceneTime>=s.start&&sceneTime<s.end));
   if(idx!==current){els.forEach((e,i)=>e.classList.toggle("active",i===idx));current=idx;movement.textContent=scenes[idx].movement;
-    document.documentElement.style.setProperty("--accent",colors[scenes[idx].m]);count.textContent=idx===0?"OPENING":`${String(idx).padStart(2,"0")} / 17`;}
+    document.documentElement.style.setProperty("--accent",colors[scenes[idx].m]);count.textContent=idx===0?"OPENING":`${String(idx).padStart(2,"0")} / 17`;
+    if(running)speakScene(idx);}
   clock.textContent=fmt(ms);progress.style.width=`${Math.min(100,ms/TOTAL*100)}%`;
 }
 function tick(now){if(!running)return;elapsed=Math.min(TOTAL,now-startedAt);render(elapsed);if(elapsed<TOTAL)raf=requestAnimationFrame(tick);else stop(true)}
-function start(){if(running)return;if(elapsed>=TOTAL)elapsed=0;startedAt=performance.now()-elapsed;running=true;pause.textContent="Ⅱ";pause.setAttribute("aria-label","Pause");raf=requestAnimationFrame(tick)}
-function stop(done=false){running=false;cancelAnimationFrame(raf);pause.textContent=done?"↻":"▶";pause.setAttribute("aria-label",done?"Replay":"Play")}
+function start(){
+  if(running)return;
+  if(elapsed>=TOTAL){elapsed=0;current=-1;lastSpoken=-1}
+  startedAt=performance.now()-elapsed;
+  running=true;
+  pause.textContent="Ⅱ";
+  pause.setAttribute("aria-label","Pause");
+  if(speech&&window.speechSynthesis.paused)window.speechSynthesis.resume();
+  else speakScene(current,true);
+  raf=requestAnimationFrame(tick);
+}
+function stop(done=false){
+  running=false;
+  cancelAnimationFrame(raf);
+  if(speech){
+    if(done)cancelNarration();
+    else window.speechSynthesis.pause();
+  }
+  pause.textContent=done?"↻":"▶";
+  pause.setAttribute("aria-label",done?"Replay":"Play");
+}
 function toggle(){running?stop():start()}
-function seek(ms){elapsed=Math.max(0,Math.min(TOTAL-1,ms));if(running)startedAt=performance.now()-elapsed;render(elapsed)}
+function seek(ms){
+  cancelNarration();
+  lastSpoken=-1;
+  current=-1;
+  elapsed=Math.max(0,Math.min(TOTAL-1,ms));
+  if(running)startedAt=performance.now()-elapsed;
+  render(elapsed);
+}
+function toggleSound(){
+  voiceEnabled=!voiceEnabled;
+  cancelNarration();
+  lastSpoken=-1;
+  updateSound();
+  if(voiceEnabled&&running)speakScene(current,true);
+}
 pause.addEventListener("click",toggle);
+sound.addEventListener("click",toggleSound);
 window.addEventListener("keydown",e=>{
   if(e.code==="Space"){e.preventDefault();toggle()}
   else if(e.key==="ArrowRight"){e.preventDefault();seek(scenes[Math.min(scenes.length-1,current+1)].start)}
   else if(e.key==="ArrowLeft"){e.preventDefault();seek(scenes[Math.max(0,current-1)].start)}
   else if(e.key.toLowerCase()==="r"){e.preventDefault();seek(0);start()}
+  else if(e.key.toLowerCase()==="m"){e.preventDefault();toggleSound()}
 });
-window.MIRA_FILM=Object.freeze({durationMs:TOTAL,width:1920,height:1080,fps:30,start,seek});
+if(speech){
+  chooseVoice();
+  window.speechSynthesis.addEventListener?.("voiceschanged",chooseVoice);
+}
+updateSound();
+window.MIRA_FILM=Object.freeze({durationMs:TOTAL,width:1920,height:1080,fps:30,start,seek,toggleSound});
 render(0);
-if(new URLSearchParams(location.search).get("autoplay")!=="0")requestAnimationFrame(start);
+if(params.get("autoplay")!=="0")requestAnimationFrame(start);
 </script>
 </body>
 </html>
