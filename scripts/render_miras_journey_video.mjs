@@ -19,7 +19,7 @@ const rawDir = resolve(process.env.RUNNER_TEMP || "/tmp", "mira-journey-raw");
 const width = 1920;
 const height = 1080;
 const fps = 30;
-const durationMs = 558_833;
+const durationMs = 436_500;
 
 mkdirSync(dirname(output), { recursive: true });
 mkdirSync(rawDir, { recursive: true });
@@ -39,7 +39,7 @@ const page = await context.newPage();
 const source = `${pathToFileURL(html).href}?autoplay=0`;
 await page.goto(source, { waitUntil: "load" });
 await page.waitForFunction(() => {
-  return window.MIRA_FILM?.durationMs === 558833 &&
+  return window.MIRA_FILM?.durationMs === 436500 &&
     document.querySelector(".scene.opening")?.classList.contains("active");
 });
 
