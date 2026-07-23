@@ -1,6 +1,6 @@
 # Architecture evolution contract
 
-**Current checkpoint: Chapter 11.** This document describes what is present now. It does not advertise packages from later checkpoints.
+**Current checkpoint: Chapter 12.** This document describes what is present now. It does not advertise packages from later checkpoints.
 
 ## Present responsibility map
 
@@ -34,8 +34,9 @@ src/orders_investigation/
 | 9 | `effects/reconciliation.py` | Preserve unknown outcomes until effect truth is recovered. |
 | 10 | `memory/` | Admit only reviewed, scoped, bounded prior knowledge. |
 | 11 | `graph/spine.py` | Constrain ready work to the active causal question. |
+| 12 | `runtime/ownership.py` | Lease work while fencing stale completion. |
 
-Responsibilities introduced after Chapter 11 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
+Responsibilities introduced after Chapter 12 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
 
 ## Enforced rules
 

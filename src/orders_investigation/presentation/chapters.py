@@ -121,4 +121,13 @@ CHAPTER_STORIES = {
         "Purpose, milestone, current question, allowed tasks, and transition evidence.",
         "The run preserves direction across many individually valid decisions.",
     ),
+    12: ChapterStory(
+        "Sharing Work Without Losing Ownership",
+        "Can another worker take over without accepting a stale owner's late result?",
+        "Leased ownership with fencing",
+        "Concurrent or restarted workers can both believe they own the same task.",
+        "Durable task spine",
+        "Expiring claims and monotonically increasing fencing tokens.",
+        "Work can be reassigned while stale completions remain unable to commit.",
+    ),
 }
