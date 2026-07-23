@@ -238,4 +238,13 @@ CHAPTER_STORIES = {
         "Quality, safety, latency, and unit thresholds require real campaign evidence.",
         "Release becomes an executable decision that fails closed.",
     ),
+    25: ChapterStory(
+        "Observing Production Without Exposing It",
+        "Can operators see useful behavior without receiving raw sensitive evidence?",
+        "Redacted operational view",
+        "Production visibility can leak the very data and prompts the system must protect.",
+        "Semantic traces · release evidence",
+        "Operational projections expose counts, digests, timing, units, and outcomes only.",
+        "Teams can diagnose behavior while data minimization remains intact.",
+    ),
 }
