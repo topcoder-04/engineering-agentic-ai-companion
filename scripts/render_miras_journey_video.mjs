@@ -11,7 +11,7 @@ const { chromium } = require(playwrightModule);
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..");
-const html = join(root, "docs", "miras-journey.html");
+const html = join(root, "docs", "miras-journey-film.html");
 const output = resolve(
   process.argv[2] || join(root, "artifacts", "miras-journey-video.mp4"),
 );
@@ -36,16 +36,15 @@ const context = await browser.newContext({
 
 const pageCreatedAt = Date.now();
 const page = await context.newPage();
-const source = `${pathToFileURL(html).href}?video=1&autoplay=0`;
+const source = `${pathToFileURL(html).href}?autoplay=0`;
 await page.goto(source, { waitUntil: "load" });
 await page.waitForFunction(() => {
-  return window.MIRA_VIDEO?.mode === true &&
-    window.MIRA_VIDEO?.durationMs === 558833 &&
-    document.querySelector("#pos")?.textContent === "setup";
+  return window.MIRA_FILM?.durationMs === 558833 &&
+    document.querySelector(".scene.opening")?.classList.contains("active");
 });
 
 const preRollSeconds = Math.max(0, (Date.now() - pageCreatedAt) / 1000);
-await page.evaluate(() => window.MIRA_VIDEO.start());
+await page.evaluate(() => window.MIRA_FILM.start());
 await page.waitForTimeout(durationMs + 750);
 
 await context.close();
