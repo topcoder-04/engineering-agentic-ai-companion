@@ -4,8 +4,19 @@ on:
   push:
     branches:
       - main
+      - visual/narrative-film
     paths:
       - docs/miras-journey.html
+      - docs/miras-journey-film.html
+      - docs/miras-journey-voiceover.md
+      - scripts/render_miras_journey_video.mjs
+      - .github/workflows/render-miras-journey.yml
+  pull_request:
+    branches:
+      - main
+    paths:
+      - docs/miras-journey.html
+      - docs/miras-journey-film.html
       - docs/miras-journey-voiceover.md
       - scripts/render_miras_journey_video.mjs
       - .github/workflows/render-miras-journey.yml
