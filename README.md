@@ -1,12 +1,12 @@
-# Chapter 15 companion — Choosing How Much Judgment a Decision Needs
+# Chapter 16 companion — When New Evidence Changes What Comes Next
 
-Chapter 14 exposes the next engineering pressure. This checkpoint adds explicit judgment requirements and deterministic model-profile routing.
+Chapter 15 exposes the next engineering pressure. This checkpoint adds versioned plans, evidence references, supersession, and bounded replanning.
 
 ## What this chapter adds
 
-- One manuscript-aligned responsibility boundary in `src/orders_investigation/decisions/routing.py`.
+- One manuscript-aligned responsibility boundary in `src/orders_investigation/graph/planning.py`.
 - A deterministic, offline chapter example.
-- Focused failure-path tests plus every earlier chapter test inherited from `chapter-14`.
+- Focused failure-path tests plus every earlier chapter test inherited from `chapter-15`.
 - No empty folders or placeholders for later capabilities.
 
 ## Code map
@@ -32,6 +32,7 @@ src/orders_investigation/environment/opening_case.py
 src/orders_investigation/environment/requests.py
 src/orders_investigation/environment/scenario.py
 src/orders_investigation/graph/__init__.py
+src/orders_investigation/graph/planning.py
 src/orders_investigation/graph/spine.py
 src/orders_investigation/graph/tasks.py
 src/orders_investigation/integrations/__init__.py
@@ -46,8 +47,8 @@ src/orders_investigation/runtime/contracts/admission.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_15.py
-tests/test_chapter_15.py
+examples/chapter_16.py
+tests/test_chapter_16.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -69,11 +70,11 @@ Prerequisites are Python 3.11 or newer and Git. Docker is optional and used only
 Use the portable reader path from a fresh checkout:
 
 ```bash
-git switch chapter-15
+git switch chapter-16
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -e '.[test]'
-python -m pytest tests/test_chapter_15.py
+python -m pytest tests/test_chapter_16.py
 python -m pytest
 python scripts/run_current_chapter.py
 ```
@@ -81,10 +82,10 @@ python scripts/run_current_chapter.py
 On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. The manuscript-compatible command executes the same chapter file:
 
 ```bash
-python -m orders_investigation.demo chapter-15
+python -m orders_investigation.demo chapter-16
 ```
 
-Expected outcome: Task choice, standard analysis, restricted analysis, and no-eligible-source cases select only requirement-compatible sources.
+Expected outcome: Succeeded work survives, obsolete future work is superseded, and the old plan version cannot commit.
 
 The demo opens with the building block introduced in this chapter, then shows
 the real scenario, boundary decision, execution result, and what to notice.
@@ -104,7 +105,7 @@ Color reinforces the labels but never carries meaning alone: `APPROVED`,
 
 ```bash
 uv sync --extra test
-uv run --no-sync pytest tests/test_chapter_15.py
+uv run --no-sync pytest tests/test_chapter_16.py
 uv run --no-sync pytest
 uv run --no-sync python scripts/run_current_chapter.py
 ```
@@ -117,11 +118,11 @@ Routine execution is offline. Historical live evidence is retained only where th
 
 ## Deliberately incomplete
 
-This branch contains only capabilities introduced through Chapter 15. Read the manuscript's closing transition for the pressure that Chapter 16 addresses.
+This branch contains only capabilities introduced through Chapter 16. Read the manuscript's closing transition for the pressure that Chapter 17 addresses.
 
 ## Architecture evolution at this checkpoint
 
-The tracked responsibility map now contains only the packages earned through Chapter 15. Later packages are absent from this branch.
+The tracked responsibility map now contains only the packages earned through Chapter 16. Later packages are absent from this branch.
 
 ```text
 src/orders_investigation/
@@ -139,4 +140,4 @@ src/orders_investigation/
 └── live_demo.py
 ```
 
-`ARCHITECTURE.md` records only Chapters 1-15 as present evolution; `main` carries the complete roadmap.
+`ARCHITECTURE.md` records only Chapters 1-16 as present evolution; `main` carries the complete roadmap.

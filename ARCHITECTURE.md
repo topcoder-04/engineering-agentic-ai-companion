@@ -1,6 +1,6 @@
 # Architecture evolution contract
 
-**Current checkpoint: Chapter 15.** This document describes what is present now. It does not advertise packages from later checkpoints.
+**Current checkpoint: Chapter 16.** This document describes what is present now. It does not advertise packages from later checkpoints.
 
 ## Present responsibility map
 
@@ -39,8 +39,9 @@ src/orders_investigation/
 | 13 | `integrations/` | Admit typed dependency results at the source boundary. |
 | 14 | `runtime/sandbox.py` | Run generated analysis inside an isolated, artifact-checked boundary. |
 | 15 | `decisions/routing.py` | Match judgment consequence to a compatible source. |
+| 16 | `graph/planning.py` | Replace future commitments without rewriting succeeded history. |
 
-Responsibilities introduced after Chapter 15 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
+Responsibilities introduced after Chapter 16 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
 
 ## Enforced rules
 

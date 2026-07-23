@@ -157,4 +157,13 @@ CHAPTER_STORIES = {
         "Decision requirements are matched against declared judgment-source profiles.",
         "Routing becomes a deterministic fit decision rather than a model preference.",
     ),
+    16: ChapterStory(
+        "When New Evidence Changes What Comes Next",
+        "Can future work change without rewriting commitments already completed?",
+        "Evidence-driven plan replacement",
+        "New evidence can invalidate future steps while completed work must remain durable.",
+        "Judgment routing · durable direction",
+        "Versioned plans preserve succeeded commitments and replace only future work.",
+        "The investigation can replan honestly without erasing its history.",
+    ),
 }
