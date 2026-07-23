@@ -1,4 +1,5 @@
 name: Render Mira's Journey
+# Produces the voice-over-led visual film; it does not execute companion code.
 
 on:
   push:
