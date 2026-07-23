@@ -139,4 +139,13 @@ CHAPTER_STORIES = {
         "Freshness, completeness, exact-field, and typed-value validation.",
         "Only admitted dependency facts can reach the decision surface.",
     ),
+    14: ChapterStory(
+        "Running Generated Work Inside a Boundary",
+        "Can generated analysis run without inheriting the investigation's authority?",
+        "Execution sandbox and artifact admission",
+        "Generated code would otherwise inherit credentials, filesystem, network, and live state.",
+        "Task spine · fenced ownership · evidence quality",
+        "Immutable request, restricted execution, and validated output artifact.",
+        "Flexible analysis can run while authority and admission stay in application code.",
+    ),
 }
