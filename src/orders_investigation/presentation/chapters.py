@@ -184,4 +184,13 @@ CHAPTER_STORIES = {
         "Persisted intent digest, expiry, correlation, and replay-safe approval signals.",
         "Human approval survives waiting without becoming an ambiguous yes.",
     ),
+    19: ChapterStory(
+        "Knowing Who May Do What",
+        "Can verified identity authorize only one exact delegated effect?",
+        "Verified identity and delegated authority",
+        "Authentication alone does not prove authority for this operation and resource.",
+        "Durable exact-intent approval",
+        "Verified session claims bind a scoped, expiring grant to the approved effect.",
+        "Authority is explicit, narrow, and re-checkable at execution time.",
+    ),
 }

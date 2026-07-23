@@ -1,6 +1,6 @@
 # Architecture evolution contract
 
-**Current checkpoint: Chapter 18.** This document describes what is present now. It does not advertise packages from later checkpoints.
+**Current checkpoint: Chapter 19.** This document describes what is present now. It does not advertise packages from later checkpoints.
 
 ## Present responsibility map
 
@@ -44,8 +44,9 @@ src/orders_investigation/
 | 16 | `graph/planning.py` | Replace future commitments without rewriting succeeded history. |
 | 17 | `coordination/` | Join exact delegated returns under one owner. |
 | 18 | `governance/approval.py` | Persist and correlate consequential approval. |
+| 19 | `governance/authority.py` | Bind verified identity to one exact delegated grant. |
 
-Responsibilities introduced after Chapter 18 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
+Responsibilities introduced after Chapter 19 are intentionally absent from this checkpoint. `main` is the complete Chapter 37 map.
 
 ## Enforced rules
 

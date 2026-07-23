@@ -1,12 +1,12 @@
-# Chapter 18 companion — Waiting Safely for a Consequential Decision
+# Chapter 19 companion — Knowing Who May Do What
 
-Chapter 17 exposes the next engineering pressure. This checkpoint adds durable approval intent, explicit decisions, expiry, and resume safety.
+Chapter 18 exposes the next engineering pressure. This checkpoint adds verified session identity, delegated grants, and effect-scoped authorization.
 
 ## What this chapter adds
 
-- One manuscript-aligned responsibility boundary in `src/orders_investigation/governance/approval.py`.
+- One manuscript-aligned responsibility boundary in `src/orders_investigation/governance/authority.py`.
 - A deterministic, offline chapter example.
-- Focused failure-path tests plus every earlier chapter test inherited from `chapter-17`.
+- Focused failure-path tests plus every earlier chapter test inherited from `chapter-18`.
 - No empty folders or placeholders for later capabilities.
 
 ## Code map
@@ -35,6 +35,7 @@ src/orders_investigation/environment/requests.py
 src/orders_investigation/environment/scenario.py
 src/orders_investigation/governance/__init__.py
 src/orders_investigation/governance/approval.py
+src/orders_investigation/governance/authority.py
 src/orders_investigation/graph/__init__.py
 src/orders_investigation/graph/planning.py
 src/orders_investigation/graph/spine.py
@@ -51,8 +52,8 @@ src/orders_investigation/runtime/contracts/admission.py
 src/orders_investigation/runtime/ownership.py
 src/orders_investigation/runtime/sandbox.py
 src/orders_investigation/runtime/workflow.py
-examples/chapter_18.py
-tests/test_chapter_18.py
+examples/chapter_19.py
+tests/test_chapter_19.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 evidence/chapter-11/current.json
@@ -74,11 +75,11 @@ Prerequisites are Python 3.11 or newer and Git. Docker is optional and used only
 Use the portable reader path from a fresh checkout:
 
 ```bash
-git switch chapter-18
+git switch chapter-19
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -e '.[test]'
-python -m pytest tests/test_chapter_18.py
+python -m pytest tests/test_chapter_19.py
 python -m pytest
 python scripts/run_current_chapter.py
 ```
@@ -86,10 +87,10 @@ python scripts/run_current_chapter.py
 On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. The manuscript-compatible command executes the same chapter file:
 
 ```bash
-python -m orders_investigation.demo chapter-18
+python -m orders_investigation.demo chapter-19
 ```
 
-Expected outcome: A changed-intent signal is refused; the exact correlated signal approves the durable request.
+Expected outcome: The verified session and exact grant authorize one effect; a changed operation is refused.
 
 The demo opens with the building block introduced in this chapter, then shows
 the real scenario, boundary decision, execution result, and what to notice.
@@ -109,7 +110,7 @@ Color reinforces the labels but never carries meaning alone: `APPROVED`,
 
 ```bash
 uv sync --extra test
-uv run --no-sync pytest tests/test_chapter_18.py
+uv run --no-sync pytest tests/test_chapter_19.py
 uv run --no-sync pytest
 uv run --no-sync python scripts/run_current_chapter.py
 ```
@@ -122,11 +123,11 @@ Routine execution is offline. Historical live evidence is retained only where th
 
 ## Deliberately incomplete
 
-This branch contains only capabilities introduced through Chapter 18. Read the manuscript's closing transition for the pressure that Chapter 19 addresses.
+This branch contains only capabilities introduced through Chapter 19. Read the manuscript's closing transition for the pressure that Chapter 20 addresses.
 
 ## Architecture evolution at this checkpoint
 
-The tracked responsibility map now contains only the packages earned through Chapter 18. Later packages are absent from this branch.
+The tracked responsibility map now contains only the packages earned through Chapter 19. Later packages are absent from this branch.
 
 ```text
 src/orders_investigation/
@@ -146,4 +147,4 @@ src/orders_investigation/
 └── live_demo.py
 ```
 
-`ARCHITECTURE.md` records only Chapters 1-18 as present evolution; `main` carries the complete roadmap.
+`ARCHITECTURE.md` records only Chapters 1-19 as present evolution; `main` carries the complete roadmap.
