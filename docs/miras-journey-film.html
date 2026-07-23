@@ -409,6 +409,7 @@ function begin(){
   startGate.hidden=true;
   seek(0);
   start();
+  speakScene(1,true);
 }
 pause.addEventListener("click",()=>startGate.hidden?toggle():begin());
 sound.addEventListener("click",toggleSound);
