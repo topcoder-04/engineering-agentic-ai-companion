@@ -67,4 +67,13 @@ CHAPTER_STORIES = {
         "Current context, typed proposals, readiness checks, and deterministic admission.",
         "Only a current declared task crosses from judgment into runtime execution.",
     ),
+    6: ChapterStory(
+        "When Judgment Becomes a Dependency",
+        "Can model unavailability consume a bounded, observable amount of the run?",
+        "Decision budget and attempt ledger",
+        "Retries can silently exhaust time, cost, and the investigation deadline.",
+        "Typed proposal admission",
+        "Call, retry, elapsed-time, and usage limits with recorded stop reasons.",
+        "The run can fail closed when judgment is unavailable or exhausted.",
+    ),
 }

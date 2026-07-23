@@ -1,15 +1,13 @@
-# Chapter 5 companion — What the Model Sees and What May Run
+# Chapter 6 companion — When Judgment Becomes a Dependency
 
-Chapter 4 can discover new work, but a model response is still only text. This chapter introduces the contract that turns a current, well-formed, permitted proposal into a runtime invocation.
+Chapter 5 safely admits a returned proposal. This chapter makes the attempt to obtain that proposal bounded and observable.
 
 ## What this chapter adds
 
-- One honest decision surface built from current incident and graph state.
-- A typed `Proposal` that rejects missing, extra, or malformed fields.
-- The optional OpenAI adapter requests that exact schema through `responses.parse` and consumes `output_parsed`.
-- Runtime admission that resolves the task again, checks readiness, and checks the deterministic boundary.
-- A strict separation between a model's reason and recorded evidence.
-- Refusal of stale or unknown proposals before execution.
+- A per-investigation decision budget for calls, retries, time, and usage.
+- An append-only ledger of successful and failed model attempts.
+- Explicit stop reasons when judgment is unavailable or exhausted.
+- A fail-closed rule: timeout and unavailable attempts cannot contain a choice.
 
 ## Code map
 
@@ -18,6 +16,7 @@ src/orders_investigation/__init__.py
 src/orders_investigation/context/__init__.py
 src/orders_investigation/context/surface.py
 src/orders_investigation/decisions/__init__.py
+src/orders_investigation/decisions/budget.py
 src/orders_investigation/decisions/model.py
 src/orders_investigation/demo.py
 src/orders_investigation/domain/__init__.py
@@ -35,8 +34,8 @@ src/orders_investigation/runtime/__init__.py
 src/orders_investigation/runtime/boundary.py
 src/orders_investigation/runtime/contracts/__init__.py
 src/orders_investigation/runtime/contracts/admission.py
-examples/chapter_05.py
-tests/test_chapter_05.py
+examples/chapter_06.py
+tests/test_chapter_06.py
 evidence/chapter-03/live-call.json
 evidence/chapter-05/live-call.json
 scripts/run_current_chapter.py
@@ -54,11 +53,11 @@ Prerequisites are Python 3.11 or newer and Git. Docker is optional and used only
 Use the portable reader path from a fresh checkout:
 
 ```bash
-git switch chapter-05
+git switch chapter-06
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -e '.[test]'
-python -m pytest tests/test_chapter_05.py
+python -m pytest tests/test_chapter_06.py
 python -m pytest
 python scripts/run_current_chapter.py
 ```
@@ -66,10 +65,10 @@ python scripts/run_current_chapter.py
 On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. The manuscript-compatible command executes the same chapter file:
 
 ```bash
-python -m orders_investigation.demo chapter-05
+python -m orders_investigation.demo chapter-06
 ```
 
-Expected outcome: The pipeline proposal is admitted, while its unsupported parallelism reason remains outside evidence.
+Expected outcome: Two timed-out attempts consume 8,000 ms, return no choice, and stop with model_timeout.
 
 The demo opens with the building block introduced in this chapter, then shows
 the real scenario, boundary decision, execution result, and what to notice.
@@ -89,7 +88,7 @@ Color reinforces the labels but never carries meaning alone: `APPROVED`,
 
 ```bash
 uv sync --extra test
-uv run --no-sync pytest tests/test_chapter_05.py
+uv run --no-sync pytest tests/test_chapter_06.py
 uv run --no-sync pytest
 uv run --no-sync python scripts/run_current_chapter.py
 ```
@@ -98,15 +97,15 @@ The `test` extra is the portable reader contract. CI installs the all-extras sup
 
 ## Evidence
 
-The earlier live-call receipt for this decision is retained as historical evidence when published. Tests remain offline and prove the post-response admission result independently of the provider.
+No live call is required. Deterministic attempt fixtures prove timeout, exhaustion, usage accounting, and the absence of fabricated judgment.
 
 ## Deliberately incomplete
 
-Admission protects one proposal, but repeated model calls can still consume unbounded time and tokens. Chapter 6 gives judgment an explicit budget and records failed attempts without inventing a choice.
+The ledger exists only in process. Chapter 7 persists the changing investigation, graph, and decision history so a restart can resume the same work.
 
 ## Architecture evolution at this checkpoint
 
-The tracked responsibility map now contains only the packages earned through Chapter 5. Later packages are absent from this branch.
+The tracked responsibility map now contains only the packages earned through Chapter 6. Later packages are absent from this branch.
 
 ```text
 src/orders_investigation/
@@ -121,4 +120,4 @@ src/orders_investigation/
 └── live_demo.py
 ```
 
-`ARCHITECTURE.md` records only Chapters 1-5 as present evolution; `main` carries the complete roadmap.
+`ARCHITECTURE.md` records only Chapters 1-6 as present evolution; `main` carries the complete roadmap.
