@@ -32,10 +32,10 @@ This book begins in that gap.
 
 ## 02 — From an answer to controlled work (00:40.267–01:04.300)
 
-Mira first draws a boundary around what the investigation may touch. The model
-may choose among ready options, but code decides what is admitted and what
-executes. As evidence arrives, it can change the task graph. The model does not
-get to invent work simply because it sounds useful.
+Mira draws a boundary around what the investigation may touch. The model chooses
+among ready options, but code decides what is admitted and executed. New
+evidence can change the task graph. The model cannot invent work simply because
+it sounds useful.
 
 ## 03 — A workflow that can stop and continue (01:04.300–01:28.333)
 
@@ -90,9 +90,9 @@ effect path.
 
 ## 10 — A governed result can still hide a bad journey (04:52.433–05:10.433)
 
-Orders can now produce a governed effect. But a correct-looking report might
-still come from an unsafe path. The next layer asks whether the whole journey
-was good—not merely whether the final sentence looked right.
+Orders can now produce a governed effect. But a correct-looking report may
+still come from an unsafe path. The next layer judges the journey, not just the
+final sentence.
 
 ## 11 — Judging the route, not only the answer (05:10.433–05:46.467)
 
@@ -143,8 +143,7 @@ in the system.
 
 ## 17 — Invitation (09:00.600–09:15.600)
 
-This is not an architecture poster. Every stage is runnable, with a success and
-a refusal. The book shows how an agent earns trust—one executable boundary at a
-time.
+This is not an architecture poster. Every boundary runs both ways: success and
+refusal. The book shows how an agent earns trust, one boundary at a time.
 
 **09:15.600–09:18.833 — silence.** Hold on the runnable examples.
