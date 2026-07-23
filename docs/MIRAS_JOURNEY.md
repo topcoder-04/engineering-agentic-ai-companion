@@ -6,22 +6,23 @@ Mira begins with an incident in the Orders service and a model that can produce 
 useful answer. Across 37 executable checkpoints, she turns that answer into work
 the organization can admit, observe, evaluate, operate, and refuse.
 
-> **Interactive version:** [download the agent evolution](miras-journey.html?raw=1),
-> then open the single HTML file in a browser. It works offline and contains no
-> external dependencies.
+> **Animated guide:** [open the single-screen journey](https://htmlpreview.github.io/?https://github.com/topcoder-04/engineering-agentic-ai-companion/blob/main/docs/miras-journey.html).
+> It begins automatically at Chapter 1. You can also
+> [download the self-contained HTML](miras-journey.html?raw=1) and open it
+> locally for the same experience offline.
 
 ```mermaid
 flowchart LR
-    A["1–7<br/>Controlled work"] --> B["8–14<br/>Reliable work"]
-    B --> C["15–21<br/>Governed work"]
-    C --> D["22–28<br/>Judged work"]
-    D --> E["29–37<br/>Operable platform"]
+    A["Controlled work"] --> B["Reliable work"]
+    B --> C["Governed effects"]
+    C --> D["Judged operations"]
+    D --> E["Operable platform"]
 ```
 
 The journey is cumulative. Every chapter branch is the complete system as it
 exists at that point, not an isolated sample.
 
-## Movement I — From answer to controlled work
+## Controlled Work
 
 Mira first separates model judgment from deterministic execution and gives the
 investigation a resumable shape.
@@ -36,7 +37,7 @@ investigation a resumable shape.
 | 6 | Variable judgment receives an explicit budget. | [`chapter-06`](https://github.com/topcoder-04/engineering-agentic-ai-companion/tree/chapter-06) |
 | 7 | The controlled workflow can persist, stop, and resume. | [`chapter-07`](https://github.com/topcoder-04/engineering-agentic-ai-companion/tree/chapter-07) |
 
-## Movement II — From controlled work to reliable work
+## Reliable Work
 
 The workflow now survives retries, uncertainty, limited memory, unsafe dependency
 content, and generated execution.
@@ -51,7 +52,7 @@ content, and generated execution.
 | 13 | Dependency evidence is typed; instruction-bearing content is quarantined. | [`chapter-13`](https://github.com/topcoder-04/engineering-agentic-ai-companion/tree/chapter-13) |
 | 14 | Generated work executes inside an explicit sandbox. | [`chapter-14`](https://github.com/topcoder-04/engineering-agentic-ai-companion/tree/chapter-14) |
 
-## Movement III — From reliable work to governed effects
+## Governed Effects
 
 Mira makes consequence, approval, authority, and policy part of the executable
 path. By Chapter 21, policy is enforced where the report is actually written.
@@ -66,7 +67,7 @@ path. By Chapter 21, policy is enforced where the report is actually written.
 | 20 | Policy is expressed independently of model wording. | [`chapter-20`](https://github.com/topcoder-04/engineering-agentic-ai-companion/tree/chapter-20) |
 | 21 | The effect boundary enforces policy before writing the report. | [`chapter-21`](https://github.com/topcoder-04/engineering-agentic-ai-companion/tree/chapter-21) |
 
-## Movement IV — From governed effects to judged operations
+## Judged Operations
 
 The same investigation path becomes traceable, evaluable, releasable, observable,
 stress-tested, learnable, and fleet-aware.
@@ -81,7 +82,7 @@ stress-tested, learnable, and fleet-aware.
 | 27 | An incident becomes an executable regression boundary. | [`chapter-27`](https://github.com/topcoder-04/engineering-agentic-ai-companion/tree/chapter-27) |
 | 28 | Fleet routing admits only released candidates within shared limits. | [`chapter-28`](https://github.com/topcoder-04/engineering-agentic-ai-companion/tree/chapter-28) |
 
-## Movement V — From one agent to an operable platform
+## Operable Platform
 
 The platform does not float beside the agent. Identity, capability, delegated
 authority, placement, conformance, ownership, compatibility, and risk all gate

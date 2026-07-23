@@ -76,7 +76,8 @@ src/orders_investigation/
 | 36 | `platform/compatibility/` | Advance readers before writers depend on a new contract. |
 | 37 | `platform/risk/` | Preserve independent launch vetoes as an executable posture. |
 
-The complete architecture earned across all 37 chapters is now present. Earlier `chapter-NN` branches retain only the responsibilities earned by that checkpoint.
+The complete architecture earned across all 37 chapters is now present. Earlier
+`chapter-NN` branches retain only the responsibilities earned by that checkpoint.
 
 ## Enforced rules
 

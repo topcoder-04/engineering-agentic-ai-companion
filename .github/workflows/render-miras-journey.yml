@@ -1,0 +1,60 @@
+name: Render Mira's Journey
+
+on:
+  push:
+    branches:
+      - main
+      - visual/narrative-film
+    paths:
+      - docs/miras-journey.html
+      - docs/miras-journey-film.html
+      - docs/miras-journey-voiceover.md
+      - scripts/render_miras_journey_video.mjs
+      - .github/workflows/render-miras-journey.yml
+  pull_request:
+    branches:
+      - main
+    paths:
+      - docs/miras-journey.html
+      - docs/miras-journey-film.html
+      - docs/miras-journey-voiceover.md
+      - scripts/render_miras_journey_video.mjs
+      - .github/workflows/render-miras-journey.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install video renderer
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes ffmpeg
+          npm install --prefix "$RUNNER_TEMP/mira-render" playwright@1.61.1
+          PLAYWRIGHT_BROWSERS_PATH="$RUNNER_TEMP/playwright" \
+            "$RUNNER_TEMP/mira-render/node_modules/.bin/playwright" install --with-deps chromium
+
+      - name: Render MP4
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: ${{ runner.temp }}/playwright
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/mira-render/node_modules/playwright
+        run: node scripts/render_miras_journey_video.mjs artifacts/miras-journey-video.mp4
+
+      - name: Upload video
+        uses: actions/upload-artifact@v4
+        with:
+          name: miras-journey-video
+          path: artifacts/miras-journey-video.mp4
+          if-no-files-found: error
+          retention-days: 14
