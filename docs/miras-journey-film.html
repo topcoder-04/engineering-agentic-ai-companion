@@ -276,7 +276,8 @@ const els=[...document.querySelectorAll(".scene")], clock=document.getElementByI
 let startedAt=0,elapsed=0,running=false,raf=0,current=-1;
 function fmt(ms){const sec=Math.floor(ms/1000);return `${String(Math.floor(sec/60)).padStart(2,"0")}:${String(sec%60).padStart(2,"0")}`}
 function render(ms){
-  const idx=Math.max(0,scenes.findIndex(s=>ms>=s.start&&ms<s.end));
+  const sceneTime=Math.min(ms,TOTAL-1);
+  const idx=Math.max(0,scenes.findIndex(s=>sceneTime>=s.start&&sceneTime<s.end));
   if(idx!==current){els.forEach((e,i)=>e.classList.toggle("active",i===idx));current=idx;movement.textContent=scenes[idx].movement;
     document.documentElement.style.setProperty("--accent",colors[scenes[idx].m]);count.textContent=idx===0?"OPENING":`${String(idx).padStart(2,"0")} / 17`;}
   clock.textContent=fmt(ms);progress.style.width=`${Math.min(100,ms/TOTAL*100)}%`;
