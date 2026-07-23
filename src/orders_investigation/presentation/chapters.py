@@ -40,4 +40,13 @@ CHAPTER_STORIES = {
         "Declared operations, sources, environments, resources, and selectors.",
         "Forbidden work is refused before an outside call can begin.",
     ),
+    3: ChapterStory(
+        "When Permitted Work Still Wastes Time",
+        "Can the model choose useful work without gaining authority to execute it?",
+        "Bounded model choice",
+        "Several observations may be permitted while only one closes the current gap.",
+        "Completion conditions · deterministic scope",
+        "A model selects one declared observation; application code performs it.",
+        "Flexible judgment can guide work without becoming the execution boundary.",
+    ),
 }

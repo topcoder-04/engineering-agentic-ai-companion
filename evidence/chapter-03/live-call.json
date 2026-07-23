@@ -1,0 +1,40 @@
+{
+  "choice": {
+    "expected_evidence": "The active writer node, its role and health, and any writer activity or topology changes associated with the timeout period.",
+    "reason": "Database write latency is 4.8s while service timeouts are 18% and application CPU is normal, making the database writer path the strongest next point to correlate.",
+    "task_id": "inspect_database_topology"
+  },
+  "decision_surface_included": [
+    "service",
+    "environment",
+    "goal",
+    "recorded_evidence",
+    "missing_evidence",
+    "ready_tasks"
+  ],
+  "decision_surface_omitted": [],
+  "deterministic_result": {
+    "kind": "boundary",
+    "reason": null,
+    "request": {
+      "detail": "topology",
+      "environment": "orders-production",
+      "operation": "observe",
+      "resource": "orders-db",
+      "source": "database_monitoring"
+    },
+    "status": "permitted"
+  },
+  "elapsed_ms": 4827,
+  "input_text": "{\"environment\": \"orders-production\", \"goal\": \"Connect order timeouts to the responsible workload and trigger, then save the incident report.\", \"missing_evidence\": [\"migration_job\", \"pipeline_trigger\", \"writer_activity\"], \"ready_tasks\": [\"inspect_connection_pool\", \"inspect_database_error_rate\", \"inspect_database_topology\", \"inspect_dependency_health\"], \"recorded_evidence\": {\"application_cpu\": \"within normal range\", \"database_write_latency\": \"4.8s\", \"service_timeouts\": \"18%\"}, \"service\": \"orders-api\"}",
+  "input_units": 263,
+  "instructions": "You choose one next observation for an incident investigation.\n\nUse only a task_id listed in ready_tasks.\nDo not claim that a task is permitted merely because it appears in the input.\nGive a concise reason grounded only in recorded_evidence, and name the evidence you\nexpect the observation to return.\nReturn exactly task_id, reason, and expected_evidence.\nDo not issue commands. Do not describe an action as completed.",
+  "model": "gpt-5.6-sol",
+  "observed_at": "2026-07-20T15:38:33.338297+00:00",
+  "output_units": 181,
+  "raw_output": "{\"task_id\":\"inspect_database_topology\",\"reason\":\"Database write latency is 4.8s while service timeouts are 18% and application CPU is normal, making the database writer path the strongest next point to correlate.\",\"expected_evidence\":\"The active writer node, its role and health, and any writer activity or topology changes associated with the timeout period.\"}",
+  "record_kind": "observed_live_model_call",
+  "response_id": "resp_0eb5cfe30178c7bf006a5e40fa07708198a8fcd03810443133",
+  "scenario": "chapter-03",
+  "source": "openai"
+}
