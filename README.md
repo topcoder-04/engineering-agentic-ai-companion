@@ -9,12 +9,13 @@ The model may be flexible because the boundary is not. Every checkpoint keeps th
 See the system grow from a useful answer in Chapter 1 to an operable platform in
 Chapter 37:
 
-- [Explore the 37-chapter journey](docs/MIRAS_JOURNEY.md) — five layers with
-  links to every executable checkpoint.
-- [View the interactive system map](docs/miras-journey.html?raw=1) — it begins
-  at Chapter 1 and builds the system one boundary at a time. Pause at any point,
-  or use the forward and back arrows to move at your own pace. Download the
-  self-contained HTML file and open it in any browser.
+- [Open the animated single-screen guide](https://htmlpreview.github.io/?https://github.com/topcoder-04/engineering-agentic-ai-companion/blob/main/docs/miras-journey.html)
+  — it starts at Chapter 1 and builds the system automatically, one boundary at
+  a time. Pause at any point or use the arrows to move at your own pace.
+- [Download the self-contained guide](docs/miras-journey.html?raw=1) — open it
+  locally when you want the same experience offline.
+- [Read the chapter reference](docs/MIRAS_JOURNEY.md) — the non-animated index
+  with links to every executable checkpoint.
 - [Record the narrative voice-over](docs/miras-journey-voiceover.md) — a timed,
   human-paced script that follows the same Orders incident across the complete
   9:18 journey.
